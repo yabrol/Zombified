@@ -1,0 +1,12 @@
+3
+ZOMBIE_TYPE|6
+NORMAL_ZOMBIE_LEFT_STATE|./data/images/NormalZombieLeft.png
+NORMAL_ZOMBIE_RIGHT_STATE|./data/images/NormalZombieRight.png
+DYING_ZOMBIE_LEFT_STATE|./data/images/DyingZombieLeft.png
+DYING_ZOMBIE_RIGHT_STATE|./data/images/DyingZombieRight.png
+DEAD_ZOMBIE_LEFT_STATE|./data/images/DeadZombieLeft.png
+DEAD_ZOMBIE_RIGHT_STATE|./data/images/DeadZombieRight.png
+BRAIN_TYPE|1
+DEFAULT_STATE|./data/images/Brain.png
+SUN_TYPE|1
+DEFAULT_STATE|./data/images/Sun.png

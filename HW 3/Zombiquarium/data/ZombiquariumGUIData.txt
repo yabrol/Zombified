@@ -1,0 +1,17 @@
+5
+ZOMBIE|6
+NORMAL_ZOMBIE_LEFT|./data/images/NormalZombieLeft.png
+NORMAL_ZOMBIE_RIGHT|./data/images/NormalZombieRight.png
+DYING_ZOMBIE_LEFT|./data/images/DyingZombieLeft.png
+DYING_ZOMBIE_RIGHT|./data/images/DyingZombieRight.png
+DEAD_ZOMBIE_LEFT|./data/images/DeadZombieLeft.png
+DEAD_ZOMBIE_RIGHT|./data/images/DeadZombieRight.png
+BRAIN|1
+BRAIN|./data/images/Brain.png
+SUN|1
+SUN|./data/images/Sun.png
+BACKGROUND|1
+BACKGROUND|./data/images/ZombiquariumBackground.png
+NEW_GAME|2
+NEW_GAME_DEFAULT|./data/images/NewGame.png
+NEW_GAME_MOUSE_OVER|./data/images/NewGameMouseOver.png
