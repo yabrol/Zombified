@@ -343,9 +343,9 @@ public class ZombieCrushSagaLevelEditor {
         }
         // ONCE WE HAVE ASSIGNED ALL THE
         // TILES WE CAN SAVE A .ZOM FILE
-        if (tilesRemaining == 0) {
+        //if (tilesRemaining == 0) {
           saveAsButton.setEnabled(true);
-        }
+        //}
       } // IF IT'S A RIGHT MOUSE CLICK WE DEC
       else if (me.getButton() == MouseEvent.BUTTON3) {
         // BUT ONLY IF WE CAN
