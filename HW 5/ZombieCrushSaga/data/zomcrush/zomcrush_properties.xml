@@ -66,59 +66,32 @@
       <option>./zomjong/LevelQuiltMouseOver.png</option>
       <option>./zomjong/LevelSquirtleMouseOver.png</option>
     </property_options>
-    <!-- THERE WILL ONLY BE ONE OF EACH OF THESE
-    AND THEY CAN BE MATCHED WITH EACH OTHER -->
     <property_options name="TYPE_A_TILES">
-      <option>./zomjong/TileDayPlantChomper.png</option>
-      <option>./zomjong/TileDayPlantPeashooter.png</option>
-      <option>./zomjong/TileDayPLantSnowPea.png</option>
-      <option>./zomjong/TileDayPlantSunflower.png</option>
-    </property_options>
-    <!-- THERE WILL ONLY BE ONE OF EACH OF THESE
-    AND THEY CAN BE MATCHED WITH EACH OTHER -->
-    <property_options name="TYPE_B_TILES">
-      <option>./zomjong/TileNightPlantFumeShroom.png</option>
-      <option>./zomjong/TileNightPlantHypnoShroom.png</option>
-      <option>./zomjong/TileNightPlantScaredyShroom.png</option>
-      <option>./zomjong/TileNightPlantSunShroom.png</option>
-    </property_options>
-    <!-- THERE WILL BE FOUR OF EACH OF TEHSE AND
-    THESE CAN ONLY MATCH WITH THEMSELVES -->
-    <property_options name="TYPE_C_TILES">
-      <option>./zomjong/TileZombieBackupDancer.png</option>
-      <option>./zomjong/TileZombieBalloon.png</option>
-      <option>./zomjong/TileZombieBaseball.png</option>
-      <option>./zomjong/TileZombieBobsledTeam.png</option>
-      <option>./zomjong/TileZombieBuckethead.png</option>
-      <option>./zomjong/TileZombieBungee.png</option>
-      <option>./zomjong/TileZombieCatapult.png</option>
-      <option>./zomjong/TileZombieConehead.png</option>
-      <option>./zomjong/TileZombieDancing.png</option>
-      <option>./zomjong/TileZombieDigger.png</option>
-      <option>./zomjong/TileZombieDolphinRider.png</option>
-      <option>./zomjong/TileZombieDrZomboss.png</option>
       <option>./zomjong/TileZombieDuckyTube.png</option>
-      <option>./zomjong/TileZombieFlag.png</option>
-      <option>./zomjong/TileZombieFootball.png</option>
+    </property_options>
+    <property_options name="TYPE_B_TILES">
       <option>./zomjong/TileZombieGargantuar.png</option>
-      <option>./zomjong/TileZombieGatlingPeaShooter.png</option>
+    </property_options>
+    <property_options name="TYPE_C_TILES">
       <option>./zomjong/TileZombieGigaFootball.png</option>
-      <option>./zomjong/TileZombieGigaGargantuar.png</option>
-      <option>./zomjong/TileZombieImp.png</option>
-      <option>./zomjong/TileZombieJackInTheBox.png</option>
-      <option>./zomjong/TileZombieJalapeno.png</option>
-      <option>./zomjong/TileZombieLadder.png</option>
-      <option>./zomjong/TileZombieNewspaper.png</option>
-      <option>./zomjong/TileZombiePeashooter.png</option>
-      <option>./zomjong/TileZombiePogo.png</option>
-      <option>./zomjong/TileZombiePoleVaulting.png</option>
-      <option>./zomjong/TileZombieScreenDoor.png</option>
-      <option>./zomjong/TileZombieSnorkel.png</option>
-      <option>./zomjong/TileZombieSquash.png</option>
+    </property_options>
+    <property_options name="TYPE_D_TILES">
       <option>./zomjong/TileZombieTarget.png</option>
-      <option>./zomjong/TileZombieTrashCan.png</option>
+    </property_options>
+    <property_options name="TYPE_E_TILES">
       <option>./zomjong/TileZombieYeti.png</option>
+    </property_options>
+    <property_options name="TYPE_F_TILES">
       <option>./zomjong/TileZombieZomboni.png</option>
+    </property_options>
+    <property_options name="TYPE_STRIPED_TILES">
+      <option>./zomjong/TileWallnut.png</option>
+    </property_options>
+    <property_options name="TYPE_BOMB_TILES">
+      <option>./zomjong/TileCherryBomb.png</option>
+    </property_options>
+    <property_options name="TYPE_WRAPPER_TILES">
+      <option>./zomjong/TileSquash.png</option>
     </property_options>
   </property_options_list>
 </properties>
