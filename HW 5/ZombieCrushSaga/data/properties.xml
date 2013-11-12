@@ -6,7 +6,7 @@
 -->
 <properties>
     <property_list>    
-        <property name="GAME_FLAVOR_FILE_NAME"      value="./zomjong/zomjong_properties.xml"></property>
+        <property name="GAME_FLAVOR_FILE_NAME"      value="./zomcrush/zomcrush_properties.xml"></property>
         <property name="WINDOW_WIDTH"               value="1280"></property>
         <property name="WINDOW_HEIGHT"              value="720"></property>
         <property name="GAME_WIDTH"                 value="1280"></property>
