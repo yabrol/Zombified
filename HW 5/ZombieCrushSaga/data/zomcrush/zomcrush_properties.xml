@@ -8,8 +8,9 @@
     <property name="WINDOW_ICON"                value="./zomcrush/TileZombieGargantuar.png"></property>
         
     <!-- BIG, FULL VIEWPORT BACKGROUND SCREEN IMAGES -->
-    <property name="SPLASH_SCREEN_IMAGE_NAME"   value="./zomcrush/UIZomjongSplashBackground.png"></property>
+    <property name="SPLASH_SCREEN_IMAGE_NAME"   value="./zomcrush/ZomCrushSplashBackground.png"></property>
     <property name="GAME_BACKGROUND_IMAGE_NAME" value="./zomcrush/UIZomjongGameBackground.png"></property>
+    <property name="SAGA_SCREEN_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
     <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomjongNewGame.png"></property>
@@ -41,16 +42,12 @@
     <property name="UNDO_AUDIO_CUE"                     value="./zomcrush/AudioZomjongUndo.wav"></property>
     <property name="WIN_AUDIO_CUE"                      value="./zomcrush/AudioZomjongWin.wav"></property>
     <property name="LOSS_AUDIO_CUE"                     value="./zomcrush/AudioZomjongLoss.wav"></property>
+    <property name="SAGA_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>
     <property name="SPLASH_SCREEN_SONG_CUE"             value="./zomcrush/AudioZomjongSplashScreenSong.mid"></property>
     <property name="GAMEPLAY_SONG_CUE"                  value="./zomcrush/AudioZomjongInGameSong.mid"></property>        
   </property_list>
   <property_options_list>
     <property_options name="LEVEL_OPTIONS">
-      <option>./zomcrush/Coliseum.zom</option>
-      <option>./zomcrush/TriPeak.zom</option>
-      <option>./zomcrush/Turtle.zom</option>
-      <option>./zomcrush/Quilt.zom</option>
-      <option>./zomcrush/Squirtle.zom</option>
       <option>./zomcrush/Level1.zom</option>
       <option>./zomcrush/Level2.zom</option>
       <option>./zomcrush/Level3.zom</option>
@@ -63,18 +60,28 @@
       <option>./zomcrush/Level10.zom</option>
     </property_options>
     <property_options name="LEVEL_IMAGE_OPTIONS">
-      <option>./zomcrush/LevelColiseum.png</option>
-      <option>./zomcrush/LevelTriPeak.png</option>
-      <option>./zomcrush/LevelTurtle.png</option>
-      <option>./zomcrush/LevelQuilt.png</option>
-      <option>./zomcrush/LevelSquirtle.png</option>
+      <option>./zomcrush/Level1.png</option>
+      <option>./zomcrush/Level2.png</option>
+      <option>./zomcrush/Level3.png</option>
+      <option>./zomcrush/Level4.png</option>
+      <option>./zomcrush/Level5.png</option>
+      <option>./zomcrush/Level6.png</option>
+      <option>./zomcrush/Level7.png</option>
+      <option>./zomcrush/Level8.png</option>
+      <option>./zomcrush/Level9.png</option>
+      <option>./zomcrush/Level10.png</option>
     </property_options>
     <property_options name="LEVEL_MOUSE_OVER_IMAGE_OPTIONS">
-      <option>./zomcrush/LevelColiseumMouseOver.png</option>
-      <option>./zomcrush/LevelTriPeakMouseOver.png</option>
-      <option>./zomcrush/LevelTurtleMouseOver.png</option>
-      <option>./zomcrush/LevelQuiltMouseOver.png</option>
-      <option>./zomcrush/LevelSquirtleMouseOver.png</option>
+      <option>./zomcrush/Level1MouseOver.png</option>
+      <option>./zomcrush/Level2MouseOver.png</option>
+      <option>./zomcrush/Level3MouseOver.png</option>
+      <option>./zomcrush/Level4MouseOver.png</option>
+      <option>./zomcrush/Level5MouseOver.png</option>
+      <option>./zomcrush/Level6MouseOver.png</option>
+      <option>./zomcrush/Level7MouseOver.png</option>
+      <option>./zomcrush/Level8MouseOver.png</option>
+      <option>./zomcrush/Level9MouseOver.png</option>
+      <option>./zomcrush/Level10MouseOver.png</option>
     </property_options>
     
     <property_options name="TYPE_A_TILES">

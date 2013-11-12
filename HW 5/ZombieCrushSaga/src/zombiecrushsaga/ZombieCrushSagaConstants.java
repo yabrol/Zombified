@@ -54,7 +54,8 @@ public class ZombieCrushSagaConstants {
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
     public static final String SPLASH_SCREEN_STATE = "SPLASH_SCREEN_STATE";
-    public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";    
+    public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";  
+    public static final String SAGA_SCREEN_STATE = "SAGA_SCREEN_STATE";
 
     // THE TILES MAY HAVE 4 STATES:
         // - INVISIBLE_STATE: USED WHEN ON THE SPLASH SCREEN, MEANS A TILE
@@ -80,9 +81,9 @@ public class ZombieCrushSagaConstants {
     // UI CONTROL SIZE AND POSITION SETTINGS
     
     // OR POSITIONING THE LEVEL SELECT BUTTONS
-    public static final int LEVEL_BUTTON_WIDTH = 200;
+    public static final int LEVEL_BUTTON_WIDTH = 59;
     public static final int LEVEL_BUTTON_MARGIN = 5;
-    public static final int LEVEL_BUTTON_Y = 570;
+    public static final int LEVEL_BUTTON_Y = 59;
 
     // FOR STACKING TILES ON THE GRID
     public static final int NUM_TILES = 144;

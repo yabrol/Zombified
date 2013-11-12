@@ -113,6 +113,7 @@ public class ZombieCrushSaga {
         WINDOW_ICON,
         SPLASH_SCREEN_IMAGE_NAME,
         GAME_BACKGROUND_IMAGE_NAME,
+        SAGA_SCREEN_IMAGE_NAME,
         BLANK_TILE_IMAGE_NAME,
         BLANK_TILE_SELECTED_IMAGE_NAME,
         NEW_BUTTON_IMAGE_NAME,
@@ -139,6 +140,12 @@ public class ZombieCrushSaga {
         TYPE_A_TILES,
         TYPE_B_TILES,
         TYPE_C_TILES,
+        TYPE_D_TILES,
+        TYPE_E_TILES,
+        TYPE_F_TILES,
+        TYPE_STRIPED_TILES,
+        TYPE_BOMB_TILES,
+        TYPE_WRAPPER_TILES,
         
         /* AUDIO CUES */
         SELECT_AUDIO_CUE,
