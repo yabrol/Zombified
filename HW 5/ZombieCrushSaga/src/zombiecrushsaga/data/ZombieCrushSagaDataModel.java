@@ -17,9 +17,9 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
 import zombiecrushsaga.ui.ZombieCrushSagaPanel;
 
 /**
- * This class manages the game data for Mahjong Solitaire. 
+ * This class manages the game data for zombie crush saga. 
  * 
- * @author Richard McKenna, Yukti Abrol
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaDataModel extends MiniGameDataModel
 {
@@ -68,7 +68,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      * itself, that is dependent of file loading, and so should be
      * subsequently initialized.
      * 
-     * @param initMiniGame The Mahjong game UI.
+     * @param initMiniGame The zombie crush game UI.
      */
     public ZombieCrushSagaDataModel(MiniGame initMiniGame)
     {
@@ -109,7 +109,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ((ZombieCrushSagaPanel)(miniGame.getCanvas())).setBlankTileSelectedImage(blankTileSelectedImage);
         
         // FIRST THE TYPE A TILES, OF WHICH THERE IS ONLY ONE OF EACH
-        // THIS IS ANALOGOUS TO THE SEASON TILES IN FLAVORLESS MAHJONG
         ArrayList<String> typeATiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_A_TILES);
         for (int i = 0; i < typeATiles.size(); i++)
         {
@@ -120,7 +119,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         }
         
         // THEN THE TYPE B TILES, WHICH ALSO ONLY HAVE ONE OF EACH
-        // THIS IS ANALOGOUS TO THE FLOWER TILES IN FLAVORLESS MAHJONG
         ArrayList<String> typeBTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_B_TILES);
         for (int i = 0; i < typeBTiles.size(); i++)
         {
@@ -131,7 +129,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         }
         
         // AND THEN TYPE C, FOR WHICH THERE ARE 4 OF EACH 
-        // THIS IS ANALOGOUS TO THE CHARACTER AND NUMBER TILES IN FLAVORLESS MAHJONG
         ArrayList<String> typeCTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_C_TILES);
         for (int i = 0; i < typeCTiles.size(); i++)
         {
@@ -778,7 +775,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      * on the game screen. We'll use this to close game dialogs as well as to
      * listen for mouse clicks on grid cells.
      * 
-     * @param game The Mahjong game.
+     * @param game The zombie crush game.
      * 
      * @param x The x-axis pixel location of the mouse click.
      * 
@@ -921,7 +918,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     /**
      * Called each frame, this method updates all the game objects.
      * 
-     * @param game The Mahjong game to be updated.
+     * @param game The zombie crush game to be updated.
      */
     @Override
     public void updateAll(MiniGame game)
@@ -968,7 +965,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      * the screen. In a graphical application like this it's sometimes
      * useful to display data in the GUI.
      * 
-     * @param game The Mahjong game about which to display info.
+     * @param game The zombie crush game about which to display info.
      */
     @Override
     public void updateDebugText(MiniGame game)

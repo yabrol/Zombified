@@ -11,7 +11,7 @@ import java.util.Iterator;
  * since originally starting the application. Note that it stores
  * stats separately for different levels.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaRecord
 {
@@ -115,7 +115,7 @@ public class ZombieCrushSagaRecord
     }
 
     // ADD METHODS
-        // -addMahjongLevelRecord
+        // -addZombieCrushLevelRecord
         // -addWin
         // -addLoss
     
@@ -126,7 +126,7 @@ public class ZombieCrushSagaRecord
      * 
      * @param rec 
      */
-    public void addMahjongLevelRecord(String levelName, ZombieCrushLevelRecord rec)
+    public void addZombieCrushLevelRecord(String levelName, ZombieCrushLevelRecord rec)
     {
         levelRecords.put(levelName, rec);
     }

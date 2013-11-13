@@ -4,7 +4,7 @@ package zombiecrushsaga.data;
  * This class represents a single move. It stores the grid locations
  * of the two tiles being matched.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaMove
 {

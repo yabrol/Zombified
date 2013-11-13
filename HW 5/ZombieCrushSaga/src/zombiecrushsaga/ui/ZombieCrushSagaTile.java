@@ -9,7 +9,7 @@ import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 /**
  * This class represents a single tile in the game world.
  * 
- * @author Richard McKenna, Yukti Abrol
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaTile extends Sprite
 {
@@ -135,10 +135,10 @@ public class ZombieCrushSagaTile extends Sprite
      * this tile is being placed in.
      * 
      * @param initGridColumn The column this tile is being placed in
-     * in the Mahjong game grid.
+     * in the zombie crush game grid.
      * 
      * @param initGridRow The row this tile is being placed in
-     * in the Mahjong game grid.
+     * in the zombie crush game grid.
      */
     public void setGridCell(int initGridColumn, int initGridRow)
     {
@@ -291,7 +291,7 @@ public class ZombieCrushSagaTile extends Sprite
      * each frame to make sure that when the tile reaches the next node
      * in the path, it moves on to the following path node.
      * 
-     * @param game Mahjong game we are updating.
+     * @param game zombie crush game we are updating.
      */
     public void updateWinPath(MiniGame game)
     {
@@ -328,7 +328,7 @@ public class ZombieCrushSagaTile extends Sprite
      * Called each frame, this method ensures that this tile is updated
      * according to the path it is on.
      * 
-     * @param game The Mahjong game this tile is part of.
+     * @param game The zombie crush game this tile is part of.
      */
     @Override
     public void update(MiniGame game)

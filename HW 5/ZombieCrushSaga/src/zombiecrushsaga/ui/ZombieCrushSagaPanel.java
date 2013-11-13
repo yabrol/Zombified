@@ -17,13 +17,13 @@ import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
 
 /**
- * This class performs all of the rendering for the Mahjong game application.
+ * This class performs all of the rendering for the zombie crush game application.
  * 
- * @author Richard McKenna, Yukti Abrol
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaPanel extends JPanel
 {
-    // THIS IS ACTUALLY OUR Mahjong Solitaire APP, WE NEED THIS
+    // THIS IS ACTUALLY OUR zombiecrushsaga APP, WE NEED THIS
     // BECAUSE IT HAS THE GUI STUFF THAT WE NEED TO RENDER
     private MiniGame game;
     
@@ -43,10 +43,10 @@ public class ZombieCrushSagaPanel extends JPanel
      * This constructor stores the game and data references,
      * which we'll need for rendering.
      * 
-     * @param initGame the Mahjong Solitaire game that is using
+     * @param initGame the zombie crush saga game that is using
      * this panel for rendering.
      * 
-     * @param initData the Mahjong Solitaire game data.
+     * @param initData the zombie crush saga game data.
      */
     public ZombieCrushSagaPanel(MiniGame initGame, ZombieCrushSagaDataModel initData)
     {

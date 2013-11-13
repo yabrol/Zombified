@@ -8,18 +8,18 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
  * This event handler responds to when the user clicks on the Stats
  * button, which triggers displaying the stats dialog.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class LevelScoreHandler implements ActionListener
 {
-    // THE MAHJONG GAME CONTAINING THE UNDO BUTTON
+    // THE zombie crush GAME CONTAINING THE UNDO BUTTON
     private ZombieCrushSagaMiniGame miniGame;
     
     /**
      * This constructor simply inits the object by 
      * keeping the game for later.
      * 
-     * @param initGame The Mahjong game that contains
+     * @param initGame The zombie crush game that contains
      * the back button.
      */
     public LevelScoreHandler(ZombieCrushSagaMiniGame initMiniGame)

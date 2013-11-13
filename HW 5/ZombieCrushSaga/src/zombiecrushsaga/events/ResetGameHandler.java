@@ -8,7 +8,7 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
  * This event handler responds to when the user requests to
  * start a new game. 
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  * @version 1.0
  */
 public class ResetGameHandler implements ActionListener

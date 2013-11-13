@@ -82,7 +82,7 @@ public class ZombieCrushSagaConstants {
     
     // OR POSITIONING THE LEVEL SELECT BUTTONS
     public static final int LEVEL_BUTTON_WIDTH = 59;
-    public static final int LEVEL_BUTTON_MARGIN = 5;
+    public static final int LEVEL_BUTTON_MARGIN = 160;
     public static final int LEVEL_BUTTON_Y = 59;
 
     // FOR STACKING TILES ON THE GRID
@@ -94,6 +94,11 @@ public class ZombieCrushSagaConstants {
 
     // FOR MOVING TILES AROUND
     public static final int MAX_TILE_VELOCITY = 70;
+    
+    // DIMENSIONS OF GAME SCREEN
+    public static final int MAX_SCREEN_WIDTH = 1280;
+    public static final int MAX_SCREEN_HEIGHT = 720;
+    public static final int SAGA_SCREEN_HEIGHT = 1524;
     
     // UI CONTROLS POSITIONS IN THE GAME SCREEN
     public static final int CONTROLS_MARGIN = 0;

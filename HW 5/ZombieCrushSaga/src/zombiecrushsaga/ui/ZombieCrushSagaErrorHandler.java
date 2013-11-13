@@ -8,7 +8,7 @@ import properties_manager.PropertiesManager;
 /**
  * This class provides dialog box responses to when errors happen.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaErrorHandler
 {

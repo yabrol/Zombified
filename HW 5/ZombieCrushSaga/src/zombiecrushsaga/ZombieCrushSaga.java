@@ -32,7 +32,7 @@ public class ZombieCrushSaga {
     static String DATA_PATH = "./data/";
 
     /**
-     * This is where the Mahjong Solitaire game application starts execution. We'll
+     * This is where the zombie crush saga game application starts execution. We'll
      * load the application properties and then use them to build our
      * user interface and start the window in event handling mode. Once
      * in that mode, all code execution will happen in response to a 
@@ -52,7 +52,7 @@ public class ZombieCrushSaga {
             props.addProperty(ZombieCrushSagaPropertyType.DATA_PATH.toString(), DATA_PATH);
             props.loadProperties(UI_PROPERTIES_FILE_NAME, PROPERTIES_SCHEMA_FILE_NAME);
             
-            // THEN WE'LL LOAD THE MAHJONG FLAVOR AS SPECIFIED BY THE PROPERTIES FILE
+            // THEN WE'LL LOAD THE zombie crush FLAVOR AS SPECIFIED BY THE PROPERTIES FILE
             String gameFlavorFile = props.getProperty(ZombieCrushSagaPropertyType.GAME_FLAVOR_FILE_NAME);
             props.loadProperties(gameFlavorFile, PROPERTIES_SCHEMA_FILE_NAME);
                                
@@ -73,7 +73,7 @@ public class ZombieCrushSaga {
   
   
   /**
-     * Mahjong SolitairePropertyType represents the types of data that will need
+     * zombiecrushsagaPropertyType represents the types of data that will need
      * to be extracted from XML files.
      */
     public enum ZombieCrushSagaPropertyType
@@ -156,6 +156,7 @@ public class ZombieCrushSaga {
         WIN_AUDIO_CUE,
         LOSS_AUDIO_CUE,
         SPLASH_SCREEN_SONG_CUE,
+        SAGA_SCREEN_SONG_CUE,
         GAMEPLAY_SONG_CUE
     }
   

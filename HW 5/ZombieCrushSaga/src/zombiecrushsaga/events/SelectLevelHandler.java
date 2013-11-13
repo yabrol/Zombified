@@ -9,9 +9,9 @@ import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 
 /**
  * This event handler responds to when the user selects
- * a Mahjong level to play on the splash screen.
+ * a zombie crush level to play on the splash screen.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class SelectLevelHandler implements ActionListener
 {
@@ -49,7 +49,7 @@ public class SelectLevelHandler implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         // WE ONLY LET THIS HAPPEN IF THE SPLASH SCREEN IS VISIBLE
-        if (game.isCurrentScreenState(SPLASH_SCREEN_STATE))
+        if (game.isCurrentScreenState(SAGA_SCREEN_STATE))
         {
             // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
             ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();

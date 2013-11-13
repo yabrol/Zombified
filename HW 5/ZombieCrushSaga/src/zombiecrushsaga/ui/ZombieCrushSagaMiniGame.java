@@ -32,7 +32,7 @@ import zombiecrushsaga.events.LevelScoreHandler;
  * This is the actual mini game, as extended from the mini game framework. It
  * manages all the UI elements.
  *
- * @author Richard McKenna, Yukti Abrol
+ * @author Yukti Abrol
  */
 public class ZombieCrushSagaMiniGame extends MiniGame {
   // THE PLAYER RECORD FOR EACH LEVEL, WHICH LIVES BEYOND ONE SESSION
@@ -173,6 +173,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
 
     // PLAY THE GAMEPLAY SCREEN SONG
     audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
     audio.play(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString(), true);
   }
 
@@ -197,13 +198,12 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
     guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
-    // ACTIVATE THE LEVEL SELECT BUTTONS
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
     ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
     for (String level : levels) {
-      guiButtons.get(level).setState(VISIBLE_STATE);
-      guiButtons.get(level).setEnabled(true);
+      guiButtons.get(level).setState(INVISIBLE_STATE);
+      guiButtons.get(level).setEnabled(false);
     }
 
     // DEACTIVATE ALL DIALOGS
@@ -220,6 +220,53 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // PLAY THE WELCOME SCREEN SONG
     audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
     audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
+  }
+  
+   /**
+   * This method switches the application to the saga screen, making all the
+   * appropriate UI controls visible & invisible.
+   */
+  public void switchToSagaScreen() {
+    // CHANGE THE BACKGROUND
+    guiDecor.get(BACKGROUND_TYPE).setState(SAGA_SCREEN_STATE);
+
+    // DEACTIVATE THE TOOLBAR CONTROLS
+    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
+    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+
+    // ACTIVATE THE LEVEL SELECT BUTTONS
+    PropertiesManager props = PropertiesManager.getPropertiesManager();
+    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+    for (String level : levels) {
+      guiButtons.get(level).setState(VISIBLE_STATE);
+      guiButtons.get(level).setEnabled(true);
+    }
+
+    // DEACTIVATE ALL DIALOGS
+    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+
+    // HIDE THE TILES
+    ((ZombieCrushSagaDataModel) data).enableTiles(false);
+
+    // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
+    currentScreenState = SAGA_SCREEN_STATE;
+
+    // PLAY THE WELCOME SCREEN SONG
+    audio.play(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString(), true);
+    audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
   }
 
   /**
@@ -350,6 +397,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(SPLASH_SCREEN_STATE, img);
     img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.GAME_BACKGROUND_IMAGE_NAME));
     sT.addState(GAME_SCREEN_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    
     s = new Sprite(sT, 0, 0, 0, 0, SPLASH_SCREEN_STATE);
     guiDecor.put(BACKGROUND_TYPE, s);
 
@@ -357,19 +407,31 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
     ArrayList<String> levelImageNames = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_IMAGE_OPTIONS);
     ArrayList<String> levelMouseOverImageNames = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_MOUSE_OVER_IMAGE_OPTIONS);
-    float totalWidth = levels.size() * (LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN) - LEVEL_BUTTON_MARGIN;
-    float gameWidth = Integer.parseInt(props.getProperty(ZombieCrushSagaPropertyType.GAME_WIDTH));
-    x = (gameWidth - totalWidth) / 2.0f;
-    y = LEVEL_BUTTON_Y;
+//    float totalWidth = levels.size() * (LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN) - LEVEL_BUTTON_MARGIN;
+//    float gameWidth = Integer.parseInt(props.getProperty(ZombieCrushSagaPropertyType.GAME_WIDTH));
+    x = 2*LEVEL_BUTTON_WIDTH;//(gameWidth - totalWidth)/ 2.0f;
+    y = MAX_SCREEN_HEIGHT - LEVEL_BUTTON_Y; 
     for (int i = 0; i < levels.size(); i++) {
       sT = new SpriteType(LEVEL_SELECT_BUTTON_TYPE);
       img = loadImageWithColorKey(imgPath + levelImageNames.get(i), COLOR_KEY);
       sT.addState(VISIBLE_STATE, img);
       img = loadImageWithColorKey(imgPath + levelMouseOverImageNames.get(i), COLOR_KEY);
       sT.addState(MOUSE_OVER_STATE, img);
-      s = new Sprite(sT, x, y, 0, 0, VISIBLE_STATE);
+      s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
       guiButtons.put(levels.get(i), s);
-      x += LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
+      if(i == 5)
+      {
+          y = y - LEVEL_BUTTON_Y;
+          x -= 2*LEVEL_BUTTON_WIDTH;
+      }
+      if(i >= 5)
+      {
+          x -= LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
+      }
+      else
+      {
+          x += LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
+      }
     }
 
     // ADD THE CONTROLS ALONG THE NORTH OF THE GAME SCREEN

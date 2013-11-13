@@ -8,7 +8,7 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
  * This class manages when the user clicks the window X to
  * kill the application.
  * 
- * @author Richard McKenna
+ * @author Yukti Abrol
  */
 public class QuitGameHandler extends WindowAdapter
 {
