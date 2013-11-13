@@ -163,6 +163,18 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       guiButtons.get(level).setState(INVISIBLE_STATE);
       guiButtons.get(level).setEnabled(false);
     }
+    
+    // deactivate saga buttons
+    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    
+    // deactivate splash buttons
+    guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(RESET_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
 
     // MOVE THE TILES TO THE STACK AND MAKE THEM VISIBLE
     ((ZombieCrushSagaDataModel) data).enableTiles(true);
@@ -205,12 +217,23 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       guiButtons.get(level).setState(INVISIBLE_STATE);
       guiButtons.get(level).setEnabled(false);
     }
-
+    
+    // deactivate saga buttons
+    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    
     // DEACTIVATE ALL DIALOGS
     guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
     guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
     guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-
+    
+    // activate splash buttons
+    guiButtons.get(PLAY_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
+    guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
 
@@ -251,6 +274,18 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       guiButtons.get(level).setState(VISIBLE_STATE);
       guiButtons.get(level).setEnabled(true);
     }
+    
+    // activate saga buttons
+    guiButtons.get(UP_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(UP_BUTTON_TYPE).setEnabled(true);
+    guiButtons.get(DOWN_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(true);
+    
+    // deactivate splash buttons
+    guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(RESET_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
     guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
@@ -495,14 +530,58 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, UNDO_BUTTON_X, UNDO_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(UNDO_BUTTON_TYPE, s);
+    
+    //Then the up button
+    String upButton = props.getProperty(ZombieCrushSagaPropertyType.UP_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(UP_BUTTON_TYPE);
+    img = loadImage(imgPath + upButton);
+    sT.addState(VISIBLE_STATE, img);
+    String upMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.UP_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + upMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, UP_BUTTON_X, UP_BUTTON_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(UP_BUTTON_TYPE, s);
+    
+    //Then the down button
+    String downButton = props.getProperty(ZombieCrushSagaPropertyType.DOWN_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(DOWN_BUTTON_TYPE);
+    img = loadImage(imgPath + downButton);
+    sT.addState(VISIBLE_STATE, img);
+    String downMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.DOWN_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + downMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, DOWN_BUTTON_X, DOWN_BUTTON_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(DOWN_BUTTON_TYPE, s);
+    
+    //Then the up button
+    String playButton = props.getProperty(ZombieCrushSagaPropertyType.PLAY_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(PLAY_BUTTON_TYPE);
+    img = loadImage(imgPath + playButton);
+    sT.addState(VISIBLE_STATE, img);
+    String playMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + playMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, PLAY_BUTTON_X, PLAY_BUTTON_Y, 0, 0, VISIBLE_STATE);
+    guiButtons.put(PLAY_BUTTON_TYPE, s);
+    
+    //Then the down button
+    String resetButton = props.getProperty(ZombieCrushSagaPropertyType.RESET_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(RESET_BUTTON_TYPE);
+    img = loadImage(imgPath + resetButton);
+    sT.addState(VISIBLE_STATE, img);
+    String resetMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.RESET_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + resetMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, RESET_BUTTON_X, RESET_BUTTON_Y, 0, 0, VISIBLE_STATE);
+    guiButtons.put(RESET_BUTTON_TYPE, s);
 
     // AND THE TILE STACK
-    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
-    sT = new SpriteType(TILE_STACK_TYPE);
-    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
-    sT.addState(VISIBLE_STATE, img);
-    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
-    guiDecor.put(TILE_STACK_TYPE, s);
+//    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
+//    sT = new SpriteType(TILE_STACK_TYPE);
+//    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
+//    sT.addState(VISIBLE_STATE, img);
+//    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
+//    guiDecor.put(TILE_STACK_TYPE, s);
 
     // NOW ADD THE DIALOGS
 

@@ -46,6 +46,10 @@ public class ZombieCrushSagaConstants {
     public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
     public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
     public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
+    public static final String PLAY_BUTTON_TYPE = "PLAY_GAME_BUTTON_TYPE";
+    public static final String RESET_BUTTON_TYPE = "RESET_GAME_BUTTON_TYPE";
+    public static final String UP_BUTTON_TYPE = "UP_BUTTON_TYPE";
+    public static final String DOWN_BUTTON_TYPE = "DOWN_BUTTON_TYPE";
 
     // DIALOG TYPES
     public static final String STATS_DIALOG_TYPE = "STATS_DIALOG_TYPE";
@@ -117,6 +121,14 @@ public class ZombieCrushSagaConstants {
     public static final int STATS_Y = 0;
     public static final int UNDO_BUTTON_X = STATS_X + 160 + CONTROLS_MARGIN;
     public static final int UNDO_BUTTON_Y = 0;
+    public static final int UP_BUTTON_X = UNDO_BUTTON_X;
+    public static final int UP_BUTTON_Y = 0;
+    public static final int DOWN_BUTTON_X = UP_BUTTON_X + 95;
+    public static final int DOWN_BUTTON_Y = 0;
+    public static final int PLAY_BUTTON_X = 160;
+    public static final int PLAY_BUTTON_Y = (int)MAX_SCREEN_HEIGHT/4;
+    public static final int RESET_BUTTON_X = PLAY_BUTTON_X + 120;
+    public static final int RESET_BUTTON_Y = (int)MAX_SCREEN_HEIGHT/2;  
     public static final int TILE_STACK_X = UNDO_BUTTON_X + 130 + CONTROLS_MARGIN;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;

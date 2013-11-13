@@ -9,42 +9,52 @@
         
     <!-- BIG, FULL VIEWPORT BACKGROUND SCREEN IMAGES -->
     <property name="SPLASH_SCREEN_IMAGE_NAME"   value="./zomcrush/ZomCrushSplashBackground.png"></property>
-    <property name="GAME_BACKGROUND_IMAGE_NAME" value="./zomcrush/UIZomjongGameBackground.png"></property>
+    <property name="GAME_BACKGROUND_IMAGE_NAME" value="./zomcrush/UIZomcrushGameBackground.png"></property>
     <property name="SAGA_SCREEN_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
-    <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomjongNewGame.png"></property>
-    <property name="NEW_BUTTON_MOUSE_OVER_IMAGE_NAME"   value="./zomcrush/UIZomjongNewGameMouseOver.png"></property>
-    <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomjongTimeContainer.png"></property>
-    <property name="STATS_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomjongStats.png"></property>
-    <property name="STATS_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomjongStatsMouseOver.png"></property>
-    <property name="UNDO_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomjongUndo.png"></property>
-    <property name="UNDO_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomjongUndoMouseOver.png"></property>
-    <property name="BACK_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomjongBack.png"></property>
-    <property name="BACK_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomjongBackMouseOver.png"></property>
-    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomjongTileStack.png"></property>
-    <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomjongTilesCountContainer.png"></property>
+    <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomcrushNewGame.png"></property>
+    <property name="NEW_BUTTON_MOUSE_OVER_IMAGE_NAME"   value="./zomcrush/UIZomcrushNewGameMouseOver.png"></property>
+    <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomcrushTimeContainer.png"></property>
+    <property name="STATS_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushStats.png"></property>
+    <property name="STATS_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushStatsMouseOver.png"></property>
+    <property name="UNDO_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushUndo.png"></property>
+    <property name="UNDO_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushUndoMouseOver.png"></property>
+    <property name="BACK_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushBack.png"></property>
+    <property name="BACK_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushBackMouseOver.png"></property>
+    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomcrushTileStack.png"></property>
+    <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomcrushTilesCountContainer.png"></property>
+    
+    <property name="PLAY_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushPlay.png"></property>
+    <property name="PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushPlayMouseOver.png"></property>
+    <property name="RESET_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReset.png"></property>
+    <property name="RESET_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushResetMouseOver.png"></property>
+    
+    <property name="UP_BUTTON_IMAGE_NAME"               value="./zomcrush/UIZomcrushUp.png"></property>
+    <property name="UP_BUTTON_MOUSE_OVER_IMAGE_NAME"    value="./zomcrush/UIZomcrushUpMouseOver.png"></property>
+    <property name="DOWN_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushDown.png"></property>
+    <property name="DOWN_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushDownMouseOver.png"></property>
 
     <!-- DIALOG IMAGES -->
-    <property name="WIN_DIALOG_IMAGE_NAME"             value="./zomcrush/UIZomjongWinDialog.png"></property>
-    <property name="LOSS_DIALOG_IMAGE_NAME"            value="./zomcrush/UIZomjongLossDialog.png"></property>
-    <property name="STATS_DIALOG_IMAGE_NAME"           value="./zomcrush/UIZomjongStatsDialog.png"></property>
+    <property name="WIN_DIALOG_IMAGE_NAME"             value="./zomcrush/UIZomcrushWinDialog.png"></property>
+    <property name="LOSS_DIALOG_IMAGE_NAME"            value="./zomcrush/UIZomcrushLossDialog.png"></property>
+    <property name="STATS_DIALOG_IMAGE_NAME"           value="./zomcrush/UIZomcrushStatsDialog.png"></property>
 
     <!-- BASE TILE RENDERING IMAGES -->
-    <property name="BLANK_TILE_IMAGE_NAME"              value="./zomcrush/UIZomjongBlankTile.png"></property>
-    <property name="BLANK_TILE_SELECTED_IMAGE_NAME"     value="./zomcrush/UIZomjongBlankTileSelected.png"></property>
+    <property name="BLANK_TILE_IMAGE_NAME"              value="./zomcrush/UIZomcrushBlankTile.png"></property>
+    <property name="BLANK_TILE_SELECTED_IMAGE_NAME"     value="./zomcrush/UIZomcrushBlankTileSelected.png"></property>
         
     <!-- AUDIO FILES -->
-    <property name="SELECT_AUDIO_CUE"                   value="./zomcrush/AudioZomjongSelectTile.wav"></property>
-    <property name="MATCH_AUDIO_CUE"                    value="./zomcrush/AudioZomjongMatchFound.wav"></property>
-    <property name="NO_MATCH_AUDIO_CUE"                 value="./zomcrush/AudioZomjongTilesDoNotMatch.wav"></property>
-    <property name="BLOCKED_TILE_AUDIO_CUE"             value="./zomcrush/AudioZomjongBlockedTile.wav"></property>
-    <property name="UNDO_AUDIO_CUE"                     value="./zomcrush/AudioZomjongUndo.wav"></property>
-    <property name="WIN_AUDIO_CUE"                      value="./zomcrush/AudioZomjongWin.wav"></property>
-    <property name="LOSS_AUDIO_CUE"                     value="./zomcrush/AudioZomjongLoss.wav"></property>
+    <property name="SELECT_AUDIO_CUE"                   value="./zomcrush/AudioZomcrushSelectTile.wav"></property>
+    <property name="MATCH_AUDIO_CUE"                    value="./zomcrush/AudioZomcrushMatchFound.wav"></property>
+    <property name="NO_MATCH_AUDIO_CUE"                 value="./zomcrush/AudioZomcrushTilesDoNotMatch.wav"></property>
+    <property name="BLOCKED_TILE_AUDIO_CUE"             value="./zomcrush/AudioZomcrushBlockedTile.wav"></property>
+    <property name="UNDO_AUDIO_CUE"                     value="./zomcrush/AudioZomcrushUndo.wav"></property>
+    <property name="WIN_AUDIO_CUE"                      value="./zomcrush/AudioZomcrushWin.wav"></property>
+    <property name="LOSS_AUDIO_CUE"                     value="./zomcrush/AudioZomcrushLoss.wav"></property>
     <property name="SAGA_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>
-    <property name="SPLASH_SCREEN_SONG_CUE"             value="./zomcrush/AudioZomjongSplashScreenSong.mid"></property>
-    <property name="GAMEPLAY_SONG_CUE"                  value="./zomcrush/AudioZomjongInGameSong.mid"></property>        
+    <property name="SPLASH_SCREEN_SONG_CUE"             value="./zomcrush/AudioZomcrushSplashScreenSong.mid"></property>
+    <property name="GAMEPLAY_SONG_CUE"                  value="./zomcrush/AudioZomcrushInGameSong.mid"></property>        
   </property_list>
   <property_options_list>
     <property_options name="LEVEL_OPTIONS">
