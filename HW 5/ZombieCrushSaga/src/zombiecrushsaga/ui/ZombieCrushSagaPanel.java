@@ -148,22 +148,25 @@ public class ZombieCrushSagaPanel extends JPanel
     {
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-//        if(bg.getState().equals(SAGA_SCREEN_STATE))
-//        {
-//            if (!bg.getState().equals(INVISIBLE_STATE))
-//            {
+        if(bg.getState().equals(SAGA_SCREEN_STATE))
+        {
+            if (!bg.getState().equals(INVISIBLE_STATE))
+            {
+                SpriteType bgST = bg.getSpriteType();
+                Image img = bgST.getStateImage(bg.getState());
+                g.drawImage(img, 0, 0, MAX_SCREEN_WIDTH-95, MAX_SCREEN_HEIGHT, null); 
 //                SagaPanel sagap = new SagaPanel(bg);
 //                ScrollPane sp = new ScrollPane();
 //                sp.setPreferredSize(sagap.getPreferredSize());
 //                sp.add(sagap);
 //                this.add(sp);
-//            } 
-//        }
-//        else
-//        {
-//            renderSprite(g, bg);
-//        }
-        renderSprite(g, bg);
+            } 
+        }
+        else
+        {
+            renderSprite(g, bg);
+        }
+//        renderSprite(g, bg);
     }
 
     /**
@@ -446,9 +449,9 @@ class SagaPanel extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
-        super.paintComponent(g);
         if (img != null)
             g.drawImage(img, 0, 0, this);
+        super.paintComponent(g);
     }
     
     @Override
