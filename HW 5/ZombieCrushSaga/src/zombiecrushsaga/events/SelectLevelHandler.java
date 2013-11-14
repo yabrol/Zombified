@@ -9,7 +9,7 @@ import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 
 /**
  * This event handler responds to when the user selects
- * a zombie crush level to play on the splash screen.
+ * a zombie crush level to play on the saga screen.
  * 
  * @author Yukti Abrol
  */
@@ -48,7 +48,7 @@ public class SelectLevelHandler implements ActionListener
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        // WE ONLY LET THIS HAPPEN IF THE SPLASH SCREEN IS VISIBLE
+        // WE ONLY LET THIS HAPPEN IF THE saga SCREEN IS VISIBLE
         if (game.isCurrentScreenState(SAGA_SCREEN_STATE))
         {
             // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US

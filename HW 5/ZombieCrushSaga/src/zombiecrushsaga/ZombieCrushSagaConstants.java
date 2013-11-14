@@ -52,16 +52,19 @@ public class ZombieCrushSagaConstants {
     public static final String QUIT_SPLASH_BUTTON_TYPE = "QUIT_GAME_SPLASH_BUTTON_TYPE";
     public static final String UP_BUTTON_TYPE = "UP_BUTTON_TYPE";
     public static final String DOWN_BUTTON_TYPE = "DOWN_BUTTON_TYPE";
+    public static final String ABOUT_BUTTON_TYPE = "ABOUT_BUTTON_TYPE";
+    public static final String RETURN_TO_SAGA_BUTTON_TYPE = "RETURN_TO_SAGA_BUTTON_TYPE";
 
     // DIALOG TYPES
     public static final String STATS_DIALOG_TYPE = "STATS_DIALOG_TYPE";
     public static final String WIN_DIALOG_TYPE = "WIN_DIALOG_TYPE";
     public static final String LOSS_DIALOG_TYPE = "LOSS_DIALOG_TYPE";
     
-    // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
+    // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE 4
     public static final String SPLASH_SCREEN_STATE = "SPLASH_SCREEN_STATE";
     public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";  
     public static final String SAGA_SCREEN_STATE = "SAGA_SCREEN_STATE";
+    public static final String ABOUT_SCREEN_STATE = "ABOUT_SCREEN_STATE";
 
     // THE TILES MAY HAVE 4 STATES:
         // - INVISIBLE_STATE: USED WHEN ON THE SPLASH SCREEN, MEANS A TILE
@@ -127,14 +130,18 @@ public class ZombieCrushSagaConstants {
     public static final int UP_BUTTON_Y = 0;
     public static final int DOWN_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int DOWN_BUTTON_Y = 86;
+    public static final int ABOUT_BUTTON_X = MAX_SCREEN_WIDTH - 95;
+    public static final int ABOUT_BUTTON_Y = DOWN_BUTTON_Y + 86;
     public static final int QUIT_SAGA_BUTTON_X = MAX_SCREEN_WIDTH - 95;
-    public static final int QUIT_SAGA_BUTTON_Y = DOWN_BUTTON_Y + 86;
+    public static final int QUIT_SAGA_BUTTON_Y = ABOUT_BUTTON_Y + 51;
     public static final int PLAY_BUTTON_X = 160;
     public static final int PLAY_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT/4);
     public static final int RESET_BUTTON_X = PLAY_BUTTON_X + 120;
     public static final int RESET_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT/2); 
     public static final int QUIT_SPLASH_BUTTON_X = RESET_BUTTON_X + 120;
     public static final int QUIT_SPLASH_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    public static final int RETURN_TO_SAGA_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 225;
+    public static final int RETURN_TO_SAGA_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
     public static final int TILE_STACK_X = UNDO_BUTTON_X + 130 + CONTROLS_MARGIN;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;

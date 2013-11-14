@@ -12,7 +12,7 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
  * @author Yukti Abrol
  * @version 1.0
  */
-public class ScrollDownHandler implements ActionListener{
+public class AboutHandler implements ActionListener{
     
     // HERE'S THE GAME WE'LL UPDATE
     private ZombieCrushSagaMiniGame game;
@@ -22,7 +22,7 @@ public class ScrollDownHandler implements ActionListener{
      * 
      * @param initGame the game to update
      */
-    public ScrollDownHandler(ZombieCrushSagaMiniGame initGame)
+    public AboutHandler(ZombieCrushSagaMiniGame initGame)
     {
         game = initGame;
     }
@@ -39,7 +39,15 @@ public class ScrollDownHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        System.out.println("down");
+        // IF THERE IS A GAME UNDERWAY, COUNT IT AS A LOSS
+        if (game.getDataModel().inProgress())
+        {
+            game.getDataModel().endGameAsLoss();
+        }
+        // RESET THE GAME AND ITS DATA--maybe?
+        //game.reset();
+        //go to splash screen
+        game.switchToSagaScreen();
     }
   
 }

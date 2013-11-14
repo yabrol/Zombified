@@ -22,6 +22,7 @@ import properties_manager.PropertiesManager;
 import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import zombiecrushsaga.file.ZombieCrushSagaFileManager;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
+import zombiecrushsaga.events.AboutHandler;
 import zombiecrushsaga.events.QuitLevelHandler;
 import zombiecrushsaga.events.QuitGameHandler;
 import zombiecrushsaga.events.ResetGameHandler;
@@ -29,6 +30,7 @@ import zombiecrushsaga.events.SelectLevelHandler;
 import zombiecrushsaga.events.LevelScoreHandler;
 import zombiecrushsaga.events.PlayGameHandler;
 import zombiecrushsaga.events.ResetAllHandler;
+import zombiecrushsaga.events.ReturnToSagaHandler;
 import zombiecrushsaga.events.ScrollDownHandler;
 import zombiecrushsaga.events.ScrollUpHandler;
 
@@ -173,8 +175,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
+    
+    //deactivate return to saga button
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setEnabled(false);
     
     // deactivate splash buttons
     guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -194,6 +202,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // PLAY THE GAMEPLAY SCREEN SONG
     audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
     audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
     audio.play(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString(), true);
   }
 
@@ -231,8 +240,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
+    
+    //deactivate return to saga button
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setEnabled(false);
     
     // DEACTIVATE ALL DIALOGS
     guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
@@ -257,6 +272,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
     audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
     audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
   }
   
    /**
@@ -293,8 +309,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(true);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(true);
+    
+    //deactivate return to saga button
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setEnabled(false);
     
     // deactivate splash buttons
     guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -319,6 +341,76 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     audio.play(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString(), true);
     audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
     audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
+  }
+  
+  /**
+   * This method switches the application to the about screen, making all the
+   * appropriate UI controls visible & invisible.
+   */
+  public void switchToAboutScreen() {
+    // CHANGE THE BACKGROUND
+    guiDecor.get(BACKGROUND_TYPE).setState(ABOUT_SCREEN_STATE);
+
+    // DEACTIVATE THE TOOLBAR CONTROLS
+    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
+    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+
+    // DEACTIVATE THE LEVEL SELECT BUTTONS
+    PropertiesManager props = PropertiesManager.getPropertiesManager();
+    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+    for (String level : levels) {
+      guiButtons.get(level).setState(INVISIBLE_STATE);
+      guiButtons.get(level).setEnabled(false);
+    }
+    
+    // DEactivate saga buttons
+    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
+    
+    //activate return to saga button
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setEnabled(true);
+    
+    // deactivate splash buttons
+    guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(RESET_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
+
+    // DEACTIVATE ALL DIALOGS
+    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+
+    // HIDE THE TILES
+    ((ZombieCrushSagaDataModel) data).enableTiles(false);
+
+    // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
+    currentScreenState = ABOUT_SCREEN_STATE;
+
+    // PLAY THE saga SCREEN SONG
+    audio.play(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString(), true);
+    audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
+    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
   }
 
   /**
@@ -452,6 +544,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(GAME_SCREEN_STATE, img);
     img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_IMAGE_NAME));
     sT.addState(SAGA_SCREEN_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.ABOUT_SCREEN_IMAGE_NAME));
+    sT.addState(ABOUT_SCREEN_STATE, img);
     
     s = new Sprite(sT, 0, 0, 0, 0, SPLASH_SCREEN_STATE);
     guiDecor.put(BACKGROUND_TYPE, s);
@@ -570,6 +664,28 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, DOWN_BUTTON_X, DOWN_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(DOWN_BUTTON_TYPE, s);
+    
+    //Then the about button
+    String aboutButton = props.getProperty(ZombieCrushSagaPropertyType.ABOUT_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(ABOUT_BUTTON_TYPE);
+    img = loadImage(imgPath + aboutButton);
+    sT.addState(VISIBLE_STATE, img);
+    String aboutMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.ABOUT_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + aboutMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, ABOUT_BUTTON_X, ABOUT_BUTTON_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(ABOUT_BUTTON_TYPE, s);
+    
+    //Then the return to saga button
+    String returnToSagaButton = props.getProperty(ZombieCrushSagaPropertyType.RETURN_TO_SAGA_BUTTON_IMAGE_NAME);
+    sT = new SpriteType(RETURN_TO_SAGA_BUTTON_TYPE);
+    img = loadImage(imgPath + returnToSagaButton);
+    sT.addState(VISIBLE_STATE, img);
+    String returnToSagaMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.RETURN_TO_SAGA_BUTTON_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + returnToSagaMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, RETURN_TO_SAGA_BUTTON_X, RETURN_TO_SAGA_BUTTON_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(RETURN_TO_SAGA_BUTTON_TYPE, s);
     
     //Then the play button
     String playButton = props.getProperty(ZombieCrushSagaPropertyType.PLAY_BUTTON_IMAGE_NAME);
@@ -712,6 +828,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     //down button event handler
     ScrollDownHandler dh = new ScrollDownHandler(this);
     guiButtons.get(DOWN_BUTTON_TYPE).setActionListener(dh);
+    
+    //ABOUT button event handler
+    AboutHandler ah = new AboutHandler(this);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setActionListener(ah);
+    
+    //ABOUT button event handler
+    ReturnToSagaHandler rtsh = new ReturnToSagaHandler(this);
+    guiButtons.get(RETURN_TO_SAGA_BUTTON_TYPE).setActionListener(rtsh);
   }
 
   /**
