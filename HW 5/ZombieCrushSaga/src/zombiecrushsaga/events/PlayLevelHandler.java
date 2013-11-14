@@ -13,7 +13,7 @@ import static zombiecrushsaga.ZombieCrushSagaConstants.*;
  * 
  * @author Yukti Abrol
  */
-public class SelectLevelHandler implements ActionListener
+public class PlayLevelHandler implements ActionListener
 {
     // HERE'S THE GAME WE'LL UPDATE
     private ZombieCrushSagaMiniGame game;
@@ -29,7 +29,7 @@ public class SelectLevelHandler implements ActionListener
      * 
      * @param initLevelFile The level to load when the user requests it. 
      */
-    public SelectLevelHandler(  ZombieCrushSagaMiniGame initGame,
+    public PlayLevelHandler(  ZombieCrushSagaMiniGame initGame,
                                 String initLevelFile)
     {
         game = initGame;
@@ -58,8 +58,8 @@ public class SelectLevelHandler implements ActionListener
             ZombieCrushSagaFileManager fileManager = game.getFileManager();
             fileManager.loadLevel(levelFile);
 
-            // GO TO THE level screen
-            game.switchToLevelScreen();
+            // GO TO THE GAME
+            game.switchToGameScreen();
         }
     }
 }

@@ -164,7 +164,38 @@ public class ZombieCrushSagaPanel extends JPanel
         }
         else
         {
+            // RENDER THE bg, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, bg);
+            //if level dialog open
+            if(bg.getSpriteType().getSpriteTypeID().equals(LEVEL_SCREEN_STATE) && bg.getState().equals(VISIBLE_STATE))
+            {
+              int x3 = (int)bg.getX();
+              int y3 = (int)bg.getY();
+              g.setFont(STATS_FONT);
+              String stats = "";
+              String level = (data.getCurrentLevel());
+              ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
+              stats = level;
+              stats = stats.replaceAll("./data/./zomjong/", "");
+              stats = stats.replaceAll(".zom", "");
+              g.drawString(stats, x3+10, y3+250);
+              stats = "Games: " + rec.getGamesPlayed(level);
+              g.drawString(stats, x3+10, y3+275);
+              stats = "Wins: " + rec.getWins(level);
+              g.drawString(stats, x3+10, y3+300);
+              stats = "Losses: " + rec.getLosses(level);
+              g.drawString(stats, x3+10, y3+325);
+              stats = "Win %: " + numberFormatter.format(rec.calculateWinPercentage(level));
+              g.drawString(stats, x3+10, y3+350);
+              if(rec.getWins(level) > 0)
+              {
+                stats = "Fastest Win: " + ((ZombieCrushSagaDataModel)((ZombieCrushSagaMiniGame)game).getDataModel()).timeToText(rec.getFastestTime(level));
+              }
+              else
+                stats = "Fastest Win: -";
+              g.drawString(stats, x3+10, y3+375);
+            }
+            
         }
 //        renderSprite(g, bg);
     }
@@ -332,11 +363,15 @@ public class ZombieCrushSagaPanel extends JPanel
             // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
             renderSprite(g, s);
             //if stats dialog open
-            if(s.getSpriteType().getSpriteTypeID().equals(STATS_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE))
+            if(s.getSpriteType().getSpriteTypeID().equals(LEVEL_SCREEN_STATE) && s.getState().equals(VISIBLE_STATE))
             {
               int x3 = (int)s.getX();
               int y3 = (int)s.getY();
-              g.setFont(STATS_FONT);
+              g.setFont(LEVEL_NUM_FONT);
+              g.setColor(Color.GREEN);
+              //draw level, then change font and color to draw rest
+              //level information, including the instructions for completing it, 
+              //the highest score the player has achieved on that level
               String stats = "";
               String level = (data.getCurrentLevel());
               ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();

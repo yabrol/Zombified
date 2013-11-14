@@ -46,14 +46,20 @@ public class ZombieCrushSagaConstants {
     public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
     public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
     public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
+    
     public static final String PLAY_BUTTON_TYPE = "PLAY_GAME_BUTTON_TYPE";
     public static final String RESET_BUTTON_TYPE = "RESET_GAME_BUTTON_TYPE";
-    public static final String QUIT_SAGA_BUTTON_TYPE = "QUIT_GAME_SAGA_BUTTON_TYPE";
     public static final String QUIT_SPLASH_BUTTON_TYPE = "QUIT_GAME_SPLASH_BUTTON_TYPE";
+    
+    public static final String QUIT_SAGA_BUTTON_TYPE = "QUIT_GAME_SAGA_BUTTON_TYPE";
     public static final String UP_BUTTON_TYPE = "UP_BUTTON_TYPE";
     public static final String DOWN_BUTTON_TYPE = "DOWN_BUTTON_TYPE";
     public static final String ABOUT_BUTTON_TYPE = "ABOUT_BUTTON_TYPE";
-    public static final String RETURN_TO_SAGA_BUTTON_TYPE = "RETURN_TO_SAGA_BUTTON_TYPE";
+    
+    public static final String RETURN_FROM_ABOUT_BUTTON_TYPE = "RETURN_FROM_ABOUT_BUTTON_TYPE";
+    
+    public static final String RETURN_FROM_LEVEL_BUTTON_TYPE = "RETURN_FROM_LEVEL_BUTTON_TYPE";
+    public static final String PLAY_LEVEL_BUTTON_TYPE = "PLAY_LEVEL_BUTTON_TYPE";
 
     // DIALOG TYPES
     public static final String STATS_DIALOG_TYPE = "STATS_DIALOG_TYPE";
@@ -65,6 +71,7 @@ public class ZombieCrushSagaConstants {
     public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";  
     public static final String SAGA_SCREEN_STATE = "SAGA_SCREEN_STATE";
     public static final String ABOUT_SCREEN_STATE = "ABOUT_SCREEN_STATE";
+    public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE";
 
     // THE TILES MAY HAVE 4 STATES:
         // - INVISIBLE_STATE: USED WHEN ON THE SPLASH SCREEN, MEANS A TILE
@@ -126,6 +133,7 @@ public class ZombieCrushSagaConstants {
     public static final int STATS_Y = 0;
     public static final int UNDO_BUTTON_X = STATS_X + 160 + CONTROLS_MARGIN;
     public static final int UNDO_BUTTON_Y = 0;
+    
     public static final int UP_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int UP_BUTTON_Y = 0;
     public static final int DOWN_BUTTON_X = MAX_SCREEN_WIDTH - 95;
@@ -134,14 +142,22 @@ public class ZombieCrushSagaConstants {
     public static final int ABOUT_BUTTON_Y = DOWN_BUTTON_Y + 86;
     public static final int QUIT_SAGA_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int QUIT_SAGA_BUTTON_Y = ABOUT_BUTTON_Y + 51;
+    
     public static final int PLAY_BUTTON_X = 160;
     public static final int PLAY_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT/4);
     public static final int RESET_BUTTON_X = PLAY_BUTTON_X + 120;
     public static final int RESET_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT/2); 
     public static final int QUIT_SPLASH_BUTTON_X = RESET_BUTTON_X + 120;
     public static final int QUIT_SPLASH_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
-    public static final int RETURN_TO_SAGA_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 225;
-    public static final int RETURN_TO_SAGA_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    
+    public static final int RETURN_FROM_ABOUT_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 225;
+    public static final int RETURN_FROM_ABOUT_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    
+    public static final int RETURN_FROM_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 455;
+    public static final int RETURN_FROM_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    public static final int PLAY_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) + 5;
+    public static final int PLAY_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    
     public static final int TILE_STACK_X = UNDO_BUTTON_X + 130 + CONTROLS_MARGIN;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;
@@ -172,6 +188,8 @@ public class ZombieCrushSagaConstants {
     public static final Font TEXT_DISPLAY_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
     public static final Font DEBUG_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
     public static final Font STATS_FONT = new Font(Font.MONOSPACED, Font.BOLD, 24);
+    public static final Font LEVEL_NUM_FONT = new Font("Showcard Gothic", Font.BOLD, 36);
+    public static final Font LEVEL_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 24);
     
     // AND AUDIO STUFF
     public static final String SUCCESS_AUDIO_TYPE = "SUCCESS_AUDIO_TYPE";

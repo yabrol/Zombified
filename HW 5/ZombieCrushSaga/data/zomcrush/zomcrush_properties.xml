@@ -12,6 +12,7 @@
     <property name="GAME_BACKGROUND_IMAGE_NAME" value="./zomcrush/UIZomcrushGameBackground.png"></property>
     <property name="SAGA_SCREEN_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels.png"></property>
     <property name="ABOUT_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
+    <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
     <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomcrushNewGame.png"></property>
@@ -42,8 +43,13 @@
     <property name="ABOUT_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushAbout.png"></property>
     <property name="ABOUT_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushAboutMouseOver.png"></property>
     
-    <property name="RETURN_TO_SAGA_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReturnToSaga.png"></property>
-    <property name="RETURN_TO_SAGA_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushReturnToSagaMouseOver.png"></property>
+    <property name="RETURN_FROM_ABOUT_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReturnToSaga.png"></property>
+    <property name="RETURN_FROM_ABOUT_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushReturnToSagaMouseOver.png"></property>
+    
+    <property name="PLAY_LEVEL_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushPlayLevel.png"></property>
+    <property name="PLAY_LEVEL_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushPlayLevelMouseOver.png"></property>
+    <property name="RETURN_FROM_LEVEL_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReturnToSaga.png"></property>
+    <property name="RETURN_FROM_LEVEL_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushReturnToSagaMouseOver.png"></property>
 
     <!-- DIALOG IMAGES -->
     <property name="WIN_DIALOG_IMAGE_NAME"             value="./zomcrush/UIZomcrushWinDialog.png"></property>
@@ -65,7 +71,8 @@
     <property name="SAGA_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>
     <property name="SPLASH_SCREEN_SONG_CUE"             value="./zomcrush/AudioZomcrushSplashScreenSong.mid"></property>
     <property name="GAMEPLAY_SONG_CUE"                  value="./zomcrush/AudioZomcrushInGameSong.mid"></property>
-    <property name="ABOUT_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>       
+    <property name="ABOUT_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>
+    <property name="LEVEL_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushInGameSong.mid"></property>       
   </property_list>
   <property_options_list>
     <property_options name="LEVEL_OPTIONS">
@@ -91,6 +98,7 @@
       <option>./zomcrush/Level8.png</option>
       <option>./zomcrush/Level9.png</option>
       <option>./zomcrush/Level10.png</option>
+      <option>./zomcrush/Level11.png</option>
     </property_options>
     <property_options name="LEVEL_MOUSE_OVER_IMAGE_OPTIONS">
       <option>./zomcrush/Level1MouseOver.png</option>
@@ -103,6 +111,7 @@
       <option>./zomcrush/Level8MouseOver.png</option>
       <option>./zomcrush/Level9MouseOver.png</option>
       <option>./zomcrush/Level10MouseOver.png</option>
+      <option>./zomcrush/Level11MouseOver.png</option>
     </property_options>
     
     <property_options name="TYPE_A_TILES">
