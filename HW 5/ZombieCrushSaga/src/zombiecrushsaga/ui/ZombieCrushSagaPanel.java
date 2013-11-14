@@ -1,8 +1,10 @@
 package zombiecrushsaga.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.awt.image.BufferedImage;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -146,6 +148,21 @@ public class ZombieCrushSagaPanel extends JPanel
     {
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
+//        if(bg.getState().equals(SAGA_SCREEN_STATE))
+//        {
+//            if (!bg.getState().equals(INVISIBLE_STATE))
+//            {
+//                SagaPanel sagap = new SagaPanel(bg);
+//                ScrollPane sp = new ScrollPane();
+//                sp.setPreferredSize(sagap.getPreferredSize());
+//                sp.add(sagap);
+//                this.add(sp);
+//            } 
+//        }
+//        else
+//        {
+//            renderSprite(g, bg);
+//        }
         renderSprite(g, bg);
     }
 
@@ -415,5 +432,28 @@ public class ZombieCrushSagaPanel extends JPanel
                 y += 20;
             }   
         } 
+    }
+}
+
+class SagaPanel extends JPanel
+{
+    Image img;
+    public SagaPanel(Sprite bg)
+    {
+        SpriteType bgST = bg.getSpriteType();
+        img = bgST.getStateImage(bg.getState());
+    }
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        if (img != null)
+            g.drawImage(img, 0, 0, this);
+    }
+    
+    @Override
+    public Dimension getPreferredSize()
+    {
+        return new Dimension(MAX_SCREEN_WIDTH - 95, MAX_SCREEN_HEIGHT);
     }
 }

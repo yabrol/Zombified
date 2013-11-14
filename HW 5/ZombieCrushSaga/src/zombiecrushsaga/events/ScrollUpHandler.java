@@ -39,7 +39,7 @@ public class ScrollUpHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-  
+        System.out.println("up");
     }
   
 }

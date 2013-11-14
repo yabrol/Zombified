@@ -29,11 +29,15 @@
     <property name="PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushPlayMouseOver.png"></property>
     <property name="RESET_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReset.png"></property>
     <property name="RESET_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushResetMouseOver.png"></property>
+    <property name="QUIT_BUTTON_SPLASH_IMAGE_NAME"            value="./zomcrush/UIZomcrushQuitSplash.png"></property>
+    <property name="QUIT_BUTTON_SPLASH_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushQuitSplashMouseOver.png"></property>
     
     <property name="UP_BUTTON_IMAGE_NAME"               value="./zomcrush/UIZomcrushUp.png"></property>
     <property name="UP_BUTTON_MOUSE_OVER_IMAGE_NAME"    value="./zomcrush/UIZomcrushUpMouseOver.png"></property>
     <property name="DOWN_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushDown.png"></property>
     <property name="DOWN_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushDownMouseOver.png"></property>
+    <property name="QUIT_BUTTON_SAGA_IMAGE_NAME"            value="./zomcrush/UIZomcrushQuitSaga.png"></property>
+    <property name="QUIT_BUTTON_SAGA_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushQuitSagaMouseOver.png"></property>
 
     <!-- DIALOG IMAGES -->
     <property name="WIN_DIALOG_IMAGE_NAME"             value="./zomcrush/UIZomcrushWinDialog.png"></property>

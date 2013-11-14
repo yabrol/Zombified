@@ -39,7 +39,7 @@ public class ScrollDownHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-  
+        System.out.println("down");
     }
   
 }

@@ -173,12 +173,16 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
     
     // deactivate splash buttons
     guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(RESET_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // MOVE THE TILES TO THE STACK AND MAKE THEM VISIBLE
     ((ZombieCrushSagaDataModel) data).enableTiles(true);
@@ -227,6 +231,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
     
     // DEACTIVATE ALL DIALOGS
     guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
@@ -238,6 +244,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(true);
     
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -285,12 +293,16 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(UP_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(DOWN_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(true);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(true);
     
     // deactivate splash buttons
     guiButtons.get(PLAY_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(RESET_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
     guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
@@ -580,6 +592,27 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, RESET_BUTTON_X, RESET_BUTTON_Y, 0, 0, VISIBLE_STATE);
     guiButtons.put(RESET_BUTTON_TYPE, s);
+    
+    //Then the quit buttons
+    String quitButton = props.getProperty(ZombieCrushSagaPropertyType.QUIT_BUTTON_SPLASH_IMAGE_NAME);
+    sT = new SpriteType(QUIT_SPLASH_BUTTON_TYPE);
+    img = loadImage(imgPath + quitButton);
+    sT.addState(VISIBLE_STATE, img);
+    String quitMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.QUIT_BUTTON_SPLASH_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + quitMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, QUIT_SPLASH_BUTTON_X, QUIT_SPLASH_BUTTON_Y, 0, 0, VISIBLE_STATE);
+    guiButtons.put(QUIT_SPLASH_BUTTON_TYPE, s);
+    
+    String quitButton2 = props.getProperty(ZombieCrushSagaPropertyType.QUIT_BUTTON_SAGA_IMAGE_NAME);
+    sT = new SpriteType(QUIT_SAGA_BUTTON_TYPE);
+    img = loadImage(imgPath + quitButton2);
+    sT.addState(VISIBLE_STATE, img);
+    String quitMouseOverButton2 = props.getProperty(ZombieCrushSagaPropertyType.QUIT_BUTTON_SAGA_MOUSE_OVER_IMAGE_NAME);
+    img = loadImage(imgPath + quitMouseOverButton2);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, QUIT_SAGA_BUTTON_X, QUIT_SAGA_BUTTON_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(QUIT_SAGA_BUTTON_TYPE, s);
 
     // AND THE TILE STACK
     String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
@@ -664,6 +697,13 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     //reset button event handler
     ResetAllHandler rh = new ResetAllHandler(this);
     guiButtons.get(RESET_BUTTON_TYPE).setActionListener(rh);
+    
+    //quit buttons event handler
+    QuitGameHandler qh = new QuitGameHandler(this);
+    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setActionListener(qh);
+    
+    QuitGameHandler qh2 = new QuitGameHandler(this);
+    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setActionListener(qh2);
     
     //up button event handler
     ScrollUpHandler uh = new ScrollUpHandler(this);
