@@ -47,7 +47,7 @@ public class AboutHandler implements ActionListener{
         // RESET THE GAME AND ITS DATA--maybe?
         //game.reset();
         //go to splash screen
-        game.switchToSagaScreen();
+        game.switchToAboutScreen();
     }
   
 }

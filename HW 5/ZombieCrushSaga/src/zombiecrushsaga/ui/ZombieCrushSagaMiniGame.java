@@ -460,6 +460,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       loadAudioCue(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE);
+      loadAudioCue(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE);
 
       // PLAY THE WELCOME SCREEN SONG
       audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
@@ -569,9 +570,13 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       if(i == 5)
       {
           y = y - LEVEL_BUTTON_Y;
-          x -= 2*LEVEL_BUTTON_WIDTH;
+          x -= LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;//2*LEVEL_BUTTON_WIDTH;
       }
-      if(i >= 5)
+      else if(i == 4)
+      {
+          x +=  (int)(LEVEL_BUTTON_MARGIN*.75);
+      }
+      else if(i >= 5)
       {
           x -= LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
       }
@@ -830,8 +835,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(DOWN_BUTTON_TYPE).setActionListener(dh);
     
     //ABOUT button event handler
-    AboutHandler ah = new AboutHandler(this);
-    guiButtons.get(ABOUT_BUTTON_TYPE).setActionListener(ah);
+    AboutHandler abh = new AboutHandler(this);
+    guiButtons.get(ABOUT_BUTTON_TYPE).setActionListener(abh);
     
     //ABOUT button event handler
     ReturnToSagaHandler rtsh = new ReturnToSagaHandler(this);
