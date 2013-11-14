@@ -831,6 +831,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         
         // AND PLAY THE WIN AUDIO
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString()); 
+        miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
         miniGame.getAudio().play(ZombieCrushSagaPropertyType.WIN_AUDIO_CUE.toString(), false);
     }
@@ -853,7 +854,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         miniGame.getGUIDialogs().get(LOSS_DIALOG_TYPE).setState(VISIBLE_STATE);        
 
         // AND PLAY THE LOSS AUDIO
-        miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString()); 
+        miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
+        miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
         miniGame.getAudio().play(ZombieCrushSagaPropertyType.LOSS_AUDIO_CUE.toString(), false);
     }

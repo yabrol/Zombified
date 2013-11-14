@@ -27,6 +27,10 @@ import zombiecrushsaga.events.QuitGameHandler;
 import zombiecrushsaga.events.ResetGameHandler;
 import zombiecrushsaga.events.SelectLevelHandler;
 import zombiecrushsaga.events.LevelScoreHandler;
+import zombiecrushsaga.events.PlayGameHandler;
+import zombiecrushsaga.events.ResetAllHandler;
+import zombiecrushsaga.events.ScrollDownHandler;
+import zombiecrushsaga.events.ScrollUpHandler;
 
 /**
  * This is the actual mini game, as extended from the mini game framework. It
@@ -234,6 +238,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
+    
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
 
@@ -298,7 +303,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
     currentScreenState = SAGA_SCREEN_STATE;
 
-    // PLAY THE WELCOME SCREEN SONG
+    // PLAY THE saga SCREEN SONG
     audio.play(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString(), true);
     audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
     audio.stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
@@ -350,6 +355,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       loadAudioCue(ZombieCrushSagaPropertyType.LOSS_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE);
+      loadAudioCue(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE);
 
       // PLAY THE WELCOME SCREEN SONG
       audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
@@ -553,7 +559,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, DOWN_BUTTON_X, DOWN_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(DOWN_BUTTON_TYPE, s);
     
-    //Then the up button
+    //Then the play button
     String playButton = props.getProperty(ZombieCrushSagaPropertyType.PLAY_BUTTON_IMAGE_NAME);
     sT = new SpriteType(PLAY_BUTTON_TYPE);
     img = loadImage(imgPath + playButton);
@@ -564,7 +570,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, PLAY_BUTTON_X, PLAY_BUTTON_Y, 0, 0, VISIBLE_STATE);
     guiButtons.put(PLAY_BUTTON_TYPE, s);
     
-    //Then the down button
+    //Then the reset button
     String resetButton = props.getProperty(ZombieCrushSagaPropertyType.RESET_BUTTON_IMAGE_NAME);
     sT = new SpriteType(RESET_BUTTON_TYPE);
     img = loadImage(imgPath + resetButton);
@@ -576,12 +582,12 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.put(RESET_BUTTON_TYPE, s);
 
     // AND THE TILE STACK
-//    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
-//    sT = new SpriteType(TILE_STACK_TYPE);
-//    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
-//    sT.addState(VISIBLE_STATE, img);
-//    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
-//    guiDecor.put(TILE_STACK_TYPE, s);
+    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
+    sT = new SpriteType(TILE_STACK_TYPE);
+    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(TILE_STACK_TYPE, s);
 
     // NOW ADD THE DIALOGS
 
@@ -650,6 +656,22 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // STATS BUTTON EVENT HANDLER
     LevelScoreHandler sh = new LevelScoreHandler(this);
     guiButtons.get(STATS_BUTTON_TYPE).setActionListener(sh);
+    
+    //play button event handler
+    PlayGameHandler ph = new PlayGameHandler(this);
+    guiButtons.get(PLAY_BUTTON_TYPE).setActionListener(ph);
+    
+    //reset button event handler
+    ResetAllHandler rh = new ResetAllHandler(this);
+    guiButtons.get(RESET_BUTTON_TYPE).setActionListener(rh);
+    
+    //up button event handler
+    ScrollUpHandler uh = new ScrollUpHandler(this);
+    guiButtons.get(UP_BUTTON_TYPE).setActionListener(uh);
+    
+    //down button event handler
+    ScrollDownHandler dh = new ScrollDownHandler(this);
+    guiButtons.get(DOWN_BUTTON_TYPE).setActionListener(dh);
   }
 
   /**
