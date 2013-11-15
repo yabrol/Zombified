@@ -25,6 +25,16 @@
 <!--    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomcrushTileStack.png"></property>
     <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomcrushTilesCountContainer.png"></property>-->
     
+    <property name="LIVES_IMAGE_NAME"                    value="./zomcrush/UIZomcrushLivesContainer.png"></property>
+    <property name="MOVES_IMAGE_NAME"                    value="./zomcrush/UIZomcrushMovesContainer.png"></property>
+    <property name="NEXT_STAR_IMAGE_NAME"                value="./zomcrush/UIZomcrushNextStarContainer.png"></property>
+    <property name="SCORE_IMAGE_NAME"                    value="./zomcrush/UIZomcrushScoreContainer.png"></property>
+    <property name="STAR_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarContainer.png"></property>
+    
+    <property name="STAR_RED_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarRed.png"></property>
+    <property name="STAR_BLUE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarBlue.png"></property>
+    <property name="STAR_PURPLE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarPurple.png"></property>
+    
     <property name="PLAY_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushPlay.png"></property>
     <property name="PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushPlayMouseOver.png"></property>
     <property name="RESET_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReset.png"></property>

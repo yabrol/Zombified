@@ -42,9 +42,17 @@ public class ZombieCrushSagaConstants {
 //    public static final String NEW_GAME_BUTTON_TYPE = "NEW_GAME_BUTTON_TYPE";
     public static final String BACK_BUTTON_TYPE = "BACK_BUTTON_TYPE";
     public static final String TIME_TYPE = "TIME_TYPE"; 
-    public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
-    public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
-    public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
+//    public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
+//    public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
+//    public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
+    public static final String LIVES_TYPE = "LIVES_TYPE";
+    public static final String MOVES_TYPE = "MOVES_TYPE";
+    public static final String SCORE_TYPE = "SCORE_TYPE";
+    public static final String NEXT_STAR_TYPE = "NEXT_STAR_TYPE";
+    public static final String STAR_TYPE = "STAR_TYPE";
+    public static final String STAR_RED_TYPE = "STAR_RED_TYPE";
+    public static final String STAR_BLUE_TYPE = "STAR_BLUE_TYPE";
+    public static final String STAR_PURPLE_TYPE = "STAR_PURPLE_TYPE";
     
     public static final String PLAY_BUTTON_TYPE = "PLAY_GAME_BUTTON_TYPE";
     public static final String RESET_BUTTON_TYPE = "RESET_GAME_BUTTON_TYPE";
@@ -124,13 +132,25 @@ public class ZombieCrushSagaConstants {
 //    public static final int TILES_COUNT_X = BACK_BUTTON_X + 130 + CONTROLS_MARGIN;
 //    public static final int TILES_COUNT_Y = 0;
 //    public static final int TILE_TEXT_OFFSET = 160;
-    public static final int TIME_X = BACK_BUTTON_X + 130 +232 + CONTROLS_MARGIN;
+    public static final int LIVES_X = BACK_BUTTON_X + 81;
+    public static final int LIVES_Y = 0;
+    public static final int TIME_X = BACK_BUTTON_X + 81 +145 + CONTROLS_MARGIN;
     //TILES_COUNT_X + 232 + CONTROLS_MARGIN;
     public static final int TIME_Y = 0;
     public static final int TIME_OFFSET = 150;
     public static final int TIME_TEXT_OFFSET = 55;
 //    public static final int STATS_X = TIME_X + 310 + CONTROLS_MARGIN;
 //    public static final int STATS_Y = 0;
+    public static final int MOVES_X = TIME_X;
+    public static final int MOVES_Y = TIME_Y;
+    public static final int SCORE_X = MOVES_X + 194;
+    public static final int SCORE_Y = 0;
+    public static final int STAR_X = SCORE_X + 232;
+    public static final int STAR_Y = 0;
+    public static final int STAR_OFFSET = 60;
+    public static final int NEXT_STAR_X = STAR_X + 154;
+    public static final int NEXT_STAR_Y = 0;
+    public static final int NEXT_STAR_OFFSET = 170;
     
     public static final int UP_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int UP_BUTTON_Y = 0;
