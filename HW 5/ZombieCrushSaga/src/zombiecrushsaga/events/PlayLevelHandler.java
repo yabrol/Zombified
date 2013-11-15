@@ -48,8 +48,8 @@ public class PlayLevelHandler implements ActionListener
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        // WE ONLY LET THIS HAPPEN IF THE saga SCREEN IS VISIBLE
-        if (game.isCurrentScreenState(SAGA_SCREEN_STATE))
+        // WE ONLY LET THIS HAPPEN IF THE level SCREEN IS VISIBLE
+        if (game.isCurrentScreenState(LEVEL_SCREEN_STATE))
         {
             // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
             ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
@@ -59,6 +59,7 @@ public class PlayLevelHandler implements ActionListener
             fileManager.loadLevel(levelFile);
 
             // GO TO THE GAME
+            System.out.println("level");
             game.switchToGameScreen();
         }
     }

@@ -508,7 +508,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
 
     // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
-    currentScreenState = ABOUT_SCREEN_STATE;
+    currentScreenState = LEVEL_SCREEN_STATE;
 
     // PLAY THE saga SCREEN SONG
     audio.play(ZombieCrushSagaPropertyType.LEVEL_SCREEN_SONG_CUE.toString(), true);
