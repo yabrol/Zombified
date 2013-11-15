@@ -14,4 +14,6 @@ public class ZombieCrushLevelRecord
     public int wins;
     public int losses;
     public long fastestTime;
+    public int highScore;
+    public int numStars;
 }

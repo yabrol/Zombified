@@ -211,80 +211,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     audio.stop(ZombieCrushSagaPropertyType.LEVEL_SCREEN_SONG_CUE.toString());
     audio.play(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString(), true);
   }
-
-  /**
-   * This method switches the application to the splash screen, making all the
-   * appropriate UI controls visible & invisible.
-   */
-  public void switchToSplashScreen() {
-    // CHANGE THE BACKGROUND
-    guiDecor.get(BACKGROUND_TYPE).setState(SPLASH_SCREEN_STATE);
-
-    // DEACTIVATE THE TOOLBAR CONTROLS
-    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
-    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
-
-    // DEACTIVATE THE LEVEL SELECT BUTTONS
-    PropertiesManager props = PropertiesManager.getPropertiesManager();
-    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
-    for (String level : levels) {
-      guiButtons.get(level).setState(INVISIBLE_STATE);
-      guiButtons.get(level).setEnabled(false);
-    }
-    
-    // deactivate saga buttons
-    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
-    
-    //deactivate ABOUT SCREEN buttons
-    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setEnabled(false);
-    
-    //deactivate LEVEL SCORE buttons
-    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setEnabled(false);
-    
-    // DEACTIVATE ALL DIALOGS
-    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    
-    // activate splash buttons
-    guiButtons.get(PLAY_BUTTON_TYPE).setState(VISIBLE_STATE);
-    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
-    guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
-    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
-    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(VISIBLE_STATE);
-    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(true);
-    
-    // HIDE THE TILES
-    ((ZombieCrushSagaDataModel) data).enableTiles(false);
-
-    // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
-    currentScreenState = SPLASH_SCREEN_STATE;
-
-    // PLAY THE WELCOME SCREEN SONG
-    audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
-    audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
-    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
-    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
-    audio.stop(ZombieCrushSagaPropertyType.LEVEL_SCREEN_SONG_CUE.toString());
-  }
   
    /**
    * This method switches the application to the saga screen, making all the
@@ -821,6 +747,10 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, RESET_BUTTON_X, RESET_BUTTON_Y, 0, 0, VISIBLE_STATE);
     guiButtons.put(RESET_BUTTON_TYPE, s);
+    if(data.inProgress())
+        guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
+    else
+        guiButtons.get(RESET_BUTTON_TYPE).setEnabled(false);
     
     //Then the quit buttons
     String quitButton = props.getProperty(ZombieCrushSagaPropertyType.QUIT_BUTTON_SPLASH_IMAGE_NAME);
@@ -996,3 +926,78 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     }
   }
 }
+
+/**
+   * This method switches the application to the splash screen, making all the
+   * appropriate UI controls visible & invisible.
+   */
+//  public void switchToSplashScreen() {
+//    // CHANGE THE BACKGROUND
+//    guiDecor.get(BACKGROUND_TYPE).setState(SPLASH_SCREEN_STATE);
+//
+//    // DEACTIVATE THE TOOLBAR CONTROLS
+//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
+//    guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+//    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
+//    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
+//    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+//
+//    // DEACTIVATE THE LEVEL SELECT BUTTONS
+//    PropertiesManager props = PropertiesManager.getPropertiesManager();
+//    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+//    for (String level : levels) {
+//      guiButtons.get(level).setState(INVISIBLE_STATE);
+//      guiButtons.get(level).setEnabled(false);
+//    }
+//    
+//    // deactivate saga buttons
+//    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
+//    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
+//    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
+//    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
+//    
+//    //deactivate ABOUT SCREEN buttons
+//    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setEnabled(false);
+//    
+//    //deactivate LEVEL SCORE buttons
+//    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setEnabled(false);
+//    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
+//    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setEnabled(false);
+//    
+//    // DEACTIVATE ALL DIALOGS
+//    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
+//    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+//    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+//    
+//    // activate splash buttons
+//    guiButtons.get(PLAY_BUTTON_TYPE).setState(VISIBLE_STATE);
+//    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
+//    guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
+//    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
+//    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(VISIBLE_STATE);
+//    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(true);
+//    
+//    // HIDE THE TILES
+//    ((ZombieCrushSagaDataModel) data).enableTiles(false);
+//
+//    // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
+//    currentScreenState = SPLASH_SCREEN_STATE;
+//
+//    // PLAY THE WELCOME SCREEN SONG
+//    audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
+//    audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
+//    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
+//    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
+//    audio.stop(ZombieCrushSagaPropertyType.LEVEL_SCREEN_SONG_CUE.toString());
+//  }
+//  

@@ -32,6 +32,8 @@ public class ZombieCrushSagaRecord
         // - getWins
         // - getLosses
         // - getFastestTime
+    //high score!
+    //num stars!
     
     /**
      * This method gets the games played for a given level.

@@ -38,6 +38,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     //tiles in level
     private int totNumTiles = 0;
     
+    //level available?
+    private boolean levelAvailable = false;
+    
     // THIS STORES THE TILES ON THE GRID DURING THE GAME
     private ArrayList<ZombieCrushSagaTile>[][] tileGrid;
     
@@ -89,6 +92,15 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     public int getTotalNumberOfTiles()
     {
         return totNumTiles;
+    }
+    
+    /**
+     * gets if level is available.level 1 is always true
+     * @return levelCompleted
+     */
+    public boolean getLevelAvailable()
+    {
+        return levelAvailable;
     }
     
     // INIT METHODS - AFTER CONSTRUCTION, THESE METHODS SETUP A GAME FOR USE
@@ -222,7 +234,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         img = new BufferedImage(TILE_IMAGE_WIDTH, TILE_IMAGE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         img.getGraphics().drawImage(tempImage, 0, 0, null);
         
-        // WE'LL USE THE SAME IMAGE FOR ALL STATES
+        // WE'LL USE THE SAME IMAGtE FOR ALL STATES
         sT.addState(INVISIBLE_STATE, img);
         sT.addState(VISIBLE_STATE, img);
         sT.addState(SELECTED_STATE, img);
@@ -306,6 +318,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     public void setCurrentLevel(String initCurrentLevel)
     {
         currentLevel = initCurrentLevel;
+        if(currentLevel=="./data/./zomcrush/Level10.zom")
+            levelAvailable = true;
+        //else check if previous level has been completed via record
     }
 
     /**
