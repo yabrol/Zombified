@@ -1,6 +1,7 @@
 package zombiecrushsaga.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -148,56 +149,36 @@ public class ZombieCrushSagaPanel extends JPanel
     {
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-        if(bg.getState().equals(SAGA_SCREEN_STATE))
-        {
-            if (!bg.getState().equals(INVISIBLE_STATE))
-            {
-                SpriteType bgST = bg.getSpriteType();
-                Image img = bgST.getStateImage(bg.getState());
-                g.drawImage(img, 0, 0, MAX_SCREEN_WIDTH-95, MAX_SCREEN_HEIGHT, null); 
-//                SagaPanel sagap = new SagaPanel(bg);
-//                ScrollPane sp = new ScrollPane();
-//                sp.setPreferredSize(sagap.getPreferredSize());
-//                sp.add(sagap);
-//                this.add(sp);
-            } 
-        }
-        else
-        {
-            // RENDER THE bg, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
-            renderSprite(g, bg);
-            //if level dialog open
-            if(bg.getSpriteType().getSpriteTypeID().equals(LEVEL_SCREEN_STATE) && bg.getState().equals(VISIBLE_STATE))
-            {
-              int x3 = (int)bg.getX();
-              int y3 = (int)bg.getY();
-              g.setFont(STATS_FONT);
-              String stats = "";
-              String level = (data.getCurrentLevel());
-              ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
-              stats = level;
-              stats = stats.replaceAll("./data/./zomjong/", "");
-              stats = stats.replaceAll(".zom", "");
-              g.drawString(stats, x3+10, y3+250);
-              stats = "Games: " + rec.getGamesPlayed(level);
-              g.drawString(stats, x3+10, y3+275);
-              stats = "Wins: " + rec.getWins(level);
-              g.drawString(stats, x3+10, y3+300);
-              stats = "Losses: " + rec.getLosses(level);
-              g.drawString(stats, x3+10, y3+325);
-              stats = "Win %: " + numberFormatter.format(rec.calculateWinPercentage(level));
-              g.drawString(stats, x3+10, y3+350);
-              if(rec.getWins(level) > 0)
-              {
-                stats = "Fastest Win: " + ((ZombieCrushSagaDataModel)((ZombieCrushSagaMiniGame)game).getDataModel()).timeToText(rec.getFastestTime(level));
-              }
-              else
+        // RENDER THE bg, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
+        renderSprite(g, bg);
+        //if level dialog open
+        if (bg.getSpriteType().getSpriteTypeID().equals(LEVEL_SCREEN_STATE) && bg.getState().equals(VISIBLE_STATE)) {
+            int x3 = (int) bg.getX();
+            int y3 = (int) bg.getY();
+            g.setFont(STATS_FONT);
+            String stats = "";
+            String level = (data.getCurrentLevel());
+            ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame) game).getFileManager().loadRecord();
+            stats = level;
+            stats = stats.replaceAll("./data/./zomjong/", "");
+            stats = stats.replaceAll(".zom", "");
+            g.drawString(stats, x3 + 10, y3 + 250);
+            stats = "Games: " + rec.getGamesPlayed(level);
+            g.drawString(stats, x3 + 10, y3 + 275);
+            stats = "Wins: " + rec.getWins(level);
+            g.drawString(stats, x3 + 10, y3 + 300);
+            stats = "Losses: " + rec.getLosses(level);
+            g.drawString(stats, x3 + 10, y3 + 325);
+            stats = "Win %: " + numberFormatter.format(rec.calculateWinPercentage(level));
+            g.drawString(stats, x3 + 10, y3 + 350);
+            if (rec.getWins(level) > 0) {
+                stats = "Fastest Win: " + ((ZombieCrushSagaDataModel) ((ZombieCrushSagaMiniGame) game).getDataModel()).timeToText(rec.getFastestTime(level));
+            } else {
                 stats = "Fastest Win: -";
-              g.drawString(stats, x3+10, y3+375);
             }
-            
+            g.drawString(stats, x3 + 10, y3 + 375);
         }
-//        renderSprite(g, bg);
+
     }
 
     /**
@@ -244,7 +225,7 @@ public class ZombieCrushSagaPanel extends JPanel
             g.drawString(time, x, y);
             
             //render the tiles remaining
-            String tilesCount = Integer.toString(NUM_TILES - data.getStackTiles().size());
+            String tilesCount = Integer.toString(data.getTotalNumberOfTiles() - data.getStackTiles().size());
             int x2 = TILES_COUNT_X + TILE_TEXT_OFFSET;
             g.drawString(tilesCount, x2, y);
         }        
@@ -473,25 +454,96 @@ public class ZombieCrushSagaPanel extends JPanel
     }
 }
 
-class SagaPanel extends JPanel
-{
-    Image img;
-    public SagaPanel(Sprite bg)
-    {
-        SpriteType bgST = bg.getSpriteType();
-        img = bgST.getStateImage(bg.getState());
-    }
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        if (img != null)
-            g.drawImage(img, 0, 0, this);
-        super.paintComponent(g);
-    }
-    
-    @Override
-    public Dimension getPreferredSize()
-    {
-        return new Dimension(MAX_SCREEN_WIDTH - 95, MAX_SCREEN_HEIGHT);
-    }
-}
+//class SagaPanel extends JPanel
+//{
+//    Image img;
+//    public SagaPanel(Sprite bg)
+//    {
+//        SpriteType bgST = bg.getSpriteType();
+//        img = bgST.getStateImage(bg.getState());
+//    }
+//    @Override
+//    public void paintComponent(Graphics g)
+//    {
+//        super.paintComponent(g);
+//        if (img != null)
+//            g.drawImage(img, 0, 0, this);
+//    }
+//    
+//    @Override
+//    public Dimension getPreferredSize()
+//    {
+//        return new Dimension(MAX_SCREEN_WIDTH - 95, MAX_SCREEN_HEIGHT);
+//    }
+//}
+//public void renderBackground(Graphics g)
+//    {
+//        // THERE IS ONLY ONE CURRENTLY SET
+//        Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
+//        SagaPanel sagap;
+//        ScrollPane sp = null;
+//        if(bg.getState().equals(SAGA_SCREEN_STATE))
+//        {
+//            if (!bg.getState().equals(INVISIBLE_STATE))
+//            {
+//                SpriteType bgST = bg.getSpriteType();
+//                Image img = bgST.getStateImage(bg.getState());
+//                //g.drawImage(img, 0, 0, MAX_SCREEN_WIDTH-95, MAX_SCREEN_HEIGHT, null); 
+//                sagap = new SagaPanel(bg);
+//                sagap.setBounds(0, 0, MAX_SCREEN_WIDTH - 95, MAX_SCREEN_HEIGHT);
+//                sp = new ScrollPane();
+//                sp.setBounds(0, 0, MAX_SCREEN_WIDTH-95, MAX_SCREEN_HEIGHT);
+//                //sp.setPreferredSize(sagap.getPreferredSize());
+//                sagap.paintComponent(g);
+//                sp.add(sagap);
+//                this.add(sp);
+//            } 
+//            else 
+//            {
+//                Component[] comps = this.getComponents();
+//                for(Component c : comps)
+//                {
+//                    if(sp!= null && sp.equals(c))
+//                    {
+//                        this.remove(c);
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            // RENDER THE bg, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
+//            renderSprite(g, bg);
+//            //if level dialog open
+//            if(bg.getSpriteType().getSpriteTypeID().equals(LEVEL_SCREEN_STATE) && bg.getState().equals(VISIBLE_STATE))
+//            {
+//              int x3 = (int)bg.getX();
+//              int y3 = (int)bg.getY();
+//              g.setFont(STATS_FONT);
+//              String stats = "";
+//              String level = (data.getCurrentLevel());
+//              ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
+//              stats = level;
+//              stats = stats.replaceAll("./data/./zomjong/", "");
+//              stats = stats.replaceAll(".zom", "");
+//              g.drawString(stats, x3+10, y3+250);
+//              stats = "Games: " + rec.getGamesPlayed(level);
+//              g.drawString(stats, x3+10, y3+275);
+//              stats = "Wins: " + rec.getWins(level);
+//              g.drawString(stats, x3+10, y3+300);
+//              stats = "Losses: " + rec.getLosses(level);
+//              g.drawString(stats, x3+10, y3+325);
+//              stats = "Win %: " + numberFormatter.format(rec.calculateWinPercentage(level));
+//              g.drawString(stats, x3+10, y3+350);
+//              if(rec.getWins(level) > 0)
+//              {
+//                stats = "Fastest Win: " + ((ZombieCrushSagaDataModel)((ZombieCrushSagaMiniGame)game).getDataModel()).timeToText(rec.getFastestTime(level));
+//              }
+//              else
+//                stats = "Fastest Win: -";
+//              g.drawString(stats, x3+10, y3+375);
+//            }
+//            
+//        }
+////        renderSprite(g, bg);
+//    }

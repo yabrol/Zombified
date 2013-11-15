@@ -57,9 +57,12 @@ public class SelectLevelHandler implements ActionListener
             // UPDATE THE DATA
             ZombieCrushSagaFileManager fileManager = game.getFileManager();
             fileManager.loadLevel(levelFile);
-
+            
             // GO TO THE level screen
             game.switchToLevelScreen();
+            
+            PlayLevelHandler plh = new PlayLevelHandler(game);
+            game.getGUIButtons().get(PLAY_LEVEL_BUTTON_TYPE).setActionListener(plh);
         }
     }
 }

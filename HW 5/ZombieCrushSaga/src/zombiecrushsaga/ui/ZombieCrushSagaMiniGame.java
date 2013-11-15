@@ -201,7 +201,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
 
     // MOVE THE TILES TO THE STACK AND MAKE THEM VISIBLE
     ((ZombieCrushSagaDataModel) data).enableTiles(true);
-    data.reset(this);
+    //data.reset(this);
 
     // AND CHANGE THE SCREEN STATE
     currentScreenState = GAME_SCREEN_STATE;
@@ -977,10 +977,10 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setActionListener(rtsh2);
     
     //PLAY LEVEL button event handler
-    for (String levelFile : levels) {
-      PlayLevelHandler plh = new PlayLevelHandler(this, dataPath + levelFile);
-      guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setActionListener(plh);
-    }
+    //for (String levelFile : levels) {
+      //PlayLevelHandler plh = new PlayLevelHandler(this);//, dataPath + levelFile);
+      //guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setActionListener(plh);
+    //}
     
   }
 

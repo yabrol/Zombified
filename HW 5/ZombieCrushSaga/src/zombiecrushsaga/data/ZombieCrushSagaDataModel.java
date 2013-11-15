@@ -35,6 +35,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     private int gridColumns;
     private int gridRows;
     
+    //tiles in level
+    private int totNumTiles = 0;
+    
     // THIS STORES THE TILES ON THE GRID DURING THE GAME
     private ArrayList<ZombieCrushSagaTile>[][] tileGrid;
     
@@ -78,6 +81,14 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // INIT THESE FOR HOLDING MATCHED AND MOVING TILES
         stackTiles = new ArrayList();
         movingTiles = new ArrayList();
+    }
+    /**
+     * gets total num of tiles. must have initialzed the game first
+     * @return totnumtiles
+     */
+    public int getTotalNumberOfTiles()
+    {
+        return totNumTiles;
     }
     
     // INIT METHODS - AFTER CONSTRUCTION, THESE METHODS SETUP A GAME FOR USE
@@ -187,6 +198,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 // EACH CELL HAS A STACK OF TILES, WE'LL USE
                 // AN ARRAY LIST FOR THE STACK
                 tileGrid[i][j] = new ArrayList();
+                if(levelGrid[i][j] != 0)
+                    totNumTiles++;
             }
         }
         // MAKE ALL THE TILES VISIBLE
@@ -617,7 +630,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // NOW CHECK TO SEE IF THE GAME HAS EITHER BEEN WON OR LOST
         
         // HAS THE PLAYER WON?
-        if (stackTiles.size() == NUM_TILES)
+        if (stackTiles.size() == totNumTiles)
         {
             // YUP UPDATE EVERYTHING ACCORDINGLY
             endGameAsWin();

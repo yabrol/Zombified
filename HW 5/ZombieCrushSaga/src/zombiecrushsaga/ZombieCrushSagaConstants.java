@@ -102,7 +102,7 @@ public class ZombieCrushSagaConstants {
     public static final int LEVEL_BUTTON_Y = 59;
 
     // FOR STACKING TILES ON THE GRID
-    public static final int NUM_TILES = 144;
+    //public static final int NUM_TILES = 144;
     public static final int TILE_IMAGE_OFFSET = 1;
     public static final int TILE_IMAGE_WIDTH = 55;
     public static final int TILE_IMAGE_HEIGHT = 55;
