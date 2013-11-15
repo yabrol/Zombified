@@ -226,8 +226,8 @@ public class ZombieCrushSagaPanel extends JPanel
             
             //render the tiles remaining
             String tilesCount = Integer.toString(data.getTotalNumberOfTiles() - data.getStackTiles().size());
-            int x2 = TILES_COUNT_X + TILE_TEXT_OFFSET;
-            g.drawString(tilesCount, x2, y);
+//            int x2 = TILES_COUNT_X + TILE_TEXT_OFFSET;
+//            g.drawString(tilesCount, x2, y);
         }        
     }
         

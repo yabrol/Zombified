@@ -15,15 +15,15 @@
     <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
-    <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomcrushNewGame.png"></property>
-    <property name="NEW_BUTTON_MOUSE_OVER_IMAGE_NAME"   value="./zomcrush/UIZomcrushNewGameMouseOver.png"></property>
+<!--    <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomcrushNewGame.png"></property>
+    <property name="NEW_BUTTON_MOUSE_OVER_IMAGE_NAME"   value="./zomcrush/UIZomcrushNewGameMouseOver.png"></property>-->
     <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomcrushTimeContainer.png"></property>
-    <property name="STATS_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushStats.png"></property>
-    <property name="STATS_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushStatsMouseOver.png"></property>
+<!--    <property name="STATS_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushStats.png"></property>
+    <property name="STATS_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushStatsMouseOver.png"></property>-->
     <property name="BACK_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushBack.png"></property>
     <property name="BACK_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushBackMouseOver.png"></property>
-    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomcrushTileStack.png"></property>
-    <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomcrushTilesCountContainer.png"></property>
+<!--    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomcrushTileStack.png"></property>
+    <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomcrushTilesCountContainer.png"></property>-->
     
     <property name="PLAY_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushPlay.png"></property>
     <property name="PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushPlayMouseOver.png"></property>
@@ -83,6 +83,7 @@
       <option>./zomcrush/Level8.zom</option>
       <option>./zomcrush/Level9.zom</option>
       <option>./zomcrush/Level10.zom</option>
+      <option>./zomcrush/Level11.zom</option>
     </property_options>
     <property_options name="LEVEL_IMAGE_OPTIONS">
       <option>./zomcrush/Level1.png</option>

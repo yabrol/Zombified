@@ -46,6 +46,6 @@ public class QuitLevelHandler implements ActionListener
         // RESET THE GAME AND ITS DATA--maybe?
         //game.reset();
         //go to saga screen
-        game.switchToSagaScreen();
+        game.switchToLevelScreen();
     }
 }

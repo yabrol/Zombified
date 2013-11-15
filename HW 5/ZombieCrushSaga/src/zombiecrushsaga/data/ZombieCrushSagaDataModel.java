@@ -624,9 +624,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         tile2.setState(VISIBLE_STATE);
         
         // SEND THEM TO THE STACK
-        tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
+//        tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
         tile1.startMovingToTarget(MAX_TILE_VELOCITY);
-        tile2.setTarget(TILE_STACK_X + TILE_STACK_2_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
+//        tile2.setTarget(TILE_STACK_X + TILE_STACK_2_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
         tile2.startMovingToTarget(MAX_TILE_VELOCITY);
         stackTiles.add(tile1);
         stackTiles.add(tile2);  
@@ -860,8 +860,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         moveAllTilesToStack();
         for (ZombieCrushSagaTile tile : stackTiles)
         {
-            tile.setX(TILE_STACK_X);
-            tile.setY(TILE_STACK_Y);
+//            tile.setX(TILE_STACK_X);
+//            tile.setY(TILE_STACK_Y);
             tile.setState(VISIBLE_STATE);
         }        
 
