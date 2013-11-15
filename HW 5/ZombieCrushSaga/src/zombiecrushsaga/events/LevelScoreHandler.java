@@ -12,7 +12,7 @@ import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
  */
 public class LevelScoreHandler implements ActionListener
 {
-    // THE zombie crush GAME CONTAINING THE UNDO BUTTON
+    // THE zombie crush GAME CONTAINING THE levelscore BUTTON
     private ZombieCrushSagaMiniGame miniGame;
     
     /**

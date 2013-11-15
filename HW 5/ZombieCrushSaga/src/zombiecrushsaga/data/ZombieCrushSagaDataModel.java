@@ -424,7 +424,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // -playWinAnimation
         // -processMove
         // -selectTile
-        // -undoLastMove
 
     /**
      * This method can be used to make all of the tiles either visible (true)
@@ -729,49 +728,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         else
         {
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);   
-        }
-    }
-    
-    /**
-     * This method undoes the previous move, sending the two tiles on top
-     * of the tile stack back to the game grid.
-     */    
-    public void undoLastMove()
-    {
-        if (inProgress() && stackTiles.size() > 1)
-        {
-            // TAKE THE TOP 2 TILES
-            ZombieCrushSagaTile topTile = stackTiles.remove(stackTiles.size()-1);
-            ZombieCrushSagaTile nextToTopTile = stackTiles.remove(stackTiles.size() - 1);
-            
-            // SET THEIR DESTINATIONS
-            float boundaryLeft = miniGame.getBoundaryLeft();
-            float boundaryTop = miniGame.getBoundaryTop();
-            
-            // FIRST TILE 1
-            int col = topTile.getGridColumn();
-            int row = topTile.getGridRow();
-            int z = tileGrid[col][row].size();
-            float targetX = this.calculateTileXInGrid(col, z);
-            float targetY = this.calculateTileYInGrid(row, z);
-            topTile.setTarget(targetX, targetY);
-            movingTiles.add(topTile);
-            topTile.startMovingToTarget(MAX_TILE_VELOCITY);
-            tileGrid[col][row].add(topTile);
-            
-            // AND THEN TILE 2
-            col = nextToTopTile.getGridColumn();
-            row = nextToTopTile.getGridRow();
-            z = tileGrid[col][row].size();
-            targetX = this.calculateTileXInGrid(col, z);
-            targetY = this.calculateTileYInGrid(row, z);
-            nextToTopTile.setTarget(targetX, targetY);
-            movingTiles.add(nextToTopTile);
-            nextToTopTile.startMovingToTarget(MAX_TILE_VELOCITY);
-            tileGrid[col][row].add(nextToTopTile);
-            
-            // PLAY THE AUDIO CUE
-            miniGame.getAudio().play(ZombieCrushSagaPropertyType.UNDO_AUDIO_CUE.toString(), false);   
         }
     }
     

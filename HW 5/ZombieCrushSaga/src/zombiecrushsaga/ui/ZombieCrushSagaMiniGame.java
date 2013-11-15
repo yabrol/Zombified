@@ -156,8 +156,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(BACK_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(true);
-    guiButtons.get(UNDO_BUTTON_TYPE).setState(VISIBLE_STATE);
-    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(true);
     guiDecor.get(TIME_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(TILES_COUNT_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(STATS_BUTTON_TYPE).setState(VISIBLE_STATE);
@@ -227,8 +225,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -303,8 +299,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -379,8 +373,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -455,8 +447,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-    guiButtons.get(UNDO_BUTTON_TYPE).setState(INVISIBLE_STATE);
-    guiButtons.get(UNDO_BUTTON_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -559,7 +549,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       loadAudioCue(ZombieCrushSagaPropertyType.MATCH_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.BLOCKED_TILE_AUDIO_CUE);
-      loadAudioCue(ZombieCrushSagaPropertyType.UNDO_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.WIN_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.LOSS_AUDIO_CUE);
       loadAudioCue(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE);
@@ -744,17 +733,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, STATS_X, STATS_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(STATS_BUTTON_TYPE, s);
-    
-    //Then the undo button
-    String undoButton = props.getProperty(ZombieCrushSagaPropertyType.UNDO_BUTTON_IMAGE_NAME);
-    sT = new SpriteType(UNDO_BUTTON_TYPE);
-    img = loadImage(imgPath + undoButton);
-    sT.addState(VISIBLE_STATE, img);
-    String undoMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.UNDO_BUTTON_MOUSE_OVER_IMAGE_NAME);
-    img = loadImage(imgPath + undoMouseOverButton);
-    sT.addState(MOUSE_OVER_STATE, img);
-    s = new Sprite(sT, UNDO_BUTTON_X, UNDO_BUTTON_Y, 0, 0, INVISIBLE_STATE);
-    guiButtons.put(UNDO_BUTTON_TYPE, s);
     
     //Then the up button
     String upButton = props.getProperty(ZombieCrushSagaPropertyType.UP_BUTTON_IMAGE_NAME);

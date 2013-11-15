@@ -41,7 +41,6 @@ public class ZombieCrushSagaConstants {
     // IN-GAME UI CONTROL TYPES
     public static final String NEW_GAME_BUTTON_TYPE = "NEW_GAME_BUTTON_TYPE";
     public static final String BACK_BUTTON_TYPE = "BACK_BUTTON_TYPE";
-    public static final String UNDO_BUTTON_TYPE = "UNDO_BUTTON_TYPE";
     public static final String TIME_TYPE = "TIME_TYPE"; 
     public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
     public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
@@ -131,8 +130,6 @@ public class ZombieCrushSagaConstants {
     public static final int TIME_TEXT_OFFSET = 55;
     public static final int STATS_X = TIME_X + 310 + CONTROLS_MARGIN;
     public static final int STATS_Y = 0;
-    public static final int UNDO_BUTTON_X = STATS_X + 160 + CONTROLS_MARGIN;
-    public static final int UNDO_BUTTON_Y = 0;
     
     public static final int UP_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int UP_BUTTON_Y = 0;
@@ -158,7 +155,7 @@ public class ZombieCrushSagaConstants {
     public static final int PLAY_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) + 5;
     public static final int PLAY_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
     
-    public static final int TILE_STACK_X = UNDO_BUTTON_X + 130 + CONTROLS_MARGIN;
+    public static final int TILE_STACK_X = 130 + CONTROLS_MARGIN;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;
     public static final int TILE_STACK_OFFSET_Y = 12;
