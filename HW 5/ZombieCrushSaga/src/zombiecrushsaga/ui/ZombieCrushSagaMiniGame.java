@@ -223,7 +223,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
    */
   public void switchToSagaScreen() {
     // CHANGE THE BACKGROUND
-    guiDecor.get(BACKGROUND_TYPE).setState(SAGA_SCREEN_STATE);
+    guiDecor.get(BACKGROUND_TYPE).setState(SAGA_SCREEN_1_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
 //    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -584,8 +584,33 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(SPLASH_SCREEN_STATE, img);
     img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.GAME_BACKGROUND_IMAGE_NAME));
     sT.addState(GAME_SCREEN_STATE, img);
-    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_IMAGE_NAME));
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_1_IMAGE_NAME));
     sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_1_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_2_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_2_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_3_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_3_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_4_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_4_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_5_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_5_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_6_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_6_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_7_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_7_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_8_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_8_STATE, img);
+    img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.SAGA_SCREEN_9_IMAGE_NAME));
+    sT.addState(SAGA_SCREEN_STATE, img);
+    sT.addState(SAGA_SCREEN_9_STATE, img);
     img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.ABOUT_SCREEN_IMAGE_NAME));
     sT.addState(ABOUT_SCREEN_STATE, img);
     img = loadImage(imgPath + props.getProperty(ZombieCrushSagaPropertyType.LEVEL_SCREEN_IMAGE_NAME));

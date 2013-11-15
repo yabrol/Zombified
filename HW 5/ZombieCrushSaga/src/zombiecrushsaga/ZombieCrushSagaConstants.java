@@ -79,6 +79,16 @@ public class ZombieCrushSagaConstants {
     public static final String SAGA_SCREEN_STATE = "SAGA_SCREEN_STATE";
     public static final String ABOUT_SCREEN_STATE = "ABOUT_SCREEN_STATE";
     public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE";
+    
+    public static final String SAGA_SCREEN_1_STATE = "SAGA_SCREEN_1_STATE";
+    public static final String SAGA_SCREEN_2_STATE = "SAGA_SCREEN_2_STATE";
+    public static final String SAGA_SCREEN_3_STATE = "SAGA_SCREEN_3_STATE";
+    public static final String SAGA_SCREEN_4_STATE = "SAGA_SCREEN_4_STATE";
+    public static final String SAGA_SCREEN_5_STATE = "SAGA_SCREEN_5_STATE";
+    public static final String SAGA_SCREEN_6_STATE = "SAGA_SCREEN_6_STATE";
+    public static final String SAGA_SCREEN_7_STATE = "SAGA_SCREEN_7_STATE";
+    public static final String SAGA_SCREEN_8_STATE = "SAGA_SCREEN_8_STATE";
+    public static final String SAGA_SCREEN_9_STATE = "SAGA_SCREEN_9_STATE";
 
     // THE TILES MAY HAVE 4 STATES:
         // - INVISIBLE_STATE: USED WHEN ON THE SPLASH SCREEN, MEANS A TILE

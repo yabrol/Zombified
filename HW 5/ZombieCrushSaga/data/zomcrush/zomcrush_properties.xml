@@ -10,7 +10,16 @@
     <!-- BIG, FULL VIEWPORT BACKGROUND SCREEN IMAGES -->
     <property name="SPLASH_SCREEN_IMAGE_NAME"   value="./zomcrush/ZomCrushSplashBackground.png"></property>
     <property name="GAME_BACKGROUND_IMAGE_NAME" value="./zomcrush/UIZomcrushGameBackground.png"></property>
-    <property name="SAGA_SCREEN_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels.png"></property>
+    <property name="SAGA_SCREEN_1_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels1.png"></property>
+    <property name="SAGA_SCREEN_2_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels2.png"></property>
+    <property name="SAGA_SCREEN_3_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels3.png"></property>
+    <property name="SAGA_SCREEN_4_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels4.png"></property>
+    <property name="SAGA_SCREEN_5_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels5.png"></property>
+    <property name="SAGA_SCREEN_6_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels6.png"></property>
+    <property name="SAGA_SCREEN_7_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels7.png"></property>
+    <property name="SAGA_SCREEN_8_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels8.png"></property>
+    <property name="SAGA_SCREEN_9_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels9.png"></property>
+
     <property name="ABOUT_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
     <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
         

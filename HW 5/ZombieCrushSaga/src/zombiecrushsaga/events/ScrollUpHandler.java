@@ -2,6 +2,10 @@ package zombiecrushsaga.events;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import properties_manager.PropertiesManager;
+import zombiecrushsaga.ZombieCrushSaga;
+import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 import zombiecrushsaga.data.ZombieCrushSagaDataModel;
 import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
 
@@ -40,6 +44,60 @@ public class ScrollUpHandler implements ActionListener{
     public void actionPerformed(ActionEvent ae)
     {
         System.out.println("up");
+        //if at saga background 9 cant go up anymore
+        //if at saga backgroun 1, cant go down anymore
+        if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_1_STATE))
+        {
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+            for (String level : levels) {
+                game.getGUIButtons().get(level).setState(VISIBLE_STATE);
+                game.getGUIButtons().get(level).setEnabled(true);
+            }
+            //game.getGUIButtons().get(DOWN_BUTTON_TYPE).setEnabled(false);
+            game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_2_STATE);
+        }
+        else{
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+            for (String level : levels) {
+                game.getGUIButtons().get(level).setState(INVISIBLE_STATE);
+                game.getGUIButtons().get(level).setEnabled(false);
+                }
+            //game.getGUIButtons().get(DOWN_BUTTON_TYPE).setEnabled(true);
+            if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_2_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_3_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_3_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_4_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_4_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_5_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_5_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_6_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_6_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_7_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_7_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_8_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_8_STATE))
+            {
+                game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_9_STATE);
+            }
+            else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_9_STATE))
+            {
+                return;
+            }
+        }
     }
   
 }
