@@ -623,10 +623,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
     ArrayList<String> levelImageNames = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_IMAGE_OPTIONS);
     ArrayList<String> levelMouseOverImageNames = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_MOUSE_OVER_IMAGE_OPTIONS);
-//    float totalWidth = levels.size() * (LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN) - LEVEL_BUTTON_MARGIN;
-//    float gameWidth = Integer.parseInt(props.getProperty(ZombieCrushSagaPropertyType.GAME_WIDTH));
-    x = 2*LEVEL_BUTTON_WIDTH;//(gameWidth - totalWidth)/ 2.0f;
-    y = MAX_SCREEN_HEIGHT - LEVEL_BUTTON_Y; 
+    x = LEVEL_BUTTON_MARGIN - (int)(.5*LEVEL_BUTTON_WIDTH);
+    y = 620 - (int)(.5*LEVEL_BUTTON_Y); 
     for (int i = 0; i < levels.size(); i++) {
       sT = new SpriteType(LEVEL_SELECT_BUTTON_TYPE);
       img = loadImageWithColorKey(imgPath + levelImageNames.get(i), COLOR_KEY);
@@ -635,31 +633,27 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       sT.addState(MOUSE_OVER_STATE, img);
       s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
       guiButtons.put(levels.get(i), s);
-      if(i==1)
+      if(i==0)
           guiButtons.get(levels.get(i)).setEnabled(true);
       else
           guiButtons.get(levels.get(i)).setEnabled(false);
-      if(i == 5)
+      if(i%9 == 4)
       {
-          y = y - LEVEL_BUTTON_Y;
-          x -= LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;//2*LEVEL_BUTTON_WIDTH;
+          y -= LEVEL_BUTTON_MARGIN;
+          x += 100;
       }
-      else if(i == 4)
+      else if(i%9 >= 5 && i%9 < 10)
       {
-          x +=  (int)(LEVEL_BUTTON_MARGIN*.75);
+          x -= LEVEL_BUTTON_MARGIN;
       }
-      else if(i >= 5 && i < 10)
+      else if (i!=0 && i%9==0)
       {
-          x -= LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
-      }
-      else if (i>10)
-      {
-          y = y - LEVEL_BUTTON_Y;
-          x = LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
+          y -=  LEVEL_BUTTON_MARGIN;
+          x = LEVEL_BUTTON_MARGIN- (int)(.5*LEVEL_BUTTON_WIDTH);
       }
       else
       {
-          x += LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN;
+          x += LEVEL_BUTTON_MARGIN;
       }
     }
 

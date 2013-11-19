@@ -43,12 +43,11 @@ public class ScrollDownHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        System.out.println("down");
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
         //if at saga backgroun 1, cant go down anymore
         if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_1_STATE))
         {
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
             for (String level : levels) {
                 game.getGUIButtons().get(level).setState(VISIBLE_STATE);
                 game.getGUIButtons().get(level).setEnabled(true);
@@ -57,8 +56,6 @@ public class ScrollDownHandler implements ActionListener{
             return;
         }
         else{
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
             for (String level : levels) {
                 game.getGUIButtons().get(level).setState(INVISIBLE_STATE);
                 game.getGUIButtons().get(level).setEnabled(false);
@@ -67,6 +64,10 @@ public class ScrollDownHandler implements ActionListener{
             if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_2_STATE))
             {
                 game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_1_STATE);
+                for (String level : levels) {
+                    game.getGUIButtons().get(level).setState(VISIBLE_STATE);
+                    game.getGUIButtons().get(level).setEnabled(true);
+                }
             }
             else if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_3_STATE))
             {

@@ -114,9 +114,9 @@ public class ZombieCrushSagaConstants {
     // UI CONTROL SIZE AND POSITION SETTINGS
     
     // OR POSITIONING THE LEVEL SELECT BUTTONS
-    public static final int LEVEL_BUTTON_WIDTH = 59;
-    public static final int LEVEL_BUTTON_MARGIN = 160;
-    public static final int LEVEL_BUTTON_Y = 59;
+    public static final int LEVEL_BUTTON_WIDTH = 96;
+    public static final int LEVEL_BUTTON_MARGIN = 200;
+    public static final int LEVEL_BUTTON_Y = 96;
 
     // FOR STACKING TILES ON THE GRID
     //public static final int NUM_TILES = 144;

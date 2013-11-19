@@ -43,23 +43,23 @@ public class ScrollUpHandler implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae)
     {
-        System.out.println("up");
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
         //if at saga background 9 cant go up anymore
-        //if at saga backgroun 1, cant go down anymore
         if(game.getGUIDecor().get(BACKGROUND_TYPE).getState().equals(SAGA_SCREEN_1_STATE))
         {
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
             for (String level : levels) {
                 game.getGUIButtons().get(level).setState(VISIBLE_STATE);
                 game.getGUIButtons().get(level).setEnabled(true);
             }
             //game.getGUIButtons().get(DOWN_BUTTON_TYPE).setEnabled(false);
             game.getGUIDecor().get(BACKGROUND_TYPE).setState(SAGA_SCREEN_2_STATE);
+            for (String level : levels) {
+                game.getGUIButtons().get(level).setState(INVISIBLE_STATE);
+                game.getGUIButtons().get(level).setEnabled(false);
+                }
         }
         else{
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSaga.ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
             for (String level : levels) {
                 game.getGUIButtons().get(level).setState(INVISIBLE_STATE);
                 game.getGUIButtons().get(level).setEnabled(false);
