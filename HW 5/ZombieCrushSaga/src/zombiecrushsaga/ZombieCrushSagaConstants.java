@@ -39,12 +39,8 @@ public class ZombieCrushSagaConstants {
     public static final String LEVEL_SELECT_BUTTON_TYPE = "LEVEL_SELECT_BUTTON_TYPE";
 
     // IN-GAME UI CONTROL TYPES
-//    public static final String NEW_GAME_BUTTON_TYPE = "NEW_GAME_BUTTON_TYPE";
     public static final String BACK_BUTTON_TYPE = "BACK_BUTTON_TYPE";
     public static final String TIME_TYPE = "TIME_TYPE"; 
-//    public static final String TILES_COUNT_TYPE = "TILES_COUNT_TYPE";
-//    public static final String STATS_BUTTON_TYPE = "STATS_BUTTON_TYPE";
-//    public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
     public static final String LIVES_TYPE = "LIVES_TYPE";
     public static final String MOVES_TYPE = "MOVES_TYPE";
     public static final String SCORE_TYPE = "SCORE_TYPE";
@@ -68,10 +64,9 @@ public class ZombieCrushSagaConstants {
     public static final String RETURN_FROM_LEVEL_BUTTON_TYPE = "RETURN_FROM_LEVEL_BUTTON_TYPE";
     public static final String PLAY_LEVEL_BUTTON_TYPE = "PLAY_LEVEL_BUTTON_TYPE";
 
-    // DIALOG TYPES
-    public static final String STATS_DIALOG_TYPE = "STATS_DIALOG_TYPE";
-    public static final String WIN_DIALOG_TYPE = "WIN_DIALOG_TYPE";
-    public static final String LOSS_DIALOG_TYPE = "LOSS_DIALOG_TYPE";
+    // end game TYPES
+    public static final String WIN_TYPE = "WIN_TYPE";
+    public static final String LOSS_TYPE = "LOSS_TYPE";
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE 4
     public static final String SPLASH_SCREEN_STATE = "SPLASH_SCREEN_STATE";
@@ -135,24 +130,16 @@ public class ZombieCrushSagaConstants {
     
     // UI CONTROLS POSITIONS IN THE GAME SCREEN
     public static final int CONTROLS_MARGIN = 0;
-//    public static final int NEW_BUTTON_X = 0;
-//    public static final int NEW_BUTTON_Y = 0;
-    public static final int BACK_BUTTON_X = 0;//NEW_BUTTON_X + 130 + CONTROLS_MARGIN;
+    public static final int BACK_BUTTON_X = 0;
     public static final int BACK_BUTTON_Y = 0;
-//    public static final int TILES_COUNT_X = BACK_BUTTON_X + 130 + CONTROLS_MARGIN;
-//    public static final int TILES_COUNT_Y = 0;
-//    public static final int TILE_TEXT_OFFSET = 160;
     public static final int LIVES_X = BACK_BUTTON_X + 81;
     public static final int LIVES_Y = 0;
     public static final int TIME_X = BACK_BUTTON_X + 81 +145 + CONTROLS_MARGIN;
-    //TILES_COUNT_X + 232 + CONTROLS_MARGIN;
     public static final int TIME_Y = 0;
     public static final int TIME_OFFSET = 150;
     public static final int TIME_TEXT_OFFSET = 55;
-//    public static final int STATS_X = TIME_X + 310 + CONTROLS_MARGIN;
-//    public static final int STATS_Y = 0;
-    public static final int MOVES_X = TIME_X;
-    public static final int MOVES_Y = TIME_Y;
+    public static final int MOVES_X = BACK_BUTTON_X + 81 +145 + CONTROLS_MARGIN;
+    public static final int MOVES_Y = 0;
     public static final int SCORE_X = MOVES_X + 194;
     public static final int SCORE_Y = 0;
     public static final int STAR_X = SCORE_X + 232;
@@ -185,12 +172,6 @@ public class ZombieCrushSagaConstants {
     public static final int RETURN_FROM_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
     public static final int PLAY_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) + 5;
     public static final int PLAY_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
-    
-//    public static final int TILE_STACK_X = STATS_X + 160 + CONTROLS_MARGIN;
-//    public static final int TILE_STACK_Y = 0;
-//    public static final int TILE_STACK_OFFSET_X = 30;
-//    public static final int TILE_STACK_OFFSET_Y = 12;
-//    public static final int TILE_STACK_2_OFFSET_X = 105;
        
     // THESE ARE USED FOR FORMATTING THE TIME OF GAME
     public static final long MILLIS_IN_A_SECOND = 1000;

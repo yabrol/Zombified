@@ -25,11 +25,8 @@ import zombiecrushsaga.data.ZombieCrushSagaRecord;
 import zombiecrushsaga.events.AboutHandler;
 import zombiecrushsaga.events.QuitLevelHandler;
 import zombiecrushsaga.events.QuitGameHandler;
-import zombiecrushsaga.events.ResetGameHandler;
 import zombiecrushsaga.events.SelectLevelHandler;
-import zombiecrushsaga.events.LevelScoreHandler;
 import zombiecrushsaga.events.PlayGameHandler;
-import zombiecrushsaga.events.PlayLevelHandler;
 import zombiecrushsaga.events.ResetAllHandler;
 import zombiecrushsaga.events.ReturnToSagaHandler;
 import zombiecrushsaga.events.ScrollDownHandler;
@@ -103,16 +100,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   // - switchToGameScreen
   // - switchToSplashScreen
   // - updateBoundaries
-  /**
-   * This method displays makes the stats dialog display visible, which includes
-   * the text inside.
-   */
-  public void displayStats() {
-    // MAKE SURE ONLY THE PROPER DIALOG IS VISIBLE
-    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(STATS_DIALOG_TYPE).setState(VISIBLE_STATE);
-  }
 
   /**
    * This method forces the file manager to save the current player record.
@@ -152,15 +139,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
 
     // ACTIVATE THE TOOLBAR AND ITS CONTROLS
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(true);
     guiButtons.get(BACK_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(true);
-//    guiDecor.get(TIME_TYPE).setState(VISIBLE_STATE);
-//    guiDecor.get(TILES_COUNT_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(true);
-//    guiDecor.get(TILE_STACK_TYPE).setState(VISIBLE_STATE);
+    guiDecor.get(TIME_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(VISIBLE_STATE);
@@ -226,15 +207,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(BACKGROUND_TYPE).setState(SAGA_SCREEN_1_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
-//    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
@@ -278,9 +253,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -305,15 +279,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(BACKGROUND_TYPE).setState(ABOUT_SCREEN_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
-//    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
@@ -357,9 +325,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -384,15 +351,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
-//    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
@@ -436,9 +397,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -658,17 +618,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     }
 
     // ADD THE CONTROLS ALONG THE NORTH OF THE GAME SCREEN
-
-    // THEN THE NEW BUTTON
-//    String newButton = props.getProperty(ZombieCrushSagaPropertyType.NEW_BUTTON_IMAGE_NAME);
-//    sT = new SpriteType(NEW_GAME_BUTTON_TYPE);
-//    img = loadImage(imgPath + newButton);
-//    sT.addState(VISIBLE_STATE, img);
-//    String newMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.NEW_BUTTON_MOUSE_OVER_IMAGE_NAME);
-//    img = loadImage(imgPath + newMouseOverButton);
-//    sT.addState(MOUSE_OVER_STATE, img);
-//    s = new Sprite(sT, NEW_BUTTON_X, NEW_BUTTON_Y, 0, 0, INVISIBLE_STATE);
-//    guiButtons.put(NEW_GAME_BUTTON_TYPE, s);
     
     //Then the back button
     String backButton = props.getProperty(ZombieCrushSagaPropertyType.BACK_BUTTON_IMAGE_NAME);
@@ -680,14 +629,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, BACK_BUTTON_X, BACK_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(BACK_BUTTON_TYPE, s);
-    
-    //and the tiles count display
-//    String tilesCountContainer = props.getProperty(ZombieCrushSagaPropertyType.TILES_COUNT_IMAGE_NAME);
-//    sT = new SpriteType(TILES_COUNT_TYPE);
-//    img = loadImage(imgPath + tilesCountContainer);
-//    sT.addState(VISIBLE_STATE, img);
-//    s = new Sprite(sT, TILES_COUNT_X, TILES_COUNT_Y, 0, 0, INVISIBLE_STATE);
-//    guiDecor.put(TILES_COUNT_TYPE, s);
 
     // AND THE TIME DISPLAY
     String timeContainer = props.getProperty(ZombieCrushSagaPropertyType.TIME_IMAGE_NAME);
@@ -736,17 +677,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(VISIBLE_STATE, img);
     s = new Sprite(sT, STAR_X, STAR_Y, 0, 0, INVISIBLE_STATE);
     guiDecor.put(STAR_TYPE, s);
-
-    // AND THE STATS BUTTON
-//    String statsButton = props.getProperty(ZombieCrushSagaPropertyType.STATS_BUTTON_IMAGE_NAME);
-//    sT = new SpriteType(STATS_BUTTON_TYPE);
-//    img = loadImage(imgPath + statsButton);
-//    sT.addState(VISIBLE_STATE, img);
-//    String statsMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.STATS_BUTTON_MOUSE_OVER_IMAGE_NAME);
-//    img = loadImage(imgPath + statsMouseOverButton);
-//    sT.addState(MOUSE_OVER_STATE, img);
-//    s = new Sprite(sT, STATS_X, STATS_Y, 0, 0, INVISIBLE_STATE);
-//    guiButtons.put(STATS_BUTTON_TYPE, s);
     
     //Then the up button
     String upButton = props.getProperty(ZombieCrushSagaPropertyType.UP_BUTTON_IMAGE_NAME);
@@ -861,45 +791,27 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, QUIT_SAGA_BUTTON_X, QUIT_SAGA_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(QUIT_SAGA_BUTTON_TYPE, s);
 
-//    // AND THE TILE STACK
-//    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
-//    sT = new SpriteType(TILE_STACK_TYPE);
-//    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
-//    sT.addState(VISIBLE_STATE, img);
-//    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
-//    guiDecor.put(TILE_STACK_TYPE, s);
-
-    // NOW ADD THE DIALOGS
-
-    // AND THE STATS DISPLAY
-    String statsDialog = props.getProperty(ZombieCrushSagaPropertyType.STATS_DIALOG_IMAGE_NAME);
-    sT = new SpriteType(STATS_DIALOG_TYPE);
-    img = loadImageWithColorKey(imgPath + statsDialog, COLOR_KEY);
-    sT.addState(VISIBLE_STATE, img);
-    x = (data.getGameWidth() / 2) - (img.getWidth(null) / 2);
-    y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
-    s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
-    guiDialogs.put(STATS_DIALOG_TYPE, s);
+    // NOW ADD THE game end
 
     // AND THE WIN CONDITION DISPLAY
-    String winDisplay = props.getProperty(ZombieCrushSagaPropertyType.WIN_DIALOG_IMAGE_NAME);
-    sT = new SpriteType(WIN_DIALOG_TYPE);
+    String winDisplay = props.getProperty(ZombieCrushSagaPropertyType.WIN_IMAGE_NAME);
+    sT = new SpriteType(WIN_TYPE);
     img = loadImageWithColorKey(imgPath + winDisplay, COLOR_KEY);
     sT.addState(VISIBLE_STATE, img);
     x = (data.getGameWidth() / 2) - (img.getWidth(null) / 2);
     y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
-    guiDialogs.put(WIN_DIALOG_TYPE, s);
+    guiDecor.put(WIN_TYPE, s);
     
     // and the loss condition display
-    String lossDisplay = props.getProperty(ZombieCrushSagaPropertyType.LOSS_DIALOG_IMAGE_NAME);
-    sT = new SpriteType(LOSS_DIALOG_TYPE);
+    String lossDisplay = props.getProperty(ZombieCrushSagaPropertyType.LOSS_IMAGE_NAME);
+    sT = new SpriteType(LOSS_TYPE);
     img = loadImageWithColorKey(imgPath + lossDisplay, COLOR_KEY);
     sT.addState(VISIBLE_STATE, img);
     x = (data.getGameWidth() / 2) - (img.getWidth(null) / 2);
     y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
-    guiDialogs.put(LOSS_DIALOG_TYPE, s);
+    guiDecor.put(LOSS_TYPE, s);
 
     // THEN THE TILES STACKED TO THE TOP LEFT
     ((ZombieCrushSagaDataModel) data).initTiles();
@@ -924,18 +836,10 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       SelectLevelHandler slh = new SelectLevelHandler(this, dataPath + levelFile);
       guiButtons.get(levelFile).setActionListener(slh);
     }
-
-    // NEW GAME EVENT HANDLER
-//    ResetGameHandler ngh = new ResetGameHandler(this);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setActionListener(ngh);
     
     //back button event handler
     QuitLevelHandler bh = new QuitLevelHandler(this);
     guiButtons.get(BACK_BUTTON_TYPE).setActionListener(bh);
-
-    // STATS BUTTON EVENT HANDLER
-//    LevelScoreHandler sh = new LevelScoreHandler(this);
-//    guiButtons.get(STATS_BUTTON_TYPE).setActionListener(sh);
     
     //play button event handler
     PlayGameHandler ph = new PlayGameHandler(this);
@@ -1014,78 +918,3 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     }
   }
 }
-
-/**
-   * This method switches the application to the splash screen, making all the
-   * appropriate UI controls visible & invisible.
-   */
-//  public void switchToSplashScreen() {
-//    // CHANGE THE BACKGROUND
-//    guiDecor.get(BACKGROUND_TYPE).setState(SPLASH_SCREEN_STATE);
-//
-//    // DEACTIVATE THE TOOLBAR CONTROLS
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(NEW_GAME_BUTTON_TYPE).setEnabled(false);
-//    guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
-//    guiDecor.get(TILES_COUNT_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(STATS_BUTTON_TYPE).setEnabled(false);
-//    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
-//
-//    // DEACTIVATE THE LEVEL SELECT BUTTONS
-//    PropertiesManager props = PropertiesManager.getPropertiesManager();
-//    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
-//    for (String level : levels) {
-//      guiButtons.get(level).setState(INVISIBLE_STATE);
-//      guiButtons.get(level).setEnabled(false);
-//    }
-//    
-//    // deactivate saga buttons
-//    guiButtons.get(UP_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(UP_BUTTON_TYPE).setEnabled(false);
-//    guiButtons.get(DOWN_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(DOWN_BUTTON_TYPE).setEnabled(false);
-//    guiButtons.get(ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(ABOUT_BUTTON_TYPE).setEnabled(false);
-//    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(QUIT_SAGA_BUTTON_TYPE).setEnabled(false);
-//    
-//    //deactivate ABOUT SCREEN buttons
-//    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(RETURN_FROM_ABOUT_BUTTON_TYPE).setEnabled(false);
-//    
-//    //deactivate LEVEL SCORE buttons
-//    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setEnabled(false);
-//    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setState(INVISIBLE_STATE);
-//    guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setEnabled(false);
-//    
-//    // DEACTIVATE ALL DIALOGS
-//    guiDialogs.get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-//    guiDialogs.get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-//    guiDialogs.get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-//    
-//    // activate splash buttons
-//    guiButtons.get(PLAY_BUTTON_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(PLAY_BUTTON_TYPE).setEnabled(true);
-//    guiButtons.get(RESET_BUTTON_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(RESET_BUTTON_TYPE).setEnabled(true);
-//    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setState(VISIBLE_STATE);
-//    guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(true);
-//    
-//    // HIDE THE TILES
-//    ((ZombieCrushSagaDataModel) data).enableTiles(false);
-//
-//    // MAKE THE CURRENT SCREEN THE SPLASH SCREEN
-//    currentScreenState = SPLASH_SCREEN_STATE;
-//
-//    // PLAY THE WELCOME SCREEN SONG
-//    audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
-//    audio.stop(ZombieCrushSagaPropertyType.GAMEPLAY_SONG_CUE.toString());
-//    audio.stop(ZombieCrushSagaPropertyType.SAGA_SCREEN_SONG_CUE.toString());
-//    audio.stop(ZombieCrushSagaPropertyType.ABOUT_SCREEN_SONG_CUE.toString());
-//    audio.stop(ZombieCrushSagaPropertyType.LEVEL_SCREEN_SONG_CUE.toString());
-//  }
-//  

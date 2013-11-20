@@ -556,55 +556,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     }
 
     /**
-     * This method sets up and starts the animation shown after
-     * a game is won.
-     */
-    public void playWinAnimation()
-    {
-        // MAKE A NEW PATH
-        ArrayList<Integer> winPath = new ArrayList();
-        
-        // THIS HAS THE APPROXIMATE PATH NODES, WHICH WE'LL SLIGHTLY
-        // RANDOMIZE FOR EACH TILE FOLLOWING THE PATH.
-        winPath.add(getGameWidth() - 8*WIN_PATH_COORD);
-        winPath.add(getGameHeight() - 6*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 10*WIN_PATH_COORD);
-        winPath.add(getGameHeight() - 4*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 10*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 2*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 8*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 1*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 6*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 1*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 4*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 2*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 4*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 4*WIN_PATH_COORD);
-        
-        winPath.add(getGameWidth() - 6*WIN_PATH_COORD);                    
-        winPath.add(getGameHeight() - 6*WIN_PATH_COORD);
-        
-        // START THE ANIMATION FOR ALL THE TILES
-        for (int i = 0; i < stackTiles.size(); i++)
-        {
-            // GET EACH TILE
-            ZombieCrushSagaTile tile = stackTiles.get(i);
-            
-            // MAKE SURE IT'S MOVED EACH FRAME
-            movingTiles.add(tile);       
-            
-            // AND GET IT ON A PATH
-            tile.initWinPath(winPath);
-        }
-    }    
-
-    /**
      * This method updates all the necessary state information
      * to process the move argument.
      * 
@@ -772,13 +723,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         int col = calculateGridCellColumn(x);
         int row = calculateGridCellRow(y);
         
-        // DISABLE THE STATS DIALOG IF IT IS OPEN
-        if (game.getGUIDialogs().get(STATS_DIALOG_TYPE).getState().equals(VISIBLE_STATE))
-        {
-            game.getGUIDialogs().get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-            return;
-        }
-        
         // CHECK THE TOP OF THE STACK AT col, row
         ArrayList<ZombieCrushSagaTile> tileStack = tileGrid[col][row];
         if (tileStack.size() > 0)
@@ -808,10 +752,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ((ZombieCrushSagaMiniGame)miniGame).savePlayerRecord();
         
         // DISPLAY THE WIN DIALOG
-        miniGame.getGUIDialogs().get(WIN_DIALOG_TYPE).setState(VISIBLE_STATE);        
-
-        // AND PLAY THE WIN ANIMATION
-        playWinAnimation();
+        ((ZombieCrushSagaMiniGame)miniGame).switchToLevelScreen();
+        miniGame.getGUIDecor().get(WIN_TYPE).setState(VISIBLE_STATE);        
         
         // AND PLAY THE WIN AUDIO
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString()); 
@@ -837,7 +779,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ((ZombieCrushSagaMiniGame)miniGame).savePlayerRecord();
         
         // DISPLAY THE loss DIALOG
-        miniGame.getGUIDialogs().get(LOSS_DIALOG_TYPE).setState(VISIBLE_STATE);        
+        ((ZombieCrushSagaMiniGame)miniGame).switchToLevelScreen();
+        miniGame.getGUIDecor().get(LOSS_TYPE).setState(VISIBLE_STATE);        
 
         // AND PLAY THE LOSS AUDIO
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
@@ -900,9 +843,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         beginGame();
         
         // CLEAR ANY WIN OR LOSS DISPLAY
-        miniGame.getGUIDialogs().get(WIN_DIALOG_TYPE).setState(INVISIBLE_STATE);
-        miniGame.getGUIDialogs().get(LOSS_DIALOG_TYPE).setState(INVISIBLE_STATE);
-        miniGame.getGUIDialogs().get(STATS_DIALOG_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDecor().get(WIN_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDecor().get(LOSS_TYPE).setState(INVISIBLE_STATE);
     }    
 
     /**

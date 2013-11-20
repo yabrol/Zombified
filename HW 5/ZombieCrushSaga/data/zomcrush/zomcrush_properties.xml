@@ -19,21 +19,13 @@
     <property name="SAGA_SCREEN_7_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels7.png"></property>
     <property name="SAGA_SCREEN_8_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels8.png"></property>
     <property name="SAGA_SCREEN_9_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels9.png"></property>
-
     <property name="ABOUT_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
     <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
-<!--    <property name="NEW_BUTTON_IMAGE_NAME"              value="./zomcrush/UIZomcrushNewGame.png"></property>
-    <property name="NEW_BUTTON_MOUSE_OVER_IMAGE_NAME"   value="./zomcrush/UIZomcrushNewGameMouseOver.png"></property>-->
     <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomcrushTimeContainer.png"></property>
-<!--    <property name="STATS_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushStats.png"></property>
-    <property name="STATS_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushStatsMouseOver.png"></property>-->
     <property name="BACK_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushBack.png"></property>
     <property name="BACK_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushBackMouseOver.png"></property>
-<!--    <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomcrushTileStack.png"></property>
-    <property name="TILES_COUNT_IMAGE_NAME"             value="./zomcrush/UIZomcrushTilesCountContainer.png"></property>-->
-    
     <property name="LIVES_IMAGE_NAME"                    value="./zomcrush/UIZomcrushLivesContainer.png"></property>
     <property name="MOVES_IMAGE_NAME"                    value="./zomcrush/UIZomcrushMovesContainer.png"></property>
     <property name="NEXT_STAR_IMAGE_NAME"                value="./zomcrush/UIZomcrushNextStarContainer.png"></property>
@@ -44,6 +36,7 @@
     <property name="STAR_BLUE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarBlue.png"></property>
     <property name="STAR_PURPLE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarPurple.png"></property>
     
+    <!--splash screen buttons-->
     <property name="PLAY_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushPlay.png"></property>
     <property name="PLAY_BUTTON_MOUSE_OVER_IMAGE_NAME"  value="./zomcrush/UIZomcrushPlayMouseOver.png"></property>
     <property name="RESET_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReset.png"></property>
@@ -51,6 +44,7 @@
     <property name="QUIT_BUTTON_SPLASH_IMAGE_NAME"            value="./zomcrush/UIZomcrushQuitSplash.png"></property>
     <property name="QUIT_BUTTON_SPLASH_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushQuitSplashMouseOver.png"></property>
     
+    <!--saga screen buttons-->
     <property name="UP_BUTTON_IMAGE_NAME"               value="./zomcrush/UIZomcrushUp.png"></property>
     <property name="UP_BUTTON_MOUSE_OVER_IMAGE_NAME"    value="./zomcrush/UIZomcrushUpMouseOver.png"></property>
     <property name="DOWN_BUTTON_IMAGE_NAME"             value="./zomcrush/UIZomcrushDown.png"></property>
@@ -59,19 +53,19 @@
     <property name="QUIT_BUTTON_SAGA_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushQuitSagaMouseOver.png"></property>
     <property name="ABOUT_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushAbout.png"></property>
     <property name="ABOUT_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushAboutMouseOver.png"></property>
-    
+    <!--about screen button-->
     <property name="RETURN_FROM_ABOUT_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReturnToSaga.png"></property>
     <property name="RETURN_FROM_ABOUT_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushReturnToSagaMouseOver.png"></property>
     
+    <!--level screen buttons-->
     <property name="PLAY_LEVEL_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushPlayLevel.png"></property>
     <property name="PLAY_LEVEL_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushPlayLevelMouseOver.png"></property>
     <property name="RETURN_FROM_LEVEL_BUTTON_IMAGE_NAME"            value="./zomcrush/UIZomcrushReturnToSaga.png"></property>
     <property name="RETURN_FROM_LEVEL_BUTTON_MOUSE_OVER_IMAGE_NAME" value="./zomcrush/UIZomcrushReturnToSagaMouseOver.png"></property>
 
-    <!-- DIALOG IMAGES -->
-    <property name="WIN_DIALOG_IMAGE_NAME"             value="./zomcrush/UIZomcrushWinDialog.png"></property>
-    <property name="LOSS_DIALOG_IMAGE_NAME"            value="./zomcrush/UIZomcrushLossDialog.png"></property>
-    <property name="STATS_DIALOG_IMAGE_NAME"           value="./zomcrush/UIZomcrushStatsDialog.png"></property>
+    <!-- End game IMAGES -->
+    <property name="WIN_IMAGE_NAME"                     value="./zomcrush/UIZomcrushWin.png"></property>
+    <property name="LOSS_IMAGE_NAME"                    value="./zomcrush/UIZomcrushLoss.png"></property>
 
     <!-- BASE TILE RENDERING IMAGES -->
     <property name="BLANK_TILE_IMAGE_NAME"              value="./zomcrush/UIZomcrushBlankTile.png"></property>

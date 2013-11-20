@@ -38,6 +38,6 @@ public class LevelScoreHandler implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         // DISPLAY THE STATS
-        miniGame.displayStats();
+        //miniGame.displayStats();
     }
 }
