@@ -141,7 +141,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // ACTIVATE THE TOOLBAR AND ITS CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(VISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(true);
-    guiDecor.get(TIME_TYPE).setState(VISIBLE_STATE);
+    guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(VISIBLE_STATE);

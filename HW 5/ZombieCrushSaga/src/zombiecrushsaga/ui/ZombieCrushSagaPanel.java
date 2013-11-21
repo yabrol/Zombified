@@ -154,6 +154,14 @@ public class ZombieCrushSagaPanel extends JPanel
             g.setColor(Color.ORANGE);
             g.drawString("TESTING 123 TESTING 123 TESTING 123 TESTING 123", 0, 50);
         }
+        else if(bg.getState().equals(ABOUT_SCREEN_STATE)){
+            System.out.println("about");
+            g.setColor(Color.WHITE);
+            g.setFont(STATS_FONT);
+            g.drawRect(50, 50, 50, 50);
+            g.setColor(Color.red);
+            g.drawString("testoasnld;angndgvgandv;dvj;dv;dgvn;kgajvdk;ajnk", 50, 50);
+        }
 
     }
 
