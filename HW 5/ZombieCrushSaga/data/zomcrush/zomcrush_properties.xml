@@ -19,8 +19,12 @@
     <property name="SAGA_SCREEN_7_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels7.png"></property>
     <property name="SAGA_SCREEN_8_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels8.png"></property>
     <property name="SAGA_SCREEN_9_IMAGE_NAME"     value="./zomcrush/SagaScreenWithLevels9.png"></property>
+    
     <property name="ABOUT_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
     <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
+    
+    <property name="ABOUT_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
+    <property name="LEVEL_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
     <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomcrushTimeContainer.png"></property>

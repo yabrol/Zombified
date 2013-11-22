@@ -108,6 +108,9 @@ public class ZombieCrushSagaPanel extends JPanel
                 
             // AND THE TILES
             renderTiles(g);
+            
+            //and the dialogs
+            renderDialogs(g);
 
             // AND THE TIME AND TILES STATS
             renderStats(g);
@@ -143,27 +146,40 @@ public class ZombieCrushSagaPanel extends JPanel
     {
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getGUIDecor().get(BACKGROUND_TYPE);
-        // RENDER THE bg, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
         renderSprite(g, bg);
-        //if level dialog open
-        if (bg.getState().equals(LEVEL_SCREEN_STATE)) {
-            System.out.println("level screen");
-            g.setColor(Color.CYAN);
-            g.fillRect(50, 70, 0, 50);
-            g.setFont(LEVEL_NUM_FONT);
-            g.setColor(Color.ORANGE);
-            g.drawString("TESTING 123 TESTING 123 TESTING 123 TESTING 123", 0, 50);
+    }
+    
+    public void renderDialogs(Graphics g)
+    {
+        // GET EACH DECOR IMAGE ONE AT A TIME
+        Collection<Sprite> dialogSprites = game.getGUIDialogs().values();
+        for (Sprite s : dialogSprites)
+        {
+            // RENDER THE DIALOG, NOTE IT WILL ONLY DO IT IF IT'S VISIBLE
+            renderSprite(g, s);
+            //if level dialog open
+            if(s.getSpriteType().getSpriteTypeID().equals(LEVEL_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE))
+            {
+              System.out.println("level screen");
+              int x3 = (int)s.getX();
+              int y3 = (int)s.getY();
+              g.setFont(STATS_FONT);
+//            g.setFont(LEVEL_NUM_FONT);
+//            g.setColor(Color.ORANGE);
+            g.drawString("TESTING 123 TESTING 123 TESTING 123 TESTING 123", x3+30, y3+30);
+            System.out.println("testing level screennn 222");
         }
-        else if(bg.getState().equals(ABOUT_SCREEN_STATE)){
+        else if(s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE)){
             System.out.println("about");
             g.setColor(Color.WHITE);
             g.setFont(STATS_FONT);
             g.drawRect(50, 50, 50, 50);
             g.setColor(Color.red);
             g.drawString("testoasnld;angndgvgandv;dvj;dv;dgvn;kgajvdk;ajnk", 50, 50);
+            System.out.println("about 123 123 123");
+        } 
+            }
         }
-
-    }
 
     /**
      * Renders all the GUI decor and buttons.

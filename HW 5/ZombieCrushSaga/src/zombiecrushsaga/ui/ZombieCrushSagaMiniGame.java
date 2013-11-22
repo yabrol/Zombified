@@ -137,6 +137,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
 
     // CHANGE THE BACKGROUND
     guiDecor.get(BACKGROUND_TYPE).setState(GAME_SCREEN_STATE);
+    
+    guiDialogs.get(ABOUT_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LEVEL_DIALOG_TYPE).setState(INVISIBLE_STATE);
 
     // ACTIVATE THE TOOLBAR AND ITS CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(VISIBLE_STATE);
@@ -205,6 +208,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   public void switchToSagaScreen() {
     // CHANGE THE BACKGROUND
     guiDecor.get(BACKGROUND_TYPE).setState(SAGA_SCREEN_1_STATE);
+    
+    guiDialogs.get(ABOUT_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LEVEL_DIALOG_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -277,6 +283,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   public void switchToAboutScreen() {
     // CHANGE THE BACKGROUND
     guiDecor.get(BACKGROUND_TYPE).setState(ABOUT_SCREEN_STATE);
+    
+    guiDialogs.get(ABOUT_DIALOG_TYPE).setState(VISIBLE_STATE);
+    guiDialogs.get(LEVEL_DIALOG_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -349,6 +358,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   public void switchToLevelScreen() {
     // CHANGE THE BACKGROUND
     guiDecor.get(BACKGROUND_TYPE).setState(LEVEL_SCREEN_STATE);
+    
+    guiDialogs.get(ABOUT_DIALOG_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LEVEL_DIALOG_TYPE).setState(VISIBLE_STATE);
 
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
@@ -791,6 +803,24 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, QUIT_SAGA_BUTTON_X, QUIT_SAGA_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(QUIT_SAGA_BUTTON_TYPE, s);
 
+    //NOW ADD THE DIALOGS
+    
+    //LEVEL DIALOG
+    String levelDialog = props.getProperty(ZombieCrushSagaPropertyType.LEVEL_DIALOG_IMAGE_NAME);
+    sT = new SpriteType(LEVEL_DIALOG_TYPE);
+    img = loadImageWithColorKey(imgPath + levelDialog, COLOR_KEY);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, 0, 0, 0, 0, INVISIBLE_STATE);
+    guiDialogs.put(LEVEL_DIALOG_TYPE, s);
+    
+    //ABOUT DIALOG
+    String aboutDialog = props.getProperty(ZombieCrushSagaPropertyType.ABOUT_DIALOG_IMAGE_NAME);
+    sT = new SpriteType(ABOUT_DIALOG_TYPE);
+    img = loadImageWithColorKey(imgPath + aboutDialog, COLOR_KEY);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, 0, 0, 0, 0, INVISIBLE_STATE);
+    guiDialogs.put(ABOUT_DIALOG_TYPE, s);
+    
     // NOW ADD THE game end
 
     // AND THE WIN CONDITION DISPLAY

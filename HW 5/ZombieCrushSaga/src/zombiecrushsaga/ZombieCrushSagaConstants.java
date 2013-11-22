@@ -75,6 +75,9 @@ public class ZombieCrushSagaConstants {
     public static final String ABOUT_SCREEN_STATE = "ABOUT_SCREEN_STATE";
     public static final String LEVEL_SCREEN_STATE = "LEVEL_SCREEN_STATE";
     
+    public static final String ABOUT_DIALOG_TYPE = "ABOUT_DIALOG_TYPE";
+    public static final String LEVEL_DIALOG_TYPE = "LEVEL_DIALOG_TYPE";
+    
     public static final String SAGA_SCREEN_1_STATE = "SAGA_SCREEN_1_STATE";
     public static final String SAGA_SCREEN_2_STATE = "SAGA_SCREEN_2_STATE";
     public static final String SAGA_SCREEN_3_STATE = "SAGA_SCREEN_3_STATE";

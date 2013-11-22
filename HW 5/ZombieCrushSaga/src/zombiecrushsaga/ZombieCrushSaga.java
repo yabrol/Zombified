@@ -126,6 +126,9 @@ public class ZombieCrushSaga {
         ABOUT_SCREEN_IMAGE_NAME,
         LEVEL_SCREEN_IMAGE_NAME,
         
+        ABOUT_DIALOG_IMAGE_NAME,
+        LEVEL_DIALOG_IMAGE_NAME,
+        
         BLANK_TILE_IMAGE_NAME,
         BLANK_TILE_SELECTED_IMAGE_NAME,
         
