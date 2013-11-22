@@ -23,8 +23,8 @@
     <property name="ABOUT_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
     <property name="LEVEL_SCREEN_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
     
-    <property name="ABOUT_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutScreen.png"></property>
-    <property name="LEVEL_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelScreen.png"></property>
+    <property name="ABOUT_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushAboutDialog.png"></property>
+    <property name="LEVEL_DIALOG_IMAGE_NAME"     value="./zomcrush/UIZomcrushLevelDialog.png"></property>
         
     <!-- GAME SCREEN NORTH TOOLBAR UI IMAGES -->
     <property name="TIME_IMAGE_NAME"                    value="./zomcrush/UIZomcrushTimeContainer.png"></property>

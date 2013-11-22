@@ -169,12 +169,12 @@ public class ZombieCrushSagaConstants {
     public static final int QUIT_SPLASH_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
     
     public static final int RETURN_FROM_ABOUT_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 225;
-    public static final int RETURN_FROM_ABOUT_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    public static final int RETURN_FROM_ABOUT_BUTTON_Y = 600;
     
-    public static final int RETURN_FROM_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 455;
-    public static final int RETURN_FROM_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
-    public static final int PLAY_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) + 5;
-    public static final int PLAY_LEVEL_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    public static final int RETURN_FROM_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 420;
+    public static final int RETURN_FROM_LEVEL_BUTTON_Y = 600;
+    public static final int PLAY_LEVEL_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) + 70;
+    public static final int PLAY_LEVEL_BUTTON_Y = 600;
        
     // THESE ARE USED FOR FORMATTING THE TIME OF GAME
     public static final long MILLIS_IN_A_SECOND = 1000;
@@ -195,12 +195,13 @@ public class ZombieCrushSagaConstants {
     public static final Color SELECTED_TILE_COLOR = new Color(255,255,0,100);
     public static final Color INCORRECTLY_SELECTED_TILE_COLOR = new Color(255, 50, 50, 100);
     public static final Color STATS_COLOR = new Color(0, 60, 0);
+    public static final Color LEVEL_NUM_COLOR = new Color(34,177,76);
 
     // FONTS USED DURING FOR TEXTUAL GAME DISPLAYS
     public static final Font TEXT_DISPLAY_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
     public static final Font DEBUG_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
     public static final Font STATS_FONT = new Font(Font.MONOSPACED, Font.BOLD, 24);
-    public static final Font LEVEL_NUM_FONT = new Font("Showcard Gothic", Font.BOLD, 36);
+    public static final Font LEVEL_NUM_FONT = new Font("Showcard Gothic", Font.BOLD, 75);
     public static final Font LEVEL_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 24);
     
     // AND AUDIO STUFF

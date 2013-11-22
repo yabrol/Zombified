@@ -160,23 +160,32 @@ public class ZombieCrushSagaPanel extends JPanel
             //if level dialog open
             if(s.getSpriteType().getSpriteTypeID().equals(LEVEL_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE))
             {
-              System.out.println("level screen");
-              int x3 = (int)s.getX();
-              int y3 = (int)s.getY();
-              g.setFont(STATS_FONT);
-//            g.setFont(LEVEL_NUM_FONT);
-//            g.setColor(Color.ORANGE);
-            g.drawString("TESTING 123 TESTING 123 TESTING 123 TESTING 123", x3+30, y3+30);
-            System.out.println("testing level screennn 222");
+                g.setFont(LEVEL_NUM_FONT);
+                g.setColor(LEVEL_NUM_COLOR);
+                String level = (data.getCurrentLevel());
+                level = level.toLowerCase();
+                level = level.replaceAll("./data/./zomcrush/level", "");
+                level = level.replaceAll(".zom", "");
+                g.drawString(level, 780, 185);
+                
+                g.setFont(LEVEL_TEXT_FONT);
+                g.setColor(STATS_COLOR);
+                //what needs to be done to win
+                String levelinfo;
+                //high score
         }
         else if(s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE)){
-            System.out.println("about");
-            g.setColor(Color.WHITE);
+            g.setColor(STATS_COLOR);
             g.setFont(STATS_FONT);
-            g.drawRect(50, 50, 50, 50);
-            g.setColor(Color.red);
-            g.drawString("testoasnld;angndgvgandv;dvj;dv;dgvn;kgajvdk;ajnk", 50, 50);
-            System.out.println("about 123 123 123");
+            g.drawString("Zombie Crush Saga is a zombiefied version of King’s popular", 200, 250);
+            g.drawString("casual game, Candy Crush Saga TM.", 200, 270);
+            g.drawString("Tens of millions of people are playing King’s Candy Crush Saga,", 200, 290);
+            g.drawString("an addictive casual game that turns one into a mindless zombie", 200, 310);
+            g.drawString("as one walks about, bumping into things while leveling up on a", 200, 330);
+            g.drawString("mobile device. What could be better? Well how about if we", 200, 350);
+            g.drawString("infuse the game itself with zombies? Yes, that’s right,", 200, 370);
+            g.drawString("forget the candy, we’re going to make Zombie Crush Saga.", 200, 390);
+            g.drawString("Developed by: Yukti Abrol", 200, 500);
         } 
             }
         }
