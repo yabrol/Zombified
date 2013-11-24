@@ -192,7 +192,8 @@ public class ZombieCrushSagaConstants {
     public static final Color COLOR_KEY = new Color(255, 174, 201);
     public static final Color DEBUG_TEXT_COLOR = Color.BLACK;
     public static final Color TEXT_DISPLAY_COLOR = new Color (10, 160, 10);
-    public static final Color SELECTED_TILE_COLOR = new Color(255,255,0,100);
+    public static final Color SELECTED_TILE_COLOR = Color.CYAN;
+    public static final Color JELLY_TILE_COLOR = new Color(255,255,0,100);
     public static final Color INCORRECTLY_SELECTED_TILE_COLOR = new Color(255, 50, 50, 100);
     public static final Color STATS_COLOR = new Color(0, 60, 0);
     public static final Color LEVEL_NUM_COLOR = new Color(34,177,76);

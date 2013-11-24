@@ -115,11 +115,42 @@ public class ZombieCrushSagaRecord
         else
             return rec.fastestTime; 
     }
+    
+    /**
+     * this method returns the number of stars for this level
+     * @param levelName
+     * @return 
+     */
+    public int getNumStars(String levelName)
+    {
+        ZombieCrushLevelRecord rec = levelRecords.get(levelName);
+        if (rec==null)
+            return 0;
+        else
+            return rec.numStars;
+    }
+    
+    /**
+     * this method returns the high score for this level 
+     * @param levelName
+     * @return 
+     */
+    public int getHighScore(String levelName)
+    {
+        ZombieCrushLevelRecord rec = levelRecords.get(levelName);
+        if(rec==null)
+            return 0;
+        else
+            return rec.highScore;
+    }
+    
 
     // ADD METHODS
         // -addZombieCrushLevelRecord
         // -addWin
         // -addLoss
+    // add high score
+    //add numstars
     
     /**
      * Adds the record for a level
@@ -141,7 +172,7 @@ public class ZombieCrushSagaRecord
      * 
      * @param winTime The time it took to win the game.
      */
-    public void addWin(String levelName, long winTime)
+    public void addWin(String levelName, long winTime, int numStars, int highScore)
     {
         // GET THE RECORD FOR levelName
         ZombieCrushLevelRecord rec = levelRecords.get(levelName);
@@ -156,6 +187,8 @@ public class ZombieCrushSagaRecord
             rec.wins = 1;
             rec.losses = 0;
             rec.fastestTime = winTime;
+            rec.numStars = numStars;
+            rec.highScore = highScore;
             levelRecords.put(levelName, rec);
         }
         else

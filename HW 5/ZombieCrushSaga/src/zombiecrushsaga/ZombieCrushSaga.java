@@ -108,6 +108,7 @@ public class ZombieCrushSaga {
         AUDIO_FILE_ERROR,
         LOAD_LEVEL_ERROR,
         RECORD_SAVE_ERROR,
+        LOAD_LEVEL_REQS_ERROR,
 
         /* IMAGE FILE NAMES */
         WINDOW_ICON,
@@ -185,6 +186,8 @@ public class ZombieCrushSaga {
         TYPE_STRIPED_TILES,
         TYPE_BOMB_TILES,
         TYPE_WRAPPER_TILES,
+        
+        LEVEL_REQUIREMENTS,
         
         /* AUDIO CUES */
         SELECT_AUDIO_CUE,

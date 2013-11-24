@@ -1,12 +1,15 @@
 package zombiecrushsaga.file;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.util.ArrayList;
 import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import zombiecrushsaga.data.ZombieCrushLevelRecord;
 import zombiecrushsaga.data.ZombieCrushSagaDataModel;
@@ -155,5 +158,57 @@ public class ZombieCrushSagaFileManager
             // EMPTY ONE AND SQUELCH THIS EXCEPTION
         }        
         return recordToLoad;
+    }
+    
+    public ArrayList<ZombieCrushLevelRequirements> getAllLevelRequirements()
+    {
+        ArrayList<ZombieCrushLevelRequirements> allReqs = new ArrayList<ZombieCrushLevelRequirements>();
+        ZombieCrushLevelRequirements levReq = new ZombieCrushLevelRequirements();
+        //load raw data
+        try{
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            String dataPath = props.getProperty(ZombieCrushSagaPropertyType.DATA_PATH);
+            String recordPath = dataPath + props.getProperty(ZombieCrushSagaPropertyType.LEVEL_REQUIREMENTS);
+            File fileToOpen = new File(recordPath);
+            
+            BufferedReader readBuffer = new BufferedReader(new FileReader(fileToOpen));
+            String str, s;
+            String splitarray[];
+            
+            while((str=readBuffer.readLine())!=null)
+            {
+                splitarray = str.split("\t");
+                //level
+                s = splitarray[0];
+                levReq.levelNumber = Integer.parseInt(s);
+                //moves
+                s = splitarray[1];
+                levReq.numMoves = Integer.parseInt(s);
+                //1 star
+                s = splitarray[2];
+                levReq.star1Score = Integer.parseInt(s);
+                //2 star
+                s = splitarray[3];
+                levReq.star2Score = Integer.parseInt(s);
+                //3 star
+                s = splitarray[4];
+                levReq.star3Score = Integer.parseInt(s);
+                //tot tiles
+                s = splitarray[5];
+                levReq.totTiles = Integer.parseInt(s);
+                //additional
+                s = splitarray[6];
+                levReq.additionalReq = s;
+                
+                allReqs.add(levReq);   
+            }
+            readBuffer.close();
+        }
+        catch(Exception e)
+        {
+            // LEVEL LOADING ERROR
+            miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_REQS_ERROR);
+        }
+        return allReqs;
     }
 }

@@ -2,6 +2,7 @@ package zombiecrushsaga.data;
 
 import zombiecrushsaga.ui.ZombieCrushSagaTile;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import mini_game.MiniGameDataModel;
 import mini_game.SpriteType;
 import properties_manager.PropertiesManager;
 import static zombiecrushsaga.ZombieCrushSagaConstants.*;
+import zombiecrushsaga.file.ZombieCrushLevelRequirements;
 import zombiecrushsaga.ui.ZombieCrushSagaMiniGame;
 import zombiecrushsaga.ui.ZombieCrushSagaPanel;
 
@@ -54,8 +56,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     // IS TRYING TO MATCH. THERE CAN ONLY BE ONE OF THESE AT ANY TIME
     private ZombieCrushSagaTile selectedTile;
     
-    //a bool ensuring that there's only 1 red tile at a time
-    private ZombieCrushSagaTile redTile;
+    //a bool ensuring that there's only 1 CYAN blocked tile at a time
+    private ZombieCrushSagaTile cyanTile;
     
     // THE INITIAL LOCATION OF TILES BEFORE BEING PLACED IN THE GRID
     private int unassignedTilesX;
@@ -65,8 +67,17 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     private GregorianCalendar startTime;
     private GregorianCalendar endTime;
     
+    //these are used for scoring
+    private int numStars = 0;
+    private int highScore = 0;
+    private int numMovesLeft;
+    
     // THE REFERENCE TO THE FILE BEING PLAYED
     private String currentLevel;
+    private ArrayList<ZombieCrushLevelRequirements> allReqs = ((ZombieCrushSagaMiniGame)miniGame)
+            .getFileManager().getAllLevelRequirements();
+    private ZombieCrushLevelRequirements currReqs;
+    private ArrayList<Point> jellyCoordinates;
 
     /**
      * Constructor for initializing this data model, it will create
@@ -131,31 +142,25 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         BufferedImage blankTileSelectedImage = miniGame.loadImageWithColorKey(imgPath + blankTileSelectedFileName, COLOR_KEY);
         ((ZombieCrushSagaPanel)(miniGame.getCanvas())).setBlankTileSelectedImage(blankTileSelectedImage);
         
-        // FIRST THE TYPE A TILES, OF WHICH THERE IS ONLY ONE OF EACH
+        // FIRST THE TYPE A TILES
         ArrayList<String> typeATiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_A_TILES);
-        for (int i = 0; i < typeATiles.size(); i++)
-        {
-            String imgFile = imgPath + typeATiles.get(i);            
-            sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-            initTile(sT, TILE_A_TYPE);
-            spriteTypeID++;
-        }
+        String imgFile = imgPath + typeATiles.get(0);            
+        sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+        initTile(sT, TILE_A_TYPE);
+        spriteTypeID++;
         
-        // THEN THE TYPE B TILES, WHICH ALSO ONLY HAVE ONE OF EACH
+        // THEN THE TYPE B TILES
         ArrayList<String> typeBTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_B_TILES);
-        for (int i = 0; i < typeBTiles.size(); i++)
-        {
-            String imgFile = imgPath + typeBTiles.get(i);            
-            sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-            initTile(sT, TILE_B_TYPE);
-            spriteTypeID++;
-        }
+        imgFile = imgPath + typeBTiles.get(0);            
+        sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+        initTile(sT, TILE_B_TYPE);
+        spriteTypeID++;
         
-        // AND THEN TYPE C, FOR WHICH THERE ARE 4 OF EACH 
+        // AND THEN TYPE C
         ArrayList<String> typeCTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_C_TILES);
         for (int i = 0; i < typeCTiles.size(); i++)
         {
-            String imgFile = imgPath + typeCTiles.get(i);
+            imgFile = imgPath + typeCTiles.get(i);
             sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);            
             for (int j = 0; j < 4; j++)
             {
@@ -163,6 +168,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             }
             spriteTypeID++;
         }
+        
+        //while spritetypeid < totNum
     }
 
     /**
@@ -318,9 +325,26 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     public void setCurrentLevel(String initCurrentLevel)
     {
         currentLevel = initCurrentLevel;
-        if(currentLevel=="./data/./zomcrush/Level10.zom")
+        if(currentLevel.equals("./data/./zomcrush/Level1.zom"))
+        {
             levelAvailable = true;
+        }
         //else check if previous level has been completed via record
+        else
+        {
+            String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
+            currLevelNum = currLevelNum.replaceAll(".zom", "");
+            int prevLevelNum = Integer.parseInt(currLevelNum) - 1;
+            String prevLevel = "./data/./zomcrush/Level" + prevLevelNum + ".zom";
+            int prevWins = ((ZombieCrushSagaMiniGame)miniGame).getPlayerRecord().getWins(prevLevel);
+            if(prevWins != 0)
+                levelAvailable = true;
+            else
+                levelAvailable = false;
+        }
+        String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
+        currLevelNum = currLevelNum.replaceAll(".zom", "");
+        currReqs = allReqs.get(Integer.parseInt(currLevelNum));
     }
 
     /**
@@ -649,22 +673,22 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 if (selectTile.getState().equals(INCORRECTLY_SELECTED_STATE))
                 {
                     selectTile.setState(VISIBLE_STATE);
-                    redTile = null;
+                    cyanTile = null;
                     return;
                 }
                 else if(selectTile.getState().equals(VISIBLE_STATE))
                 {
                   //check if there's another red tile
-                  if(redTile != null)
+                  if(cyanTile != null)
                   {
                     //then make previous red tile visible instead
-                    redTile.setState(VISIBLE_STATE);
-                    redTile = null;
+                    cyanTile.setState(VISIBLE_STATE);
+                    cyanTile = null;
                   }
                   //make it red and give it audio
                   selectTile.setState(INCORRECTLY_SELECTED_STATE);
                   miniGame.getAudio().play(ZombieCrushSagaPropertyType.BLOCKED_TILE_AUDIO_CUE.toString(), false);
-                  redTile = selectTile;
+                  cyanTile = selectTile;
                   return;
                 }
             }
@@ -687,8 +711,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
           move.col2 = selectTile.getGridColumn();
           move.row2 = selectTile.getGridRow();
           processMove(move);
-          redTile.setState(VISIBLE_STATE);
-          redTile = null;
+          cyanTile.setState(VISIBLE_STATE);
+          cyanTile = null;
         }
         // THEY DON'T MATCH, GIVE SOME AUDIO FEEDBACK
         else
@@ -748,7 +772,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         long gameTime = endTime.getTimeInMillis() - startTime.getTimeInMillis();
         
         // RECORD IT AS A WIN
-        ((ZombieCrushSagaMiniGame)miniGame).getPlayerRecord().addWin(currentLevel, gameTime);
+        ((ZombieCrushSagaMiniGame)miniGame).getPlayerRecord().addWin(currentLevel, gameTime, numStars, highScore);
         ((ZombieCrushSagaMiniGame)miniGame).savePlayerRecord();
         
         // DISPLAY THE WIN DIALOG

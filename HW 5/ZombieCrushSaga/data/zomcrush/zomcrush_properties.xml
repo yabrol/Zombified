@@ -86,7 +86,9 @@
     <property name="SPLASH_SCREEN_SONG_CUE"             value="./zomcrush/AudioZomcrushSplashScreenSong.mid"></property>
     <property name="GAMEPLAY_SONG_CUE"                  value="./zomcrush/AudioZomcrushInGameSong.mid"></property>
     <property name="ABOUT_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushSaga.wav"></property>
-    <property name="LEVEL_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushInGameSong.mid"></property>       
+    <property name="LEVEL_SCREEN_SONG_CUE"               value="./zomcrush/AudioZomcrushInGameSong.mid"></property>
+    
+    <property name="LEVEL_REQUIREMENTS"                 value="./zomcrush/LevelRequirements.txt"></property>       
   </property_list>
   <property_options_list>
     <property_options name="LEVEL_OPTIONS">
