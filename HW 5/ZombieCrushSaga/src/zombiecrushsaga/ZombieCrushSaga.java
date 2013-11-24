@@ -67,7 +67,7 @@ public class ZombieCrushSaga {
         {
             // LET THE ERROR HANDLER PROVIDE THE RESPONSE
             ZombieCrushSagaErrorHandler errorHandler = miniGame.getErrorHandler();
-            errorHandler.processError(ZombieCrushSagaPropertyType.INVALID_XML_FILE_ERROR_TEXT);
+            errorHandler.processError(ZombieCrushSagaPropertyType.INVALID_XML_FILE_ERROR_TEXT, ixmlffe.toString());
         }
   }
   

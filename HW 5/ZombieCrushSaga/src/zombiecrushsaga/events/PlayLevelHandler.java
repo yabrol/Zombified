@@ -52,11 +52,11 @@ public class PlayLevelHandler implements ActionListener
         if (game.isCurrentScreenState(LEVEL_SCREEN_STATE))
         {
             // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
-            //ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
+//            ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
         
             // UPDATE THE DATA
-            //ZombieCrushSagaFileManager fileManager = game.getFileManager();
-            //fileManager.loadLevel(levelFile);
+//            ZombieCrushSagaFileManager fileManager = game.getFileManager();
+//            fileManager.loadLevel(levelFile);
 
             // GO TO THE GAME
             game.switchToGameScreen();

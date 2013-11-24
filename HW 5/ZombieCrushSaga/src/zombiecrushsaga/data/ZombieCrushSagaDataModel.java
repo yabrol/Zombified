@@ -74,8 +74,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     
     // THE REFERENCE TO THE FILE BEING PLAYED
     private String currentLevel;
-    private ArrayList<ZombieCrushLevelRequirements> allReqs = ((ZombieCrushSagaMiniGame)miniGame)
-            .getFileManager().getAllLevelRequirements();
+    private ArrayList<ZombieCrushLevelRequirements> allReqs;
     private ZombieCrushLevelRequirements currReqs;
     private ArrayList<Point> jellyCoordinates;
 
@@ -95,6 +94,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // INIT THESE FOR HOLDING MATCHED AND MOVING TILES
         stackTiles = new ArrayList();
         movingTiles = new ArrayList();
+        
+        allReqs = ((ZombieCrushSagaMiniGame)miniGame).getFileManager().getAllLevelRequirements();
     }
     /**
      * gets total num of tiles. must have initialzed the game first

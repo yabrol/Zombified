@@ -478,7 +478,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       // PLAY THE WELCOME SCREEN SONG
       audio.play(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString(), true);
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InvalidMidiDataException | MidiUnavailableException e) {
-      errorHandler.processError(ZombieCrushSagaPropertyType.AUDIO_FILE_ERROR);
+      errorHandler.processError(ZombieCrushSagaPropertyType.AUDIO_FILE_ERROR, e.toString());
     }
   }
 

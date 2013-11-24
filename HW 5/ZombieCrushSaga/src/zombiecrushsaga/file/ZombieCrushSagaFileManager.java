@@ -97,7 +97,7 @@ public class ZombieCrushSagaFileManager
         catch(Exception e)
         {
             // LEVEL LOADING ERROR
-            miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_ERROR);
+            miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_ERROR, e.toString());
         }
     }    
     
@@ -207,7 +207,7 @@ public class ZombieCrushSagaFileManager
         catch(Exception e)
         {
             // LEVEL LOADING ERROR
-            miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_REQS_ERROR);
+            miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_REQS_ERROR, e.toString());
         }
         return allReqs;
     }

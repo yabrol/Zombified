@@ -5,6 +5,11 @@
 <properties>
   <property_list>    
     <property name="GAME_TITLE_TEXT"            value="Zombie Crush Saga"></property>
+    <property name="AUDIO_FILE_ERROR"           value="Audio file error"></property>
+    <property name="LOAD_LEVEL_ERROR"           value="load level error"></property>
+    <property name="RECORD_SAVE_ERROR"           value="record save error"></property>
+    <property name="LOAD_LEVEL_REQS_ERROR"           value="load level reqs error"></property>
+
     <property name="WINDOW_ICON"                value="./zomcrush/TileZombieGargantuar.png"></property>
         
     <!-- BIG, FULL VIEWPORT BACKGROUND SCREEN IMAGES -->

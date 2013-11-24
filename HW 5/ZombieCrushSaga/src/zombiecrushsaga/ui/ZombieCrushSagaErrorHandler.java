@@ -34,7 +34,7 @@ public class ZombieCrushSagaErrorHandler
      * @param errorType Identifies the type of error that happened, which
      * allows us to get and display different text for different errors.
      */
-    public void processError(ZombieCrushSagaPropertyType errorType)
+    public void processError(ZombieCrushSagaPropertyType errorType, String error)
     {
         // GET THE FEEDBACK TEXT
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -44,6 +44,6 @@ public class ZombieCrushSagaErrorHandler
         String errorTitle = props.getProperty(ZombieCrushSagaPropertyType.ERROR_DIALOG_TITLE_TEXT);
         
         // POP OPEN A DIALOG TO DISPLAY TO THE USER
-        JOptionPane.showMessageDialog(window, errorFeedbackText, errorTitle, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(window, errorFeedbackText + error, errorTitle, JOptionPane.ERROR_MESSAGE);
     }    
 }
