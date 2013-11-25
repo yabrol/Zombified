@@ -40,9 +40,48 @@ public class ZombieCrushKeyHandler extends KeyAdapter
     public void keyPressed(KeyEvent ke)
     {
       ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
-        // CHEAT BY ONE MOVE. NOTE THAT IF WE HOLD THE C
-        // KEY DOWN IT WILL CONTINUALLY CHEAT
-        if (ke.getKeyCode() == KeyEvent.VK_C)
+      //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_1)
+        {
+            // FIND A MOVE IF THERE IS ONE
+            ZombieCrushSagaMove move = data.findMove();
+            if (move != null)
+                data.processMove(move);
+        }
+        //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_2)
+        {
+            // FIND A MOVE IF THERE IS ONE
+            ZombieCrushSagaMove move = data.findMove();
+            if (move != null)
+                data.processMove(move);
+        }
+        //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_3)
+        {
+            // FIND A MOVE IF THERE IS ONE
+            ZombieCrushSagaMove move = data.findMove();
+            if (move != null)
+                data.processMove(move);
+        }
+        //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_4)
+        {
+            // FIND A MOVE IF THERE IS ONE
+            ZombieCrushSagaMove move = data.findMove();
+            if (move != null)
+                data.processMove(move);
+        }
+        //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_5)
+        {
+            // FIND A MOVE IF THERE IS ONE
+            ZombieCrushSagaMove move = data.findMove();
+            if (move != null)
+                data.processMove(move);
+        }
+        //press 1 for 3 row cheat
+        if (ke.getKeyCode() == KeyEvent.VK_6)
         {
             // FIND A MOVE IF THERE IS ONE
             ZombieCrushSagaMove move = data.findMove();

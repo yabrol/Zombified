@@ -141,7 +141,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ArrayList<String> typeETiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_E_TILES);
         ArrayList<String> typeFTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_F_TILES);
         
-        while(playTiles.size() < totNumTiles)
+        while(stackTiles.size() < totNumTiles)//IT WORKS WITH STACKTILES
         {
             picker = generator.nextInt(6);
             if (picker == 0)
@@ -1646,18 +1646,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             }
         }
         updateScore(stack1, seq);
-//        //swap tiles
-//        //remving tile
-//        int x1 = move.col1;
-//        int y1 = move.row1;
-//        //test1
-//        //swapped tile
-//        int x2 = move.col2;
-//        int y2 = move.row2;
-//        ZombieCrushSagaTile swapped = tileGrid[x2][y2].remove(0);
-//        tileGrid[x1][y1].remove(0);
-//        tileGrid[x2][y2].add(test1);
-//        tileGrid[x1][y1].add(swapped);
+        //swap tiles
+        //remving tile
+        int x1 = move.col1;
+        int y1 = move.row1;
+        //swapped tile
+        int x2 = move.col2;
+        int y2 = move.row2;
+        ZombieCrushSagaTile swapped = tileGrid[x2][y2].remove(0);
+        tileGrid[x1][y1].remove(0);
+        tileGrid[x2][y2].add(test1);
+        test1.setGridCell(x2,y2);
+        tileGrid[x1][y1].add(swapped);
+        swapped.setGridCell(x1,y1);
 
         
         //remove them
@@ -1676,8 +1677,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         }
         
         //add more tiles
-//        updateGrid();
         initTiles();
+        updateGrid();
+        
         // AND MAKE SURE NEW TILES CAN BE SELECTED
         selectedTile = null;
               
@@ -2005,6 +2007,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                                 tile = tileGrid[i][j-1].remove(0);
                                 //and move it down one
                                 tileGrid[i][j].add(tile);
+                                tile.setGridCell(i, j);
                             }
                         }
                     }

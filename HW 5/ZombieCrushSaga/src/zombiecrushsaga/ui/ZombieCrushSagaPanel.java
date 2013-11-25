@@ -236,9 +236,7 @@ public class ZombieCrushSagaPanel extends JPanel
                 BufferedImage img;
                 int x;
                 int y = 480;
-                if (numStars == 0)
-                    return;
-                else if(numStars == 1)
+                if(numStars == 1)
                 {
                     x = STAR_X;
                     String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
@@ -272,7 +270,7 @@ public class ZombieCrushSagaPanel extends JPanel
                     g.drawImage(blankTileImage, x, y, this);
                 }
             }
-            else if(s.getSpriteType().getSpriteTypeID().equals(WIN_TYPE) && s.getState().equals(VISIBLE_STATE))
+            else if(s.getSpriteType().getSpriteTypeID().equals(LOSS_TYPE) && s.getState().equals(VISIBLE_STATE))
             {
                 g.setFont(LEVEL_NUM_FONT);
                 g.setColor(LEVEL_NUM_COLOR);
@@ -360,9 +358,7 @@ public class ZombieCrushSagaPanel extends JPanel
             PropertiesManager props = PropertiesManager.getPropertiesManager();
             String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
             BufferedImage img;
-            if (numStars == 0)
-                return;
-            else if(numStars == 1)
+            if(numStars == 1)
             {
                 x = STAR_X;
                 String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
