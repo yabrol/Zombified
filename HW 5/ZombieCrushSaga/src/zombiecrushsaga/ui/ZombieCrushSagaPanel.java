@@ -15,6 +15,7 @@ import mini_game.SpriteType;
 import zombiecrushsaga.data.ZombieCrushSagaDataModel;
 import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
+import zombiecrushsaga.file.ZombieCrushLevelRequirements;
 
 /**
  * This class performs all of the rendering for the zombie crush game application.
@@ -172,7 +173,16 @@ public class ZombieCrushSagaPanel extends JPanel
                 g.setColor(STATS_COLOR);
                 //what needs to be done to win
                 String levelinfo;
+                ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
+                ZombieCrushLevelRequirements currReqs = data.getcurrentReqs();
+                levelinfo = "TARGET SCORE: " + currReqs.star1Score;
+                g.drawString(levelinfo, 300, 300);
+                levelinfo = "ADDITIONAL REQUIREMENTS: " + currReqs.additionalReq;
+                g.drawString(levelinfo, 300, 340);
                 //high score
+                levelinfo = "HIGH SCORE: " + rec.getHighScore((data.getCurrentLevel()));
+                g.drawString(levelinfo, 300, 380);
+                
         }
         else if(s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE)){
             g.setColor(STATS_COLOR);

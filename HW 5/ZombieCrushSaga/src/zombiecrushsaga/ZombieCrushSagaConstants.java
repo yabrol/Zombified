@@ -152,10 +152,10 @@ public class ZombieCrushSagaConstants {
     public static final int NEXT_STAR_X = STAR_X + 154;
     public static final int NEXT_STAR_Y = 0;
     public static final int NEXT_STAR_OFFSET = 170;
-    public static final int TILE_STACK_X = NEXT_STAR_X + 130 + CONTROLS_MARGIN;
+    public static final int TILE_STACK_X = MAX_SCREEN_WIDTH - CONTROLS_MARGIN - 190;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;
-    public static final int TILE_STACK_OFFSET_Y = 12;
+    public static final int TILE_STACK_OFFSET_Y = 10;
     
     public static final int UP_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int UP_BUTTON_Y = 0;
@@ -197,8 +197,8 @@ public class ZombieCrushSagaConstants {
     public static final Color COLOR_KEY = new Color(255, 174, 201);
     public static final Color DEBUG_TEXT_COLOR = Color.BLACK;
     public static final Color TEXT_DISPLAY_COLOR = new Color (10, 160, 10);
-    public static final Color SELECTED_TILE_COLOR = Color.CYAN;
-    public static final Color JELLY_TILE_COLOR = new Color(255,255,0,100);
+    public static final Color SELECTED_TILE_COLOR = new Color(255,255,0,100);
+    public static final Color JELLY_TILE_COLOR = new Color(255, 50, 50, 100);
     public static final Color INCORRECTLY_SELECTED_TILE_COLOR = new Color(255, 50, 50, 100);
     public static final Color STATS_COLOR = new Color(0, 60, 0);
     public static final Color LEVEL_NUM_COLOR = new Color(34,177,76);
@@ -208,7 +208,7 @@ public class ZombieCrushSagaConstants {
     public static final Font DEBUG_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
     public static final Font STATS_FONT = new Font(Font.MONOSPACED, Font.BOLD, 24);
     public static final Font LEVEL_NUM_FONT = new Font("Showcard Gothic", Font.BOLD, 75);
-    public static final Font LEVEL_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+    public static final Font LEVEL_TEXT_FONT = new Font("Showcard Gothic", Font.PLAIN, 36);
     
     // AND AUDIO STUFF
     public static final String SUCCESS_AUDIO_TYPE = "SUCCESS_AUDIO_TYPE";

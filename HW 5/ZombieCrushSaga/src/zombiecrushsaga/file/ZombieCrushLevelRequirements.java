@@ -13,5 +13,17 @@ public class ZombieCrushLevelRequirements {
     public String additionalReq;
     public int totTiles;
     
-    
+    @Override
+    public String toString()
+    {
+        String str = "";
+        str += "level num" + levelNumber;
+        str += "numMoves" + numMoves;
+        str += "star1Score" + star1Score;
+        str += "star2Score" + star2Score;
+        str += "star3Score" + star3Score;
+        str += "totTiles" + totTiles;
+        str += "additionalReq" + additionalReq;
+        return str;
+    }
 }

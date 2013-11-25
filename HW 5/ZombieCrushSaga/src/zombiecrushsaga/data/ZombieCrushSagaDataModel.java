@@ -108,6 +108,15 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     }
     
     /**
+     * returns the level's requirements
+     * @return curr reqs
+     */
+    public ZombieCrushLevelRequirements getcurrentReqs()
+    {
+        return currReqs;
+    }
+    
+    /**
      * gets if level is available.level 1 is always true
      * @return levelCompleted
      */
@@ -379,11 +388,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         }
         String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
         currLevelNum = currLevelNum.replaceAll(".zom", "");
-        currReqs = allReqs.get(Integer.parseInt(currLevelNum));
+        currReqs = allReqs.get(Integer.parseInt(currLevelNum)-1);
         totNumTiles = currReqs.totTiles;
-        
-        System.out.println("currLevel num" + currLevelNum + " parsed:" + Integer.parseInt(currLevelNum) + "totnum:" + totNumTiles);
-        
     }
 
     /**
@@ -1200,7 +1206,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         {
             for (int j = 0; j < gridRows; j++)
             {
-                System.out.println(stackTiles.size());
                     //if levelGrid[i][j] > 1, its a jelly!
                     // TAKE THE TILE OUT OF THE STACK
                     ZombieCrushSagaTile tile = stackTiles.remove(stackTiles.size()-1);

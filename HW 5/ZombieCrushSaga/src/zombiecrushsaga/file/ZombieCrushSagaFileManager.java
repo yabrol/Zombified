@@ -164,7 +164,7 @@ public class ZombieCrushSagaFileManager
     public ArrayList<ZombieCrushLevelRequirements> getAllLevelRequirements()
     {
         ArrayList<ZombieCrushLevelRequirements> allReqs = new ArrayList();
-        ZombieCrushLevelRequirements levReq = new ZombieCrushLevelRequirements();
+        
         //load raw data
         try{
             PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -178,6 +178,7 @@ public class ZombieCrushSagaFileManager
             
             while((str=readBuffer.readLine())!=null)
             {
+                ZombieCrushLevelRequirements levReq = new ZombieCrushLevelRequirements();
                 splitarray = str.split("\t");
                 //level
                 s = splitarray[0];
