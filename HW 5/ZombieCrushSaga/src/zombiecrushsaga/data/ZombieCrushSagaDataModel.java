@@ -30,6 +30,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     // CAN NOTIFY IT TO UPDATE THE DISPLAY WHEN THE DATA MODEL CHANGES
     private MiniGame miniGame;
     
+    //contains reqs of each level
+    private ArrayList<ZombieCrushLevelRequirements> allReqs;
+    
     // THE LEVEL GRID REFERS TO THE LAYOUT FOR A GIVEN LEVEL, MEANING
     // HOW MANY TILES FIT INTO EACH CELL WHEN FIRST STARTING A LEVEL
     private int[][] levelGrid;
@@ -57,9 +60,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     // IS TRYING TO MATCH. THERE CAN ONLY BE ONE OF THESE AT ANY TIME
     private ZombieCrushSagaTile selectedTile;
     
-    //a bool ensuring that there's only 1 CYAN blocked tile at a time
-    private ZombieCrushSagaTile cyanTile;
-    
     // THE INITIAL LOCATION OF TILES BEFORE BEING PLACED IN THE GRID
     private int unassignedTilesX;
     private int unassignedTilesY;
@@ -70,12 +70,11 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     
     //these are used for scoring
     private int numStars = 0;
-    private int highScore = 0;
+    private int currScore = 0;
     private int numMovesLeft;
     
     // THE REFERENCE TO THE FILE BEING PLAYED
     private String currentLevel;
-    private ArrayList<ZombieCrushLevelRequirements> allReqs;
     private ZombieCrushLevelRequirements currReqs;
     private ArrayList<Point> jellyCoordinates;
 
@@ -98,33 +97,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         
         allReqs = ((ZombieCrushSagaMiniGame)miniGame).getFileManager().getAllLevelRequirements();
     }
-    /**
-     * gets total num of tiles. must have initialzed the game first
-     * @return totnumtiles
-     */
-    public int getTotalNumberOfTiles()
-    {
-        return totNumTiles;
-    }
-    
-    /**
-     * returns the level's requirements
-     * @return curr reqs
-     */
-    public ZombieCrushLevelRequirements getcurrentReqs()
-    {
-        return currReqs;
-    }
-    
-    /**
-     * gets if level is available.level 1 is always true
-     * @return levelCompleted
-     */
-    public boolean getLevelAvailable()
-    {
-        return levelAvailable;
-    }
-    
+
     // INIT METHODS - AFTER CONSTRUCTION, THESE METHODS SETUP A GAME FOR USE
         // - initTiles
         // - initTile
@@ -163,7 +136,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ArrayList<String> typeETiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_E_TILES);
         ArrayList<String> typeFTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_F_TILES);
         
-        while(spriteTypeID < totNumTiles)
+        while(stackTiles.size() < totNumTiles)
         {
             picker = generator.nextInt(6);
             if (picker == 0)
@@ -289,12 +262,47 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         sT.addState(INVISIBLE_STATE, img);
         sT.addState(VISIBLE_STATE, img);
         sT.addState(SELECTED_STATE, img);
-        sT.addState(INCORRECTLY_SELECTED_STATE, img);
+        sT.addState(JELLY_STATE, img);
         return sT;
     }
         
     // ACCESSOR METHODS
-
+    /**
+     * gets total num of tiles. must have initialzed the game first
+     * @return totnumtiles
+     */
+    public int getTotalNumberOfTiles()
+    {
+        return totNumTiles;
+    }
+    
+    /**
+     * returns number of moves left in this level
+     * @return 
+     */
+    public int getNumMovesLeft()
+    {
+        return numMovesLeft;
+    }
+    
+    /**
+     * returns the level's requirements
+     * @return curr reqs
+     */
+    public ZombieCrushLevelRequirements getcurrentReqs()
+    {
+        return currReqs;
+    }
+    
+    /**
+     * gets if level is available.level 1 is always true
+     * @return levelCompleted
+     */
+    public boolean getLevelAvailable()
+    {
+        return levelAvailable;
+    }
+    
     /**
      * Accessor method for getting the level currently being played.
      * 
@@ -390,6 +398,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         currLevelNum = currLevelNum.replaceAll(".zom", "");
         currReqs = allReqs.get(Integer.parseInt(currLevelNum)-1);
         totNumTiles = currReqs.totTiles;
+        numMovesLeft = currReqs.numMoves;
+        jellyCoordinates = new ArrayList();
     }
 
     /**
@@ -853,6 +863,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                         tilesToRemove.add(test3);
                         tilesToRemove.add(test4);
                         tilesToRemove.add(test5);
+                        return tilesToRemove;
                     }
                     else
                     {
@@ -884,6 +895,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                         tilesToRemove.add(test3);
                         tilesToRemove.add(test4);
                         tilesToRemove.add(test5);
+                        return tilesToRemove;
                     }
                     else
                     {
@@ -915,6 +927,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                         tilesToRemove.add(test3);
                         tilesToRemove.add(test4);
                         tilesToRemove.add(test5);
+                        return tilesToRemove;
                     }
                     else
                     {
@@ -946,6 +959,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                         tilesToRemove.add(test3);
                         tilesToRemove.add(test4);
                         tilesToRemove.add(test5);
+                        return tilesToRemove;
                     }
                     else
                     {
@@ -954,7 +968,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 }
             }
         }
-
         return null;
     }
     
@@ -1515,6 +1528,11 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         return null;
     }
     
+    /**
+     * returns the list of tiles that will be removed if there was a special tile
+     * @param specTile
+     * @return 
+     */
     public ArrayList<ZombieCrushSagaTile> processSpecial(ZombieCrushSagaTile specTile)
     {
         ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
@@ -1583,6 +1601,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             movingTiles.add(tile1);
         }
         
+        //add more tiles
         
         // AND MAKE SURE NEW TILES CAN BE SELECTED
         selectedTile = null;
@@ -1627,66 +1646,32 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             selectTile.setState(VISIBLE_STATE);
             return;
         }
-        
-        // IF THE TILE IS NOT AT THE TOP OF ITS STACK, DO NOTHING
-        int col = selectTile.getGridColumn();
-        int row = selectTile.getGridRow();
-//        int index = tileGrid[col][row].indexOf(selectTile);
-//        if (index != (tileGrid[col][row].size() - 1))
-//            return;
-                
-        // IF THE TILE IS NOT FREE, DO NOTHING, BUT MAKE SURE WE GIVE FEEDBACK
-        if ((col > 0) && (col < (gridColumns - 1)))
-        {
-            int leftZ = tileGrid[col-1][row].size();
-            int z = tileGrid[col][row].size();
-            int rightZ = tileGrid[col+1][row].size();
-            if ((z <= leftZ) && (z <= rightZ))
-            {
-                // IF IT'S ALREADY INCORRECTLY SELECTED, DEACTIVATE THE FEEDBACK
-                if (selectTile.getState().equals(INCORRECTLY_SELECTED_STATE))
-                {
-                    selectTile.setState(VISIBLE_STATE);
-                    cyanTile = null;
-                    return;
-                }
-                else if(selectTile.getState().equals(VISIBLE_STATE))
-                {
-                  //check if there's another red tile
-                  if(cyanTile != null)
-                  {
-                    //then make previous red tile visible instead
-                    cyanTile.setState(VISIBLE_STATE);
-                    cyanTile = null;
-                  }
-                  //make it red and give it audio
-                  selectTile.setState(INCORRECTLY_SELECTED_STATE);
-                  miniGame.getAudio().play(ZombieCrushSagaPropertyType.BLOCKED_TILE_AUDIO_CUE.toString(), false);
-                  cyanTile = selectTile;
-                  return;
-                }
-            }
-        }
 
-        // IT'S FREE
         if (selectedTile == null)
         {
             selectedTile = selectTile;
             selectedTile.setState(SELECTED_STATE);
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.SELECT_AUDIO_CUE.toString(), false);
+            return;
         }
-        //they match
-        else if(selectedTile.match(selectTile))
-        {
           //remove
           ZombieCrushSagaMove move = new ZombieCrushSagaMove();
           move.col1 = selectedTile.getGridColumn();
           move.row1 = selectedTile.getGridRow();
           move.col2 = selectTile.getGridColumn();
           move.row2 = selectTile.getGridRow();
+          while(move.tilesToRemove == null)
+          {
+              move.tilesToRemove = checkTshape(move.col2,move.row2,selectedTile);
+              move.tilesToRemove = checkLshape(move.col2,move.row2,selectedTile);
+              move.tilesToRemove = check5Row(move.col2,move.row2,selectedTile);
+              move.tilesToRemove = check4Row(move.col2,move.row2,selectedTile);
+              move.tilesToRemove = check3Row(move.col2,move.row2,selectedTile);
+              break;
+          }
+          if(move.tilesToRemove != null)
+          {
           processMove(move);
-          cyanTile.setState(VISIBLE_STATE);
-          cyanTile = null;
         }
         // THEY DON'T MATCH, GIVE SOME AUDIO FEEDBACK
         else
@@ -1746,7 +1731,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         long gameTime = endTime.getTimeInMillis() - startTime.getTimeInMillis();
         
         // RECORD IT AS A WIN
-        ((ZombieCrushSagaMiniGame)miniGame).getPlayerRecord().addWin(currentLevel, gameTime, numStars, highScore);
+        ((ZombieCrushSagaMiniGame)miniGame).getPlayerRecord().addWin(currentLevel, gameTime, numStars, currScore);
         ((ZombieCrushSagaMiniGame)miniGame).savePlayerRecord();
         
         // DISPLAY THE WIN DIALOG
@@ -1799,6 +1784,10 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     {
         // PUT ALL THE TILES IN ONE PLACE AND MAKE THEM VISIBLE
         moveAllTilesToStack();
+        //get brand new tiles
+        stackTiles = new ArrayList();
+        initTiles();
+        
         for (ZombieCrushSagaTile tile : stackTiles)
         {
             tile.setX(TILE_STACK_X);
@@ -1818,7 +1807,13 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         {
             for (int j = 0; j < gridRows; j++)
             {
-                    //if levelGrid[i][j] > 1, its a jelly!
+                if(levelGrid[i][j] > 0)
+                {
+                    if(levelGrid[i][j] > 1)
+                    {
+                        //its jelly!
+                        jellyCoordinates.add(new Point(i,j));
+                    }
                     // TAKE THE TILE OUT OF THE STACK
                     ZombieCrushSagaTile tile = stackTiles.remove(stackTiles.size()-1);
                     
@@ -1833,6 +1828,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                     tile.setTarget(x, y);
                     tile.startMovingToTarget(MAX_TILE_VELOCITY);
                     movingTiles.add(tile);
+                }  
             }
         }        
         // AND START ALL UPDATES

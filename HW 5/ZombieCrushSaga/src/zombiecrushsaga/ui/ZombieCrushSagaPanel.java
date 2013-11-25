@@ -235,13 +235,15 @@ public class ZombieCrushSagaPanel extends JPanel
         if (((ZombieCrushSagaMiniGame)game).isCurrentScreenState(GAME_SCREEN_STATE) 
                 && data.inProgress() || data.isPaused())
         {
-            // RENDER THE TIME
-            String time = data.gameTimeToText();
-            int x = TIME_X + TIME_OFFSET;
-            int y = TIME_Y + TIME_TEXT_OFFSET;
-            //add a bigger font
-            g.setFont(TEXT_DISPLAY_FONT);
-            g.drawString(time, x, y);
+//            // RENDER THE TIME
+//            String time = data.gameTimeToText();
+//            int x = TIME_X + TIME_OFFSET;
+//            int y = TIME_Y + TIME_TEXT_OFFSET;
+//            //add a bigger font
+//            g.setFont(TEXT_DISPLAY_FONT);
+//            g.drawString(time, x, y);
+            //render the moves and score
+            String str;
         }        
     }
         
@@ -336,9 +338,9 @@ public class ZombieCrushSagaPanel extends JPanel
                 g.setColor(SELECTED_TILE_COLOR);
                 g.fillRoundRect((int)tileToRender.getX(), (int)tileToRender.getY(), bgST.getWidth(), bgST.getHeight(),5,5);
             }
-            else if (tileToRender.getState().equals(INCORRECTLY_SELECTED_STATE))
+            else if (tileToRender.getState().equals(JELLY_STATE))
             {
-                g.setColor(INCORRECTLY_SELECTED_TILE_COLOR);
+                g.setColor(JELLY_TILE_COLOR);
                 g.fillRoundRect((int)tileToRender.getX(), (int)tileToRender.getY(), bgST.getWidth(), bgST.getHeight(),5,5);
             }
         }        

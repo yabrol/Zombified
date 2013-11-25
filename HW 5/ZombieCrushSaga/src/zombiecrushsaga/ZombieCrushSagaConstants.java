@@ -101,7 +101,7 @@ public class ZombieCrushSagaConstants {
     public static final String INVISIBLE_STATE = "INVISIBLE_STATE";
     public static final String VISIBLE_STATE = "VISIBLE_STATE";
     public static final String SELECTED_STATE = "SELECTED_STATE";
-    public static final String INCORRECTLY_SELECTED_STATE = "NOT_AVAILABLE_STATE";
+    public static final String JELLY_STATE = "JELLY_STATE";
     public static final String MOUSE_OVER_STATE = "MOUSE_OVER_STATE";
 
     // THE BUTTONS MAY HAVE 2 STATES:
@@ -199,7 +199,6 @@ public class ZombieCrushSagaConstants {
     public static final Color TEXT_DISPLAY_COLOR = new Color (10, 160, 10);
     public static final Color SELECTED_TILE_COLOR = new Color(255,255,0,100);
     public static final Color JELLY_TILE_COLOR = new Color(255, 50, 50, 100);
-    public static final Color INCORRECTLY_SELECTED_TILE_COLOR = new Color(255, 50, 50, 100);
     public static final Color STATS_COLOR = new Color(0, 60, 0);
     public static final Color LEVEL_NUM_COLOR = new Color(34,177,76);
 
