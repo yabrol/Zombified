@@ -126,6 +126,7 @@ public class ZombieCrushSagaConstants {
 
     // FOR MOVING TILES AROUND
     public static final int MAX_TILE_VELOCITY = 70;
+    public static final int MIN_TILE_VELOCITY = 15;
     
     // DIMENSIONS OF GAME SCREEN
     public static final int MAX_SCREEN_WIDTH = 1280;

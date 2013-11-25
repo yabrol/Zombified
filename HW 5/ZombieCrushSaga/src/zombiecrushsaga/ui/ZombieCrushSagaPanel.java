@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import mini_game.SpriteType;
+import properties_manager.PropertiesManager;
+import zombiecrushsaga.ZombieCrushSaga;
 import zombiecrushsaga.data.ZombieCrushSagaDataModel;
 import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
@@ -181,24 +183,124 @@ public class ZombieCrushSagaPanel extends JPanel
                 g.drawString(levelinfo, 300, 340);
                 //high score
                 levelinfo = "HIGH SCORE: " + rec.getHighScore((data.getCurrentLevel()));
-                g.drawString(levelinfo, 300, 380);
+                g.drawString(levelinfo, 300, 380);  
+            }
+            else if(s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE))
+            {
+                g.setColor(STATS_COLOR);
+                g.setFont(STATS_FONT);
+                g.drawString("Zombie Crush Saga is a zombiefied version of King’s popular", 200, 250);
+                g.drawString("casual game, Candy Crush Saga TM.", 200, 270);
+                g.drawString("Tens of millions of people are playing King’s Candy Crush Saga,", 200, 290);
+                g.drawString("an addictive casual game that turns one into a mindless zombie", 200, 310);
+                g.drawString("as one walks about, bumping into things while leveling up on a", 200, 330);
+                g.drawString("mobile device. What could be better? Well how about if we", 200, 350);
+                g.drawString("infuse the game itself with zombies? Yes, that’s right,", 200, 370);
+                g.drawString("forget the candy, we’re going to make Zombie Crush Saga.", 200, 390);
+                g.drawString("Developed by: Yukti Abrol", 200, 500);
+            } 
+            else if(s.getSpriteType().getSpriteTypeID().equals(WIN_TYPE) && s.getState().equals(VISIBLE_STATE))
+            {
+                g.setFont(LEVEL_NUM_FONT);
+                g.setColor(LEVEL_NUM_COLOR);
+                String level = (data.getCurrentLevel());
+                level = level.toLowerCase();
+                level = level.replaceAll("./data/./zomcrush/level", "");
+                level = level.replaceAll(".zom", "");
+                g.drawString(level, 780, 185);
                 
-        }
-        else if(s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE)){
-            g.setColor(STATS_COLOR);
-            g.setFont(STATS_FONT);
-            g.drawString("Zombie Crush Saga is a zombiefied version of King’s popular", 200, 250);
-            g.drawString("casual game, Candy Crush Saga TM.", 200, 270);
-            g.drawString("Tens of millions of people are playing King’s Candy Crush Saga,", 200, 290);
-            g.drawString("an addictive casual game that turns one into a mindless zombie", 200, 310);
-            g.drawString("as one walks about, bumping into things while leveling up on a", 200, 330);
-            g.drawString("mobile device. What could be better? Well how about if we", 200, 350);
-            g.drawString("infuse the game itself with zombies? Yes, that’s right,", 200, 370);
-            g.drawString("forget the candy, we’re going to make Zombie Crush Saga.", 200, 390);
-            g.drawString("Developed by: Yukti Abrol", 200, 500);
-        } 
+                g.setFont(LEVEL_TEXT_FONT);
+                g.setColor(STATS_COLOR);
+                //what needs to be done to win
+                String levelinfo;
+                ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
+                ZombieCrushLevelRequirements currReqs = data.getcurrentReqs();
+                levelinfo = "TARGET SCORE: " + currReqs.star1Score;
+                g.drawString(levelinfo, 300, 300);
+                levelinfo = "ADDITIONAL REQUIREMENTS: " + currReqs.additionalReq;
+                g.drawString(levelinfo, 300, 340);
+                //high score
+                levelinfo = "HIGH SCORE: " + rec.getHighScore((data.getCurrentLevel()));
+                g.drawString(levelinfo, 300, 380);  
+                //your score
+                levelinfo = "YOUR SCORE: " + data.getCurrentScore();
+                g.drawString(levelinfo, 300, 420); 
+                //STARS
+                levelinfo = "YOUR STARS: ";
+                g.drawString(levelinfo, 300, 440); 
+                
+                
+                int numStars = data.getNumStars();
+                PropertiesManager props = PropertiesManager.getPropertiesManager();
+                String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
+                BufferedImage img;
+                int x;
+                int y = 480;
+                if (numStars == 0)
+                    return;
+                else if(numStars == 1)
+                {
+                    x = STAR_X;
+                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s1);
+                    g.drawImage(blankTileImage, x, y, this);
+                }
+                else if (numStars == 2)
+                {
+                    x = STAR_X;
+                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s1);
+                    g.drawImage(blankTileImage, x, y, this);
+                    x = STAR_X + STAR_OFFSET;
+                    String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s2);
+                    g.drawImage(blankTileImage, x, y, this);
+                }
+                else if(numStars == 3)
+                {
+                    x = STAR_X;
+                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s1);
+                    g.drawImage(blankTileImage, x, y, this);
+                    x = STAR_X + STAR_OFFSET;
+                    String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s2);
+                    g.drawImage(blankTileImage, x, y, this);
+                    x = STAR_X + STAR_OFFSET + STAR_OFFSET;
+                    String s3 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_PURPLE_IMAGE_NAME);
+                    img = game.loadImage(imgPath + s3);
+                    g.drawImage(blankTileImage, x, y, this);
+                }
+            }
+            else if(s.getSpriteType().getSpriteTypeID().equals(WIN_TYPE) && s.getState().equals(VISIBLE_STATE))
+            {
+                g.setFont(LEVEL_NUM_FONT);
+                g.setColor(LEVEL_NUM_COLOR);
+                String level = (data.getCurrentLevel());
+                level = level.toLowerCase();
+                level = level.replaceAll("./data/./zomcrush/level", "");
+                level = level.replaceAll(".zom", "");
+                g.drawString(level, 780, 185);
+                
+                g.setFont(LEVEL_TEXT_FONT);
+                g.setColor(STATS_COLOR);
+                //what needs to be done to win
+                String levelinfo;
+                ZombieCrushSagaRecord rec = ((ZombieCrushSagaMiniGame)game).getFileManager().loadRecord();
+                ZombieCrushLevelRequirements currReqs = data.getcurrentReqs();
+                levelinfo = "TARGET SCORE: " + currReqs.star1Score;
+                g.drawString(levelinfo, 300, 300);
+                levelinfo = "ADDITIONAL REQUIREMENTS: " + currReqs.additionalReq;
+                g.drawString(levelinfo, 300, 340);
+                //high score
+                levelinfo = "HIGH SCORE: " + rec.getHighScore((data.getCurrentLevel()));
+                g.drawString(levelinfo, 300, 380);  
+                //your score
+                levelinfo = "YOUR SCORE: " + data.getCurrentScore();
+                g.drawString(levelinfo, 300, 420); 
             }
         }
+    }
 
     /**
      * Renders all the GUI decor and buttons.
@@ -238,15 +340,61 @@ public class ZombieCrushSagaPanel extends JPanel
 //            // RENDER THE TIME
 //            String time = data.gameTimeToText();
             int x = TIME_X + TIME_OFFSET;
-            int y = TIME_Y + TIME_TEXT_OFFSET;
+            int y = TIME_Y;
             //add a bigger font
             g.setFont(TEXT_DISPLAY_FONT);
             
-            //render the moves and score
+            //render the score
             String str = "";
             str += data.getCurrentScore();
-            
             g.drawString(str, x, y);
+            
+            //the moves
+            x = MOVES_X + TIME_OFFSET;
+            str = "";
+            str += data.getNumMovesLeft();
+            g.drawString(str, x, y);
+            
+            //and stars
+            int numStars = data.getNumStars();
+            PropertiesManager props = PropertiesManager.getPropertiesManager();
+            String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
+            BufferedImage img;
+            if (numStars == 0)
+                return;
+            else if(numStars == 1)
+            {
+                x = STAR_X;
+                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                img = game.loadImage(imgPath + s1);
+                g.drawImage(blankTileImage, x, y, this);
+            }
+            else if (numStars == 2)
+            {
+                x = STAR_X;
+                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                img = game.loadImage(imgPath + s1);
+                g.drawImage(blankTileImage, x, y, this);
+                x = STAR_X + STAR_OFFSET;
+                String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
+                img = game.loadImage(imgPath + s2);
+                g.drawImage(blankTileImage, x, y, this);
+            }
+            else if(numStars == 3)
+            {
+                x = STAR_X;
+                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+                img = game.loadImage(imgPath + s1);
+                g.drawImage(blankTileImage, x, y, this);
+                x = STAR_X + STAR_OFFSET;
+                String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
+                img = game.loadImage(imgPath + s2);
+                g.drawImage(blankTileImage, x, y, this);
+                x = STAR_X + STAR_OFFSET + STAR_OFFSET;
+                String s3 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_PURPLE_IMAGE_NAME);
+                img = game.loadImage(imgPath + s3);
+                g.drawImage(blankTileImage, x, y, this);
+            }
         }        
     }
         

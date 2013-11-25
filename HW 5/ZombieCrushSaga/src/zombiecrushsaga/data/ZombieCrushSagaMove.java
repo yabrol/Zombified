@@ -11,8 +11,10 @@ import zombiecrushsaga.ui.ZombieCrushSagaTile;
  */
 public class ZombieCrushSagaMove
 {
+    //where it is
     public int col1;
     public int row1;
+    //where to move it
     public int col2;
     public int row2;
     

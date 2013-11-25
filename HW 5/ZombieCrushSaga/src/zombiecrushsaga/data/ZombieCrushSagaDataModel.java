@@ -141,7 +141,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         ArrayList<String> typeETiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_E_TILES);
         ArrayList<String> typeFTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_F_TILES);
         
-        while(stackTiles.size() < totNumTiles)
+        while(playTiles.size() < totNumTiles)
         {
             picker = generator.nextInt(6);
             if (picker == 0)
@@ -288,6 +288,15 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     public int getNumMovesLeft()
     {
         return numMovesLeft;
+    }
+    
+    /**
+     * returns num of stars based on curr score
+     * @return 
+     */
+    public int getNumStars()
+    {
+        return numStars;
     }
     
     /**
@@ -1607,11 +1616,13 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         int seq = 1;
         prevMoves.add(move);
         ZombieCrushSagaMove pMove;
-        ArrayList<ZombieCrushSagaTile> stack2 = tileGrid[move.col1][move.row1];
-        ZombieCrushSagaTile test2 = stack2.get(stack2.size()-1);
+        ArrayList<ZombieCrushSagaTile> stack2;
+        ZombieCrushSagaTile test2;
         for(int i = 1; prevMoves.size() > i; i++)
         {
             pMove = prevMoves.get(prevMoves.size()-1-i);
+            stack2 = tileGrid[pMove.col1][pMove.row1];
+            test2 = stack2.get(stack2.size()-1);
             if(check5Row(pMove.col2,pMove.row2, test2) != null
                     && check5Row(move.col2, move.row2, test1) != null)
             {
@@ -1635,6 +1646,21 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             }
         }
         updateScore(stack1, seq);
+//        //swap tiles
+//        //remving tile
+//        int x1 = move.col1;
+//        int y1 = move.row1;
+//        //test1
+//        //swapped tile
+//        int x2 = move.col2;
+//        int y2 = move.row2;
+//        ZombieCrushSagaTile swapped = tileGrid[x2][y2].remove(0);
+//        tileGrid[x1][y1].remove(0);
+//        tileGrid[x2][y2].add(test1);
+//        tileGrid[x1][y1].add(swapped);
+
+        
+        //remove them
         for(ZombieCrushSagaTile tile1 : stack1)
         {
             stack1.remove(tile1);
@@ -1643,13 +1669,14 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             // SEND THEM TO THE STACK
             tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
             tile1.startMovingToTarget(MAX_TILE_VELOCITY);
-//            stackTiles.add(tile1);
+            stackTiles.add(tile1);
             playTiles.remove(tile1);
             // MAKE SURE THEY MOVE
             movingTiles.add(tile1);
         }
         
         //add more tiles
+//        updateGrid();
         initTiles();
         // AND MAKE SURE NEW TILES CAN BE SELECTED
         selectedTile = null;
@@ -1760,6 +1787,14 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 }
         }
         currScore += baseScore;
+        if(currScore < currReqs.star1Score)
+            numStars = 0;
+        else if(currScore > currReqs.star1Score)
+            numStars = 1;
+        else if(currScore > currReqs.star2Score)
+            numStars = 2;
+        else if (currScore > currReqs.star3Score)
+            numStars = 3;
     }
     
     /**
@@ -1791,6 +1826,10 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 || Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 1)
         {
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+            selectTile.setState(VISIBLE_STATE);
+            selectedTile.setState(VISIBLE_STATE);
+            selectedTile = null;
+            return;
         }
           //remove
           ZombieCrushSagaMove move = new ZombieCrushSagaMove();
@@ -1798,6 +1837,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
           move.row1 = selectedTile.getGridRow();
           move.col2 = selectTile.getGridColumn();
           move.row2 = selectTile.getGridRow();
+          
+          //make them move towards each other
+          float x = calculateTileXInGrid(selectTile.getGridColumn(), 0);
+          float y = calculateTileYInGrid(selectTile.getGridRow(), 0);
+          selectedTile.setTarget(x, y);
+          selectedTile.startMovingToTarget(MIN_TILE_VELOCITY);
+          movingTiles.add(selectedTile);
+          
+          x = calculateTileXInGrid(selectedTile.getGridColumn(), 0);
+          y = calculateTileYInGrid(selectedTile.getGridRow(), 0);
+          selectTile.setTarget(x, y);
+          selectTile.startMovingToTarget(MIN_TILE_VELOCITY);
+          movingTiles.add(selectTile);
           
           move.tilesToRemove = checkTshape(move.col2,move.row2,selectedTile);
           if(move.tilesToRemove == null)
@@ -1812,6 +1864,22 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                       if(move.tilesToRemove == null)
                       {
                           move.tilesToRemove = check3Row(move.col2,move.row2,selectedTile);
+                          //make them move back where they came from
+                            x = calculateTileXInGrid(selectedTile.getGridColumn(), 0);
+                            y = calculateTileYInGrid(selectedTile.getGridRow(), 0);
+                            selectedTile.setTarget(x, y);
+                            selectedTile.startMovingToTarget(MIN_TILE_VELOCITY);
+                            movingTiles.add(selectedTile);
+
+                            x = calculateTileXInGrid(selectTile.getGridColumn(), 0);
+                            y = calculateTileYInGrid(selectTile.getGridRow(), 0);
+                            selectTile.setTarget(x, y);
+                            selectTile.startMovingToTarget(MIN_TILE_VELOCITY);
+                            movingTiles.add(selectTile);
+                            
+                            selectTile.setState(VISIBLE_STATE);
+                            selectedTile.setState(VISIBLE_STATE);
+                            selectedTile = null;
                           return;
                       }
                   }
