@@ -515,6 +515,15 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         return timeToText(timeInMillis);
     }
     
+    /**
+     * returns current score
+     * @return 
+     */
+    public int getCurrentScore()
+    {
+        return currScore;
+    }
+    
     // GAME DATA SERVICE METHODS
         // -enableTiles
         // -findMove
@@ -537,7 +546,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
 //        moveAllTilesToStack();
         
         // GO THROUGH ALL OF THEM 
-        for (ZombieCrushSagaTile tile : stackTiles)
+        for (ZombieCrushSagaTile tile : playTiles)
         {
             // AND SET THEM PROPERLY
             if (enable)
@@ -1635,6 +1644,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
             tile1.startMovingToTarget(MAX_TILE_VELOCITY);
 //            stackTiles.add(tile1);
+            playTiles.remove(tile1);
             // MAKE SURE THEY MOVE
             movingTiles.add(tile1);
         }
@@ -1661,7 +1671,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             ZombieCrushSagaMove possibleMove = this.findMove();
             if (possibleMove == null)
             {
-                Collections.shuffle(stackTiles);
+                Collections.shuffle(playTiles);
                 //put tiles in new spots
                 updateGrid();
             }
@@ -1776,29 +1786,40 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.SELECT_AUDIO_CUE.toString(), false);
             return;
         }
+        //make sure the two tiles are adjacent
+        if(Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1
+                || Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 1)
+        {
+            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+        }
           //remove
           ZombieCrushSagaMove move = new ZombieCrushSagaMove();
           move.col1 = selectedTile.getGridColumn();
           move.row1 = selectedTile.getGridRow();
           move.col2 = selectTile.getGridColumn();
           move.row2 = selectTile.getGridRow();
-          while(move.tilesToRemove == null)
+          
+          move.tilesToRemove = checkTshape(move.col2,move.row2,selectedTile);
+          if(move.tilesToRemove == null)
           {
-              move.tilesToRemove = checkTshape(move.col2,move.row2,selectedTile);
               move.tilesToRemove = checkLshape(move.col2,move.row2,selectedTile);
-              move.tilesToRemove = check5Row(move.col2,move.row2,selectedTile);
-              move.tilesToRemove = check4Row(move.col2,move.row2,selectedTile);
-              move.tilesToRemove = check3Row(move.col2,move.row2,selectedTile);
-              break;
+              if(move.tilesToRemove == null)
+              {
+                  move.tilesToRemove = check5Row(move.col2,move.row2,selectedTile);
+                  if(move.tilesToRemove == null)
+                  {
+                      move.tilesToRemove = check4Row(move.col2,move.row2,selectedTile);
+                      if(move.tilesToRemove == null)
+                      {
+                          move.tilesToRemove = check3Row(move.col2,move.row2,selectedTile);
+                          return;
+                      }
+                  }
+              }
           }
           if(move.tilesToRemove != null)
           {
           processMove(move);
-        }
-        // THEY DON'T MATCH, GIVE SOME AUDIO FEEDBACK
-        else
-        {
-            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);   
         }
     }
     
@@ -1897,6 +1918,34 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     }
     public void updateGrid()
     {
+        //take tiles from above and move them down
+        if(playTiles.size() < totNumTiles)
+        {
+            ZombieCrushSagaTile tile;
+            for (int i = 0; i < gridColumns; i++)
+            {
+                for (int j = gridRows-1; j >= 0; j--)
+                {
+                    //needs to be tile there but isnt
+                    if(levelGrid[i][j] > 0 && (tileGrid[i][j]).isEmpty())
+                    {
+                        //see if you can get the tile that is on top
+                        if(j - 1 >= 0)
+                        {
+                            if(!((tileGrid[i][j-1]).isEmpty()))
+                            {
+                                tile = tileGrid[i][j-1].remove(0);
+                                //and move it down one
+                                tileGrid[i][j].add(tile);
+                            }
+                        }
+                    }
+                }
+            }
+            //make more tiles
+            initTiles();
+        }
+        
         // NOW LET'S REMOVE THEM FROM THE STACK
         // AND PUT THE TILES IN THE GRID        
         for (int i = 0; i < gridColumns; i++)
@@ -1913,17 +1962,20 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                     // TAKE THE TILE OUT OF THE STACK
                     ZombieCrushSagaTile tile = stackTiles.get(stackTiles.size()-1);
                     
-                    // PUT IT IN THE GRID
-                    tileGrid[i][j].add(tile);
-                    tile.setGridCell(i, j);
-                    
-                    // WE'LL ANIMATE IT GOING TO THE GRID, SO FIGURE
-                    // OUT WHERE IT'S GOING AND GET IT MOVING
-                    float x = calculateTileXInGrid(i, 0);
-                    float y = calculateTileYInGrid(j, 0);
-                    tile.setTarget(x, y);
-                    tile.startMovingToTarget(MAX_TILE_VELOCITY);
-                    movingTiles.add(tile);
+                    // PUT IT IN THE GRID if there is no tile there already
+                    if((tileGrid[i][j]).isEmpty())
+                    {
+                        tileGrid[i][j].add(tile);
+                        tile.setGridCell(i, j);
+
+                        // WE'LL ANIMATE IT GOING TO THE GRID, SO FIGURE
+                        // OUT WHERE IT'S GOING AND GET IT MOVING
+                        float x = calculateTileXInGrid(i, 0);
+                        float y = calculateTileYInGrid(j, 0);
+                        tile.setTarget(x, y);
+                        tile.startMovingToTarget(MAX_TILE_VELOCITY);
+                        movingTiles.add(tile);
+                    }
                 }  
             }
         }  

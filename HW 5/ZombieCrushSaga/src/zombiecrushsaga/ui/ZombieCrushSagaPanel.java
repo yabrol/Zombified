@@ -237,13 +237,16 @@ public class ZombieCrushSagaPanel extends JPanel
         {
 //            // RENDER THE TIME
 //            String time = data.gameTimeToText();
-//            int x = TIME_X + TIME_OFFSET;
-//            int y = TIME_Y + TIME_TEXT_OFFSET;
-//            //add a bigger font
-//            g.setFont(TEXT_DISPLAY_FONT);
-//            g.drawString(time, x, y);
+            int x = TIME_X + TIME_OFFSET;
+            int y = TIME_Y + TIME_TEXT_OFFSET;
+            //add a bigger font
+            g.setFont(TEXT_DISPLAY_FONT);
+            
             //render the moves and score
-            String str;
+            String str = "";
+            str += data.getCurrentScore();
+            
+            g.drawString(str, x, y);
         }        
     }
         
