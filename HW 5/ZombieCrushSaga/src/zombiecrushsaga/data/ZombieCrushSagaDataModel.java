@@ -822,13 +822,140 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      */
     public ArrayList<ZombieCrushSagaTile> checkTshape(int x, int y, ZombieCrushSagaTile testTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
+        tilesToRemove.add(testTile);
+        ArrayList<ZombieCrushSagaTile> stack2, stack3, stack4, stack5;
+        ZombieCrushSagaTile test2, test3, test4, test5;
         //figure out which direction you moved from, the opposite side should have 2 matching
         //and each adjacent side should have 1 matching
-        if(tilesToRemove.size() >= 5)
-            return tilesToRemove;
-        else
-            return null;
+        int x1 = testTile.getGridColumn();
+        int y1 = testTile.getGridRow();
+        //if x1 > x, moved left
+        if (x1 > x)
+        {
+            //check if all are available
+            if(x-2 >= 0 && y+1 < gridRows && y-1 >= 0)
+            {
+                stack2 = tileGrid[x-1][y];
+                stack3 = tileGrid[x-2][y];
+                stack4 = tileGrid[x][y+1];
+                stack5 = tileGrid[x][y-1];
+                if(stack2.size() >0 && stack3.size() >0 && stack4.size() >0 && stack5.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    test3 = stack3.get(stack3.size()-1);
+                    test4 = stack4.get(stack4.size()-1);
+                    test5 = stack5.get(stack5.size()-1);
+                    if(test2.match(testTile) && test3.match(testTile) && test4.match(testTile) 
+                            && test5.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                        tilesToRemove.add(test3);
+                        tilesToRemove.add(test4);
+                        tilesToRemove.add(test5);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+        //moved right
+        else if(x1<x)
+        {
+            //check if all are available
+            if(x+2 < gridColumns && y+1 < gridRows && y-1 >= 0)
+            {
+                stack2 = tileGrid[x+1][y];
+                stack3 = tileGrid[x+2][y];
+                stack4 = tileGrid[x][y+1];
+                stack5 = tileGrid[x][y-1];
+                if(stack2.size() >0 && stack3.size() >0 && stack4.size() >0 && stack5.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    test3 = stack3.get(stack3.size()-1);
+                    test4 = stack4.get(stack4.size()-1);
+                    test5 = stack5.get(stack5.size()-1);
+                    if(test2.match(testTile) && test3.match(testTile) && test4.match(testTile) 
+                            && test5.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                        tilesToRemove.add(test3);
+                        tilesToRemove.add(test4);
+                        tilesToRemove.add(test5);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+        //if y1 > y, moved up
+        else if(y1>y)
+        {
+            //check if all are available
+            if(y-2 >= 0 && x+1 < gridColumns && x-1 >= 0)
+            {
+                stack2 = tileGrid[x][y-1];
+                stack3 = tileGrid[x][y-2];
+                stack4 = tileGrid[x+1][y];
+                stack5 = tileGrid[x-1][y];
+                if(stack2.size() >0 && stack3.size() >0 && stack4.size() >0 && stack5.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    test3 = stack3.get(stack3.size()-1);
+                    test4 = stack4.get(stack4.size()-1);
+                    test5 = stack5.get(stack5.size()-1);
+                    if(test2.match(testTile) && test3.match(testTile) && test4.match(testTile) 
+                            && test5.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                        tilesToRemove.add(test3);
+                        tilesToRemove.add(test4);
+                        tilesToRemove.add(test5);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+        //move down
+        else if(y1<y)
+        {
+            //check if all are available
+            if(y+2 <gridRows && x+1 < gridColumns && x-1 >= 0)
+            {
+                stack2 = tileGrid[x][y+1];
+                stack3 = tileGrid[x][y+2];
+                stack4 = tileGrid[x+1][y];
+                stack5 = tileGrid[x-1][y];
+                if(stack2.size() >0 && stack3.size() >0 && stack4.size() >0 && stack5.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    test3 = stack3.get(stack3.size()-1);
+                    test4 = stack4.get(stack4.size()-1);
+                    test5 = stack5.get(stack5.size()-1);
+                    if(test2.match(testTile) && test3.match(testTile) && test4.match(testTile) 
+                            && test5.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                        tilesToRemove.add(test3);
+                        tilesToRemove.add(test4);
+                        tilesToRemove.add(test5);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
     
     /**
@@ -842,14 +969,192 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      */
     public ArrayList<ZombieCrushSagaTile> checkLshape(int x, int y, ZombieCrushSagaTile testTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
         //check up twice. both should match
         //if this is true, then try left for 2 matching, else try right for 2 matching
         //if not, then try down twice. if both match, then try left and right for 2 matching
+        tilesToRemove.add(testTile);
+        ArrayList<ZombieCrushSagaTile> stack2;
+        ZombieCrushSagaTile test2;
+        //check up & right
+        for(int i =1; i < 3; i++)
+        {
+            if(y+i < gridRows)
+            {
+                stack2 = tileGrid[x][y+i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if(x+i < gridColumns)
+            {
+                stack2 = tileGrid[x+i][y];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
         if(tilesToRemove.size() >= 5)
+        {
             return tilesToRemove;
+        }
         else
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+        }
+        //check down and right
+        for(int i =1; i < 5; i++)
+        {
+            if(y-i >=0)
+            {
+                stack2 = tileGrid[x][y-i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if(x+i < gridColumns)
+            {
+                stack2 = tileGrid[x+i][y];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if(tilesToRemove.size() >= 5)
+        {
+            return tilesToRemove;
+        }
+        else
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+        }
+        //check up and left
+        for(int i =1; i < 5; i++)
+        {
+            if(y+i < gridRows)
+            {
+                stack2 = tileGrid[x][y+i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if(x-i >=0)
+            {
+                stack2 = tileGrid[x-i][y];
+                if(stack2.size()>0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if(tilesToRemove.size() >= 5)
+        {
+            return tilesToRemove;
+        }
+        else
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+        }
+        //check down and left
+        for(int i =1; i < 5; i++)
+        {
+            if(y-i >=0)
+            {
+                stack2 = tileGrid[x][y-i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            if(x-i >=0)
+            {
+                stack2 = tileGrid[x-i][y];
+                if(stack2.size()>0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if(tilesToRemove.size() >= 5)
+        {
+            return tilesToRemove;
+        }
+        else
+        {
             return null;
+        }
     }
     
     /**
@@ -862,11 +1167,107 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      */
     public ArrayList<ZombieCrushSagaTile> check5Row(int x, int y, ZombieCrushSagaTile testTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
+        tilesToRemove.add(testTile);
+        ArrayList<ZombieCrushSagaTile> stack2;
+        ZombieCrushSagaTile test2;
+        //check up
+        for(int i =1; i < 5; i++)
+        {
+            if(y+i < gridRows)
+            {
+                stack2 = tileGrid[x][y+i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        //check down
+        for(int i =1; i < 5; i++)
+        {
+            if(y-i >=0)
+            {
+                stack2 = tileGrid[x][y-i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
         if(tilesToRemove.size() >= 5)
+        {
             return tilesToRemove;
+        }
         else
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+        }
+        //check right
+        for(int i =1; i < 5; i++)
+        {
+            if(x+i < gridColumns)
+            {
+                stack2 = tileGrid[x+i][y];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        //check left
+        for(int i =1; i < 5; i++)
+        {
+            if(x-i >=0)
+            {
+                stack2 = tileGrid[x-i][y];
+                if(stack2.size()>0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if(tilesToRemove.size() >= 5)
+        {
+            return tilesToRemove;
+        }
+        else
+        {
             return null;
+        }
     }
     
     /**
@@ -879,11 +1280,107 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      */
     public ArrayList<ZombieCrushSagaTile> check4Row(int x, int y, ZombieCrushSagaTile testTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
+        tilesToRemove.add(testTile);
+        ArrayList<ZombieCrushSagaTile> stack2;
+        ZombieCrushSagaTile test2;
+        //check up
+        for(int i =1; i < 4; i++)
+        {
+            if(y+i < gridRows)
+            {
+                stack2 = tileGrid[x][y+i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        //check down
+        for(int i =1; i < 4; i++)
+        {
+            if(y-i >=0)
+            {
+                stack2 = tileGrid[x][y-i];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
         if(tilesToRemove.size() >= 4)
+        {
             return tilesToRemove;
+        }
         else
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+        }
+        //check right
+        for(int i =1; i < 4; i++)
+        {
+            if(x+i < gridColumns)
+            {
+                stack2 = tileGrid[x+i][y];
+                if(stack2.size() >0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        //check left
+        for(int i =1; i < 4; i++)
+        {
+            if(x-i >=0)
+            {
+                stack2 = tileGrid[x-i][y];
+                if(stack2.size()>0)
+                {
+                    test2 = stack2.get(stack2.size()-1);
+                    if(test2.match(testTile))
+                    {
+                        tilesToRemove.add(test2);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if(tilesToRemove.size() >= 4)
+        {
+            return tilesToRemove;
+        }
+        else
+        {
             return null;
+        }
     }
     
     /**
@@ -896,16 +1393,131 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
      */
     public ArrayList<ZombieCrushSagaTile> check3Row(int x, int y, ZombieCrushSagaTile testTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
-        if(tilesToRemove.size() >= 3)
-            return tilesToRemove;
-        else
-            return null;
+        ArrayList<ZombieCrushSagaTile> tilesToRemove;
+        ArrayList<ZombieCrushSagaTile> stack2, stack3;
+        ZombieCrushSagaTile test2, test3;
+        //check up and down
+        if(y+2 < gridRows)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x][y+1];
+            stack3 = tileGrid[x][y+2];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        if(y-2>= 0)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x][y-1];
+            stack3 = tileGrid[x][y-2];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        if(y+1 < gridRows && y-1 >=0)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x][y+1];
+            stack3 = tileGrid[x][y-1];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        //check left and right
+        if(x+2 < gridColumns)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x+1][y];
+            stack3 = tileGrid[x+2][y];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        if(x-2>= 0)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x-1][y];
+            stack3 = tileGrid[x-2][y];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        if(x+1 < gridColumns && x-1 >=0)
+        {
+            tilesToRemove = new ArrayList();
+            tilesToRemove.add(testTile);
+            stack2 = tileGrid[x+1][y];
+            stack3 = tileGrid[x-1][y];
+            if(stack2.size() >0 && stack3.size() >0)
+            {
+                test2 = stack2.get(stack2.size()-1);
+                test3 = stack3.get(stack3.size()-1);
+                //if matches
+                if(test2.match(testTile) && test3.match(testTile))
+                {
+                    tilesToRemove.add(test2);
+                    tilesToRemove.add(test3);
+                    return tilesToRemove;
+                }
+            }
+        }
+        return null;
     }
     
     public ArrayList<ZombieCrushSagaTile> processSpecial(ZombieCrushSagaTile specTile)
     {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
         return tilesToRemove;
     }
            
