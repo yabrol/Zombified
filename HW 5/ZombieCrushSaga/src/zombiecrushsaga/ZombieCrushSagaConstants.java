@@ -49,6 +49,7 @@ public class ZombieCrushSagaConstants {
     public static final String STAR_RED_TYPE = "STAR_RED_TYPE";
     public static final String STAR_BLUE_TYPE = "STAR_BLUE_TYPE";
     public static final String STAR_PURPLE_TYPE = "STAR_PURPLE_TYPE";
+    public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
     
     public static final String PLAY_BUTTON_TYPE = "PLAY_GAME_BUTTON_TYPE";
     public static final String RESET_BUTTON_TYPE = "RESET_GAME_BUTTON_TYPE";
@@ -151,6 +152,10 @@ public class ZombieCrushSagaConstants {
     public static final int NEXT_STAR_X = STAR_X + 154;
     public static final int NEXT_STAR_Y = 0;
     public static final int NEXT_STAR_OFFSET = 170;
+    public static final int TILE_STACK_X = NEXT_STAR_X + 130 + CONTROLS_MARGIN;
+    public static final int TILE_STACK_Y = 0;
+    public static final int TILE_STACK_OFFSET_X = 30;
+    public static final int TILE_STACK_OFFSET_Y = 12;
     
     public static final int UP_BUTTON_X = MAX_SCREEN_WIDTH - 95;
     public static final int UP_BUTTON_Y = 0;

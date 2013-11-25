@@ -144,6 +144,7 @@ public class ZombieCrushSaga {
         STAR_RED_IMAGE_NAME,
         STAR_BLUE_IMAGE_NAME,
         STAR_PURPLE_IMAGE_NAME,
+        TILE_STACK_IMAGE_NAME,
         
         PLAY_BUTTON_IMAGE_NAME,
         RESET_BUTTON_IMAGE_NAME,

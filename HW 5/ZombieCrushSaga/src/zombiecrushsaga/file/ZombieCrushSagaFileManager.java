@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import zombiecrushsaga.data.ZombieCrushLevelRecord;
@@ -162,7 +163,7 @@ public class ZombieCrushSagaFileManager
     
     public ArrayList<ZombieCrushLevelRequirements> getAllLevelRequirements()
     {
-        ArrayList<ZombieCrushLevelRequirements> allReqs = new ArrayList<ZombieCrushLevelRequirements>();
+        ArrayList<ZombieCrushLevelRequirements> allReqs = new ArrayList();
         ZombieCrushLevelRequirements levReq = new ZombieCrushLevelRequirements();
         //load raw data
         try{
@@ -170,7 +171,7 @@ public class ZombieCrushSagaFileManager
             String dataPath = props.getProperty(ZombieCrushSagaPropertyType.DATA_PATH);
             String recordPath = dataPath + props.getProperty(ZombieCrushSagaPropertyType.LEVEL_REQUIREMENTS);
             File fileToOpen = new File(recordPath);
-            
+
             BufferedReader readBuffer = new BufferedReader(new FileReader(fileToOpen));
             String str, s;
             String splitarray[];
@@ -204,7 +205,7 @@ public class ZombieCrushSagaFileManager
             }
             readBuffer.close();
         }
-        catch(Exception e)
+        catch(IOException | NumberFormatException e)
         {
             // LEVEL LOADING ERROR
             miniGame.getErrorHandler().processError(ZombieCrushSagaPropertyType.LOAD_LEVEL_REQS_ERROR, e.toString());

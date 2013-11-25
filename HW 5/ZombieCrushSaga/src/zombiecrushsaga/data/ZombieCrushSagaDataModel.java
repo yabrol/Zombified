@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Random;
 import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
@@ -38,7 +39,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     private int gridRows;
     
     //tiles in level
-    private int totNumTiles = 0;
+    private int totNumTiles;
     
     //level available?
     private boolean levelAvailable = false;
@@ -143,34 +144,69 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         BufferedImage blankTileSelectedImage = miniGame.loadImageWithColorKey(imgPath + blankTileSelectedFileName, COLOR_KEY);
         ((ZombieCrushSagaPanel)(miniGame.getCanvas())).setBlankTileSelectedImage(blankTileSelectedImage);
         
-        // FIRST THE TYPE A TILES
+        String imgFile;
+        Random generator = new Random();
+        int picker;
         ArrayList<String> typeATiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_A_TILES);
-        String imgFile = imgPath + typeATiles.get(0);            
-        sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-        initTile(sT, TILE_A_TYPE);
-        spriteTypeID++;
-        
-        // THEN THE TYPE B TILES
         ArrayList<String> typeBTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_B_TILES);
-        imgFile = imgPath + typeBTiles.get(0);            
-        sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-        initTile(sT, TILE_B_TYPE);
-        spriteTypeID++;
-        
-        // AND THEN TYPE C
         ArrayList<String> typeCTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_C_TILES);
-        for (int i = 0; i < typeCTiles.size(); i++)
+        ArrayList<String> typeDTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_D_TILES);
+        ArrayList<String> typeETiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_E_TILES);
+        ArrayList<String> typeFTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_F_TILES);
+        
+        while(spriteTypeID < totNumTiles)
         {
-            imgFile = imgPath + typeCTiles.get(i);
-            sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);            
-            for (int j = 0; j < 4; j++)
+            picker = generator.nextInt(6);
+            if (picker == 0)
             {
-                initTile(sT, TILE_C_TYPE);
+                // FIRST THE TYPE A TILES
+                imgFile = imgPath + typeATiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_A_TYPE);
+                spriteTypeID++;
             }
-            spriteTypeID++;
+            else if(picker == 1)
+            {
+                // THEN THE TYPE B TILES
+                imgFile = imgPath + typeBTiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_B_TYPE);
+                spriteTypeID++;
+            }
+            else if(picker == 2)
+            {
+                // THEN THE TYPE C TILES
+                imgFile = imgPath + typeCTiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_C_TYPE);
+                spriteTypeID++;
+            }
+            else if(picker == 3)
+            {
+                // THEN THE TYPE D TILES
+                imgFile = imgPath + typeDTiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_D_TYPE);
+                spriteTypeID++;
+            }
+            else if(picker == 4)
+            {
+                // THEN THE TYPE E TILES
+                imgFile = imgPath + typeETiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_E_TYPE);
+                spriteTypeID++;
+            }
+            else if(picker == 5)
+            {
+                // THEN THE TYPE F TILES
+                imgFile = imgPath + typeFTiles.get(0);            
+                sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
+                initTile(sT, TILE_F_TYPE);
+                spriteTypeID++;
+            }
         }
         
-        //while spritetypeid < totNum
     }
 
     /**
@@ -218,8 +254,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                 // EACH CELL HAS A STACK OF TILES, WE'LL USE
                 // AN ARRAY LIST FOR THE STACK
                 tileGrid[i][j] = new ArrayList();
-                if(levelGrid[i][j] != 0)
-                    totNumTiles++;
             }
         }
         // MAKE ALL THE TILES VISIBLE
@@ -346,6 +380,10 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
         currLevelNum = currLevelNum.replaceAll(".zom", "");
         currReqs = allReqs.get(Integer.parseInt(currLevelNum));
+        totNumTiles = currReqs.totTiles;
+        
+        System.out.println("currLevel num" + currLevelNum + " parsed:" + Integer.parseInt(currLevelNum) + "totnum:" + totNumTiles);
+        
     }
 
     /**
@@ -498,40 +536,264 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     {
         // MAKE A MOVE TO FILL IN 
         ZombieCrushSagaMove move = new ZombieCrushSagaMove();
+        ArrayList<ZombieCrushSagaTile> removeTiles;
+        ArrayList<ZombieCrushSagaTile> stack1;
+        ZombieCrushSagaTile testTile1;
+        ArrayList<ZombieCrushSagaTile> stack2;
 
         // GO THROUGH THE ENTIRE GRID TO FIND A MATCH BETWEEN AVAILABLE TILES
         for (int i = 0; i < gridColumns; i++)
         {
             for (int j = 0; j < gridRows; j++)
             {
-                ArrayList<ZombieCrushSagaTile> stack1 = tileGrid[i][j];
+                stack1 = tileGrid[i][j];
                 if (stack1.size() > 0)
                 {
                     // GET THE FIRST TILE
-                    ZombieCrushSagaTile testTile1 = stack1.get(stack1.size()-1);
-                    for (int k = 0; k < gridColumns; k++)
+                    testTile1 = stack1.get(stack1.size()-1);
+     
+                    //check one up, one down, one left, one right
+                    if( j-1>= 0)
                     {
-                        for (int l = 0; l < gridRows; l++)
+                        stack2 = tileGrid[i][j-1];
+                        if (stack2.size() > 0) //if there is a tile there
                         {
-                            if (!((i == k) && (j == l)))
-                            {      
-                                ArrayList<ZombieCrushSagaTile> stack2 = tileGrid[k][l];
-                                if (stack2.size() > 0) 
-                                {
-                                    // AND TEST IT AGAINST THE SECOND TILE
-                                    ZombieCrushSagaTile testTile2 = stack2.get(stack2.size()-1);
-                                    
-                                    // DO THEY MATCH
-                                    if (testTile1.match(testTile2))
-                                    {
-                                        // YES, FILL IN THE MOVE AND RETURN IT
-                                        move.col1 = i;
-                                        move.row1 = j;
-                                        move.col2 = k;
-                                        move.row2 = l;
-                                        return move;
-                                    }
-                                }
+                            //then check different shapes: t,l,5,4,3
+                            //if that shape exists, return move
+                            //move contains 1: pos of test tile and 2: where to move it
+                            // and all the tiles that will be removed if this is done
+                            removeTiles = checkTshape(i, j-1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j-1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = checkLshape(i, j-1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j-1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check5Row(i, j-1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j-1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check4Row(i, j-1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j-1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check3Row(i, j-1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j-1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                        }
+                    }
+                    if( j + 1 < gridRows)
+                    {
+                        stack2 = tileGrid[i][j+1];
+                        if (stack2.size() > 0) //if there is a tile there
+                        {
+                            //then check different shapes: t,l,5,4,3
+                            //if that shape exists, return move
+                            //move contains 1: pos of test tile and 2: where to move it
+                            // and all the tiles that will be removed if this is done
+                            removeTiles = checkTshape(i, j+1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j+1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = checkLshape(i, j+1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j+1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check5Row(i, j+1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j+1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check4Row(i, j+1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j+1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check3Row(i, j+1, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i;
+                                move.row2 = j+1;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                        }
+                    }
+                    if ( i - 1 >= 0)
+                    {
+                        stack2 = tileGrid[i-1][j];
+                        if (stack2.size() > 0) //if there is a tile there
+                        {
+                            //then check different shapes: t,l,5,4,3
+                            //if that shape exists, return move
+                            //move contains 1: pos of test tile and 2: where to move it
+                            // and all the tiles that will be removed if this is done
+                            removeTiles = checkTshape(i-1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i-1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = checkLshape(i-1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i-1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check5Row(i-1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i-1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check4Row(i-1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i-1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check3Row(i-1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i-1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                        }
+                    }
+                    if (i + 1 < gridColumns)
+                    {
+                        stack2 = tileGrid[i+1][j];
+                        if (stack2.size() > 0) //if there is a tile there
+                        {
+                            //then check different shapes: t,l,5,4,3
+                            //if that shape exists, return move
+                            //move contains 1: pos of test tile and 2: where to move it
+                            // and all the tiles that will be removed if this is done
+                            removeTiles = checkTshape(i+1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i+1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = checkLshape(i+1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i+1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check5Row(i+1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i+1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check4Row(i+1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i+1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
+                            }
+                            removeTiles = check3Row(i+1, j, testTile1);
+                            if(removeTiles != null)
+                            {
+                                move.col1 = i;
+                                move.row1 = j;
+                                move.col2 = i+1;
+                                move.row2 = j;
+                                move.tilesToRemove = removeTiles;
+                                return move;
                             }
                         }
                     }
@@ -542,6 +804,105 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // ARE NO POSSIBLE MOVES REMAINING
         return null;
     }
+    
+    /**
+     * checks if t shape can be formed if the testTile is moved to the 
+     * inputed coordinates
+     * 
+     * @param x
+     * @param y
+     * @param testTile
+     * @return 
+     */
+    public ArrayList<ZombieCrushSagaTile> checkTshape(int x, int y, ZombieCrushSagaTile testTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        //figure out which direction you moved from, the opposite side should have 2 matching
+        //and each adjacent side should have 1 matching
+        if(tilesToRemove.size() >= 5)
+            return tilesToRemove;
+        else
+            return null;
+    }
+    
+    /**
+     * checks if L shape can be formed if the testTile is moved to the
+     * inputted coordinates
+     * 
+     * @param x
+     * @param y
+     * @param testTile
+     * @return 
+     */
+    public ArrayList<ZombieCrushSagaTile> checkLshape(int x, int y, ZombieCrushSagaTile testTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        //check up twice. both should match
+        //if this is true, then try left for 2 matching, else try right for 2 matching
+        //if not, then try down twice. if both match, then try left and right for 2 matching
+        if(tilesToRemove.size() >= 5)
+            return tilesToRemove;
+        else
+            return null;
+    }
+    
+    /**
+     * checks if 5 in a row can be formed if the testTile is moved to the
+     * inputted coordinates
+     * @param x
+     * @param y
+     * @param testTile
+     * @return 
+     */
+    public ArrayList<ZombieCrushSagaTile> check5Row(int x, int y, ZombieCrushSagaTile testTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        if(tilesToRemove.size() >= 5)
+            return tilesToRemove;
+        else
+            return null;
+    }
+    
+    /**
+     * checks if 4 in a row can be formed if the testTile is moved to the
+     * inputted coordinates
+     * @param x
+     * @param y
+     * @param testTile
+     * @return 
+     */
+    public ArrayList<ZombieCrushSagaTile> check4Row(int x, int y, ZombieCrushSagaTile testTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        if(tilesToRemove.size() >= 4)
+            return tilesToRemove;
+        else
+            return null;
+    }
+    
+    /**
+     * checks if 3 in a row can be formed if the testTile is moved to the
+     * inputted coordinates
+     * @param x
+     * @param y
+     * @param testTile
+     * @return 
+     */
+    public ArrayList<ZombieCrushSagaTile> check3Row(int x, int y, ZombieCrushSagaTile testTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        if(tilesToRemove.size() >= 3)
+            return tilesToRemove;
+        else
+            return null;
+    }
+    
+    public ArrayList<ZombieCrushSagaTile> processSpecial(ZombieCrushSagaTile specTile)
+    {
+        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList<ZombieCrushSagaTile>();
+        return tilesToRemove;
+    }
+           
 
     /**
      * This method moves all the tiles not currently in the stack 
@@ -590,26 +951,20 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     public void processMove(ZombieCrushSagaMove move)
     {
         // REMOVE THE MOVE TILES FROM THE GRID
-        ArrayList<ZombieCrushSagaTile> stack1 = tileGrid[move.col1][move.row1];
-        ArrayList<ZombieCrushSagaTile> stack2 = tileGrid[move.col2][move.row2];        
-        ZombieCrushSagaTile tile1 = stack1.remove(stack1.size()-1);
-        ZombieCrushSagaTile tile2 = stack2.remove(stack2.size()-1);
+        ArrayList<ZombieCrushSagaTile> stack1 = move.tilesToRemove;
+        for(ZombieCrushSagaTile tile1 : stack1)
+        {
+            stack1.remove(tile1);
+            // MAKE SURE BOTH ARE UNSELECTED
+            tile1.setState(VISIBLE_STATE);
+            // SEND THEM TO THE STACK
+            tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
+            tile1.startMovingToTarget(MAX_TILE_VELOCITY);
+            stackTiles.add(tile1);
+            // MAKE SURE THEY MOVE
+            movingTiles.add(tile1);
+        }
         
-        // MAKE SURE BOTH ARE UNSELECTED
-        tile1.setState(VISIBLE_STATE);
-        tile2.setState(VISIBLE_STATE);
-        
-        // SEND THEM TO THE STACK
-//        tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
-        tile1.startMovingToTarget(MAX_TILE_VELOCITY);
-//        tile2.setTarget(TILE_STACK_X + TILE_STACK_2_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
-        tile2.startMovingToTarget(MAX_TILE_VELOCITY);
-        stackTiles.add(tile1);
-        stackTiles.add(tile2);  
-        
-        // MAKE SURE THEY MOVE
-        movingTiles.add(tile1);
-        movingTiles.add(tile2);
         
         // AND MAKE SURE NEW TILES CAN BE SELECTED
         selectedTile = null;
@@ -620,7 +975,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // NOW CHECK TO SEE IF THE GAME HAS EITHER BEEN WON OR LOST
         
         // HAS THE PLAYER WON?
-        if (stackTiles.size() == totNumTiles)
+        if (stackTiles.size() == totNumTiles)//highscore?
         {
             // YUP UPDATE EVERYTHING ACCORDINGLY
             endGameAsWin();
@@ -658,9 +1013,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         // IF THE TILE IS NOT AT THE TOP OF ITS STACK, DO NOTHING
         int col = selectTile.getGridColumn();
         int row = selectTile.getGridRow();
-        int index = tileGrid[col][row].indexOf(selectTile);
-        if (index != (tileGrid[col][row].size() - 1))
-            return;
+//        int index = tileGrid[col][row].indexOf(selectTile);
+//        if (index != (tileGrid[col][row].size() - 1))
+//            return;
                 
         // IF THE TILE IS NOT FREE, DO NOTHING, BUT MAKE SURE WE GIVE FEEDBACK
         if ((col > 0) && (col < (gridColumns - 1)))
@@ -828,8 +1183,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         moveAllTilesToStack();
         for (ZombieCrushSagaTile tile : stackTiles)
         {
-//            tile.setX(TILE_STACK_X);
-//            tile.setY(TILE_STACK_Y);
+            tile.setX(TILE_STACK_X);
+            tile.setY(TILE_STACK_Y);
             tile.setState(VISIBLE_STATE);
         }        
 
@@ -845,8 +1200,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
         {
             for (int j = 0; j < gridRows; j++)
             {
-                for (int k = 0; k < levelGrid[i][j]; k++)
-                {
+                System.out.println(stackTiles.size());
+                    //if levelGrid[i][j] > 1, its a jelly!
                     // TAKE THE TILE OUT OF THE STACK
                     ZombieCrushSagaTile tile = stackTiles.remove(stackTiles.size()-1);
                     
@@ -856,12 +1211,11 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
                     
                     // WE'LL ANIMATE IT GOING TO THE GRID, SO FIGURE
                     // OUT WHERE IT'S GOING AND GET IT MOVING
-                    float x = calculateTileXInGrid(i, k);
-                    float y = calculateTileYInGrid(j, k);
+                    float x = calculateTileXInGrid(i, 0);
+                    float y = calculateTileYInGrid(j, 0);
                     tile.setTarget(x, y);
                     tile.startMovingToTarget(MAX_TILE_VELOCITY);
                     movingTiles.add(tile);
-                }
             }
         }        
         // AND START ALL UPDATES
@@ -927,5 +1281,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel
     @Override
     public void updateDebugText(MiniGame game)
     {
-    }      
+    }  
+        
 }

@@ -133,6 +133,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
    * appropriate UI controls visible & invisible.
    */
   public void switchToGameScreen() {
+    // THEN THE TILES STACKED TO THE TOP LEFT
+    ((ZombieCrushSagaDataModel) data).initTiles();
+    
     PropertiesManager props = PropertiesManager.getPropertiesManager();
 
     // CHANGE THE BACKGROUND
@@ -150,6 +153,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(SCORE_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(STAR_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(VISIBLE_STATE);
+    guiDecor.get(TILE_STACK_TYPE).setState(VISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
@@ -187,8 +191,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // MOVE THE TILES TO THE STACK AND MAKE THEM VISIBLE
-    //((ZombieCrushSagaDataModel) data).enableTiles(true);
-    //data.reset(this);
+    ((ZombieCrushSagaDataModel) data).enableTiles(true);
+    data.reset(this);
 
     // AND CHANGE THE SCREEN STATE
     currentScreenState = GAME_SCREEN_STATE;
@@ -221,6 +225,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
     // ACTIVATE THE LEVEL SELECT BUTTONS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -296,6 +301,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -371,6 +377,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -690,6 +697,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, STAR_X, STAR_Y, 0, 0, INVISIBLE_STATE);
     guiDecor.put(STAR_TYPE, s);
     
+    // AND THE TILE STACK
+    String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
+    sT = new SpriteType(TILE_STACK_TYPE);
+    img = loadImageWithColorKey(imgPath + tileStack, COLOR_KEY);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, TILE_STACK_X, TILE_STACK_Y, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(TILE_STACK_TYPE, s);
+    
     //Then the up button
     String upButton = props.getProperty(ZombieCrushSagaPropertyType.UP_BUTTON_IMAGE_NAME);
     sT = new SpriteType(UP_BUTTON_TYPE);
@@ -842,9 +857,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
     guiDecor.put(LOSS_TYPE, s);
-
-    // THEN THE TILES STACKED TO THE TOP LEFT
-    ((ZombieCrushSagaDataModel) data).initTiles();
   }
 
   /**
@@ -905,12 +917,6 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     //LEVEL RETURN button event handler
     ReturnToSagaHandler rtsh2 = new ReturnToSagaHandler(this);
     guiButtons.get(RETURN_FROM_LEVEL_BUTTON_TYPE).setActionListener(rtsh2);
-    
-    //PLAY LEVEL button event handler
-    //for (String levelFile : levels) {
-      //PlayLevelHandler plh = new PlayLevelHandler(this);//, dataPath + levelFile);
-      //guiButtons.get(PLAY_LEVEL_BUTTON_TYPE).setActionListener(plh);
-    //}
     
   }
 

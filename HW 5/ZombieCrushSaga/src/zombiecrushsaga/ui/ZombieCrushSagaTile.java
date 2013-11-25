@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import mini_game.SpriteType;
+import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 
 /**
@@ -167,7 +168,7 @@ public class ZombieCrushSagaTile extends Sprite
     
     /**
      * This method tests to see if this tile matches the testTile argument
-     * and returns true if they match, false otherwise.
+     * TYPE and returns true if they match, false otherwise.
      * 
      * @param testTile The tile to compare this tile to.0
      * 
@@ -179,30 +180,34 @@ public class ZombieCrushSagaTile extends Sprite
         //check if same type
       if( this.tileType.equals(testTile.getTileType()))
       {
-        if(this.tileType.equals(TILE_C_TYPE))
-        {
-        //check if identical
-          if(this.spriteType.equals(testTile.getSpriteType()))
-          {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
-        }
-        //all type A match with type A, all type B match with type B
-        else
-        {
-          return true;
-        }
+        return true;
       }
       else
       {
         return false;
       }
     }
-        
+    
+    /**
+     * This tests to make sure this matches exact tile as testTile argument.
+     * This is to check if is a special tile
+     * 
+     * @param testTile
+     * @return 
+     */
+    public SpriteType matchTile(ZombieCrushSagaTile testTile)
+    {
+        //check if identical
+          if(this.spriteType.equals(testTile.getSpriteType()))
+          {
+            return testTile.getSpriteType();
+          }
+          else
+          {
+            return null;
+          }
+    }
+         
     // PATHFINDING METHODS
         // -calculateDistanceToTarget
         // -initWinPath
