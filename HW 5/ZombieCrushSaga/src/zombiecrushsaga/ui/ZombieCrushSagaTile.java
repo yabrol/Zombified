@@ -168,7 +168,7 @@ public class ZombieCrushSagaTile extends Sprite
     
     /**
      * This method tests to see if this tile matches the testTile argument
-     * TYPE and returns true if they match, false otherwise.
+     * TYPE and returns true if they match, false otherwise. A-F
      * 
      * @param testTile The tile to compare this tile to.0
      * 

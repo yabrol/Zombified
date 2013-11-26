@@ -18,5 +18,7 @@ public class ZombieCrushSagaMove
     public int col2;
     public int row2;
     
+    public String moveType;
+    
     public ArrayList<ZombieCrushSagaTile> tilesToRemove;
 }

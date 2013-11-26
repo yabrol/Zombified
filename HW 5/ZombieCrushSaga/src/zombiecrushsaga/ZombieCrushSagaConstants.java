@@ -191,6 +191,13 @@ public class ZombieCrushSagaConstants {
     public static final int WIN_PATH_NODES = 8;
     public static final int WIN_PATH_TOLERANCE = 100;
     public static final int WIN_PATH_COORD = 100;
+    
+    //move types
+    public static final String L_SHAPE_MOVE = "L_SHAPE_MOVE";
+    public static final String T_SHAPE_MOVE = "T_SHAPE_MOVE";
+    public static final String ROW_5_MOVE = "ROW_5_MOVE";
+    public static final String ROW_4_MOVE = "ROW_4_MOVE";
+    public static final String ROW_3_MOVE = "ROW_3_MOVE";
 
     // COLORS USED FOR RENDERING VARIOUS THINGS, INCLUDING THE
     // COLOR KEY, WHICH REFERS TO THE COLOR TO IGNORE WHEN
