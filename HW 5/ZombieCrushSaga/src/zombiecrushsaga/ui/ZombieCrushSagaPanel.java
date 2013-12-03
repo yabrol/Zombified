@@ -371,7 +371,7 @@ public class ZombieCrushSagaPanel extends JPanel {
             // WE DRAW ONLY THE TOP 4 (OR 2 IF THERE ARE ONLY 2). THE REASON
             // WE DRAW 4 IS THAT WHILE WE MOVE MATCHES TO THE STACK WE WANT
             // TO SEE THE STACK
-            ArrayList<ZombieCrushSagaTile> stackTiles = data.getStackTiles();
+            ArrayList<ZombieCrushSagaTile> stackTiles = data.getAddTiles();
             if (stackTiles.size() > 3) {
                 renderTile(g, stackTiles.get(stackTiles.size() - 3));
                 renderTile(g, stackTiles.get(stackTiles.size() - 4));

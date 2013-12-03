@@ -43,10 +43,10 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     private boolean levelAvailable = false;
     // THIS STORES THE TILES ON THE GRID DURING THE GAME
     private ArrayList<ZombieCrushSagaTile>[][] tileGrid;
-    // THESE ARE THE TILES THE PLAYER HAS MATCHED
-    private ArrayList<ZombieCrushSagaTile> stackTiles;
     //tiles player has
     private ArrayList<ZombieCrushSagaTile> playTiles;
+    //tiles that need to be added
+    private ArrayList<ZombieCrushSagaTile> addTiles;
     // THESE ARE THE TILES THAT ARE MOVING AROUND, AND SO WE HAVE TO UPDATE
     private ArrayList<ZombieCrushSagaTile> movingTiles;
     // THIS IS A SELECTED TILE, MEANING THE FIRST OF A PAIR THE PLAYER
@@ -79,10 +79,10 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // KEEP THE GAME FOR LATER
         miniGame = initMiniGame;
 
-        // INIT THESE FOR HOLDING MATCHED AND MOVING TILES
-        stackTiles = new ArrayList();
+        // INIT THESE FOR HOLDING new, playing, AND MOVING TILES
         movingTiles = new ArrayList();
         playTiles = new ArrayList();
+        addTiles = new ArrayList();
 
         allReqs = ((ZombieCrushSagaMiniGame) miniGame).getFileManager().getAllLevelRequirements();
     }
@@ -123,7 +123,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         ArrayList<String> typeETiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_E_TILES);
         ArrayList<String> typeFTiles = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.TYPE_F_TILES);
 
-        while (stackTiles.size() < totNumTiles)//IT WORKS WITH STACKTILES
+        while (addTiles.size() < totNumTiles)//IT WORKS WITH STACKTILES
         {
             picker = generator.nextInt(6);
             if (picker == 0) {
@@ -180,8 +180,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         ZombieCrushSagaTile newTile = new ZombieCrushSagaTile(sT, unassignedTilesX, unassignedTilesY, 0, 0, INVISIBLE_STATE, tileType);
 
         // AND ADD IT TO THE STACK
-        stackTiles.add(newTile);
-        playTiles.add(newTile);
+        addTiles.add(newTile);
     }
 
     /**
@@ -400,8 +399,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      * @return The stack tiles, which are the tiles the matched tiles are placed
      * in.
      */
-    public ArrayList<ZombieCrushSagaTile> getStackTiles() {
-        return stackTiles;
+    public ArrayList<ZombieCrushSagaTile> getAddTiles() {
+        return addTiles;
     }
 
     /**
@@ -595,9 +594,12 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      *
      * @return A move that can be made, or null if none exist.
      */
-    public ZombieCrushSagaMove findMove() {
+    public ArrayList<ZombieCrushSagaMove> findMove() {
+        ArrayList<ZombieCrushSagaMove> moves = new ArrayList();
         // MAKE A MOVE TO FILL IN 
         ZombieCrushSagaMove move = new ZombieCrushSagaMove();
+        //holds a second move in case moving tiles will make two moves at once
+        ZombieCrushSagaMove move2 = new ZombieCrushSagaMove();
         ArrayList<ZombieCrushSagaTile> removeTiles;
         ArrayList<ZombieCrushSagaTile> stack1;
         ZombieCrushSagaTile testTile1, testTile2;
@@ -610,138 +612,25 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 if (stack1.size() > 0) {
                     // GET THE FIRST TILE
                     testTile1 = stack1.get(0);
-
                     //check one up, one down, one left, one right
                     if (j - 1 >= 0) {
                         stack2 = tileGrid[i][j - 1];
                         if (stack2.size() > 0) //if there is a tile there
                         {
                             testTile2 = stack2.get(0);
-                            //then check different shapes: t,l,5,4,3
-                            //if that shape exists, return move
                             //move contains 1: pos of test tile and 2: where to move it
                             // and all the tiles that will be removed if this is done
                             swap(testTile1,testTile2);
-                            removeTiles = checkTshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j - 1;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkTshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j - 1;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j - 1;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j - 1;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j - 1;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j - 1;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j - 1;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j - 1;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j - 1;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j - 1;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
+                            move = checkShapes(testTile1);
+                            move.col1 = testTile2.getGridColumn();
+                            move.row1 = testTile2.getGridRow();
+                            if(move.tilesToRemove != null)
+                                moves.add(move);
+                            move2 = checkShapes(testTile2);
+                            move2.col1 = testTile1.getGridColumn();
+                            move2.row1 = testTile1.getGridRow();
+                            if(move2.tilesToRemove != null)
+                                moves.add(move2);
                             //swap back
                             swap(testTile1,testTile2);
                         }
@@ -751,131 +640,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         if (stack2.size() > 0) //if there is a tile there
                         {
                             testTile2 = stack2.get(0);
-                            //then check different shapes: t,l,5,4,3
-                            //if that shape exists, return move
                             //move contains 1: pos of test tile and 2: where to move it
                             // and all the tiles that will be removed if this is done
                             swap(testTile1,testTile2);
-                            removeTiles = checkTshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j + 1;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkTshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j + 1;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j + 1;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j + 1;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j + 1;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j + 1;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j + 1;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j + 1;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i;
-                                move.row2 = j + 1;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i;
-                                move.row1 = j + 1;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
+                            move = checkShapes(testTile1);
+                            move.col1 = testTile2.getGridColumn();
+                            move.row1 = testTile2.getGridRow();
+                            if(move.tilesToRemove != null)
+                                moves.add(move);
+                            move2 = checkShapes(testTile2);
+                            move2.col1 = testTile1.getGridColumn();
+                            move2.row1 = testTile1.getGridRow();
+                            if(move2.tilesToRemove != null)
+                                moves.add(move2);
                             //swap back
                             swap(testTile1,testTile2);
                         }
@@ -885,131 +662,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         if (stack2.size() > 0) //if there is a tile there
                         {
                             testTile2 = stack2.get(0);
-                            //then check different shapes: t,l,5,4,3
-                            //if that shape exists, return move
                             //move contains 1: pos of test tile and 2: where to move it
                             // and all the tiles that will be removed if this is done
                             swap(testTile1,testTile2);
-                            removeTiles = checkTshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i - 1;
-                                move.row2 = j;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkTshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i - 1;
-                                move.row1 = j;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i - 1;
-                                move.row2 = j;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2= j;
-                                move.col1 = i - 1;
-                                move.row1 = j;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i - 1;
-                                move.row2 = j;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i - 1;
-                                move.row1 = j;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i - 1;
-                                move.row2 = j;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i - 1;
-                                move.row1 = j;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i - 1;
-                                move.row2 = j;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i - 1;
-                                move.row1 = j;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
+                            move = checkShapes(testTile1);
+                            move.col1 = testTile2.getGridColumn();
+                            move.row1 = testTile2.getGridRow();
+                            if(move.tilesToRemove != null)
+                                moves.add(move);
+                            move2 = checkShapes(testTile2);
+                            move2.col1 = testTile1.getGridColumn();
+                            move2.row1 = testTile1.getGridRow();
+                            if(move2.tilesToRemove != null)
+                                moves.add(move2);
                             //swap back
                             swap(testTile1,testTile2);
                         }
@@ -1019,131 +684,20 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         if (stack2.size() > 0) //if there is a tile there
                         {
                             testTile2 = stack2.get(0);
-                            //then check different shapes: t,l,5,4,3
-                            //if that shape exists, return move
                             //move contains 1: pos of test tile and 2: where to move it
                             // and all the tiles that will be removed if this is done
                             swap(testTile1,testTile2);
-                            removeTiles = checkTshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i + 1;
-                                move.row2 = j;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkTshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i + 1;
-                                move.row1 = j;
-                                move.moveType = T_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i + 1;
-                                move.row2 = j;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = checkLshape(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i + 1;
-                                move.row1 = j;
-                                move.moveType = L_SHAPE_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i + 1;
-                                move.row2 = j;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check5Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i + 1;
-                                move.row1 = j;
-                                move.moveType = ROW_5_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i + 1;
-                                move.row2 = j;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check4Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i + 1;
-                                move.row1 = j;
-                                move.moveType = ROW_4_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile1);
-                            if (removeTiles != null) {
-                                move.col1 = i;
-                                move.row1 = j;
-                                move.col2 = i + 1;
-                                move.row2 = j;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
-                            removeTiles = check3Row(testTile2);
-                            if (removeTiles != null) {
-                                move.col2 = i;
-                                move.row2 = j;
-                                move.col1 = i + 1;
-                                move.row1 = j;
-                                move.moveType = ROW_3_MOVE;
-                                move.tilesToRemove = removeTiles;
-                                //swap back
-                                swap(testTile1,testTile2);
-                                return move;
-                            }
+                            move = checkShapes(testTile1);
+                            move.col1 = testTile2.getGridColumn();
+                            move.row1 = testTile2.getGridRow();
+                            if(move.tilesToRemove != null)
+                                moves.add(move);
+                            move2 = checkShapes(testTile2);
+                            move2.col1 = testTile1.getGridColumn();
+                            move2.row1 = testTile1.getGridRow();
+                            if(move2.tilesToRemove != null)
+                                moves.add(move2);
+                            //swap back
                             swap(testTile1,testTile2);
                         }
                     }
@@ -1152,522 +706,283 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         }
         // WE'VE SEARCHED THE ENTIRE GRID AND THERE
         // ARE NO POSSIBLE MOVES REMAINING
+        return moves;
+    }
+
+    /**
+     * checks all the shapes. returns move. else returns null
+     * @param tile1
+     * @return 
+     */
+    public ZombieCrushSagaMove checkShapes(ZombieCrushSagaTile tile1)
+    {
+        ArrayList<ZombieCrushSagaTile> remTiles = new ArrayList();
+        int x1 = tile1.getGridColumn();
+        int y1 = tile1.getGridRow();
+        ZombieCrushSagaMove move = new ZombieCrushSagaMove();
+        
+        //five in a row
+        checkUp(tile1, remTiles);
+        checkDown(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_5_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkRight(tile1, remTiles);
+        checkLeft(tile1,remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_5_MOVE;
+            return move;
+        }
+        
+        //T shape
+        remTiles = new ArrayList();
+        checkUp(tile1, remTiles);
+        checkDown(tile1, remTiles);
+        checkRight(tile1,remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = T_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkUp(tile1, remTiles);
+        checkDown(tile1, remTiles);
+        checkLeft(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = T_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkDown(tile1, remTiles);
+        checkRight(tile1, remTiles);
+        checkLeft(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = T_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkUp(tile1, remTiles);
+        checkLeft(tile1, remTiles);
+        checkRight(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = T_SHAPE_MOVE;
+            return move;
+        }
+        
+        // L shape
+        remTiles = new ArrayList();
+        checkUp(tile1, remTiles);
+        checkRight(tile1,remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = L_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkUp(tile1, remTiles);
+        checkLeft(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = L_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkDown(tile1, remTiles);
+        checkRight(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = L_SHAPE_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkDown(tile1, remTiles);
+        checkLeft(tile1, remTiles);
+        if(remTiles.size() == 5)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = L_SHAPE_MOVE;
+            return move;
+        }
+        
+        //4 in a row
+        remTiles = new ArrayList();
+        checkDown(tile1, remTiles);
+        checkUp(tile1, remTiles);
+        if(remTiles.size() == 4)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_4_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkLeft(tile1, remTiles);
+        checkRight(tile1, remTiles);
+        if(remTiles.size() == 4)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_4_MOVE;
+            return move;
+        }
+        
+        //3 in a row
+        remTiles = new ArrayList();
+        checkDown(tile1, remTiles);
+        checkUp(tile1, remTiles);
+        if(remTiles.size() == 3)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_3_MOVE;
+            return move;
+        }
+        remTiles = new ArrayList();
+        checkLeft(tile1, remTiles);
+        checkRight(tile1, remTiles);
+        if(remTiles.size() == 3)
+        {
+            move.col2 = y1;
+            move.row2 = x1;
+            move.tilesToRemove = remTiles;
+            move.moveType = ROW_3_MOVE;
+            return move;
+        }
+        //if nothing
         return null;
     }
-
+    
     /**
-     * checks if t shape can be formed if the testTile is moved to the inputed
-     * coordinates
-     *
-     * @param testTile
-     * @return
+     * recursive method looking continuously up and adds to remTiles if match, else return
+     * @param tile1
+     * @param remTiles 
      */
-    public ArrayList<ZombieCrushSagaTile> checkTshape(ZombieCrushSagaTile testTile) {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
-        tilesToRemove.add(testTile);
-        ArrayList<ZombieCrushSagaTile> stack2, stack3, stack4, stack5;
-        ZombieCrushSagaTile test2, test3, test4, test5;
-        int x = testTile.getGridColumn();
-        int y = testTile.getGridRow();
-        //figure out which direction you moved from, the opposite side should have 2 matching
-        //and each adjacent side should have 1 matching
-        int x1 = testTile.getGridColumn();
-        int y1 = testTile.getGridRow();
-        //if x1 > x, moved left
-        if (x1 > x) {
-            //check if all are available
-            if (x - 2 >= 0 && y + 1 < gridRows && y - 1 >= 0) {
-                stack2 = tileGrid[x - 1][y];
-                stack3 = tileGrid[x - 2][y];
-                stack4 = tileGrid[x][y + 1];
-                stack5 = tileGrid[x][y - 1];
-                if (stack2.size() > 0 && stack3.size() > 0 && stack4.size() > 0 && stack5.size() > 0) {
-                    test2 = stack2.get(0);
-                    test3 = stack3.get(0);
-                    test4 = stack4.get(0);
-                    test5 = stack5.get(0);
-                    if (test2.match(testTile) && test3.match(testTile) && test4.match(testTile)
-                            && test5.match(testTile)) {
-                        tilesToRemove.add(test2);
-                        tilesToRemove.add(test3);
-                        tilesToRemove.add(test4);
-                        tilesToRemove.add(test5);
-                        return tilesToRemove;
-                    } else {
-                        return null;
-                    }
+    public void checkUp(ZombieCrushSagaTile tile1, ArrayList<ZombieCrushSagaTile> remTiles)
+    {
+        ArrayList<ZombieCrushSagaTile> stack;
+        ZombieCrushSagaTile test;
+        int x1 = tile1.getGridColumn();
+        int y1 = tile1.getGridRow();
+        if (y1 - 1 >= 0) {
+            stack = tileGrid[x1][y1 - 1];
+            if (stack.size() > 0) {
+                test = stack.get(0);
+                if (test.match(tile1)) {
+                    remTiles.add(test);
+                    checkUp(tile1, remTiles);
                 }
             }
-        } //moved right
-        else if (x1 < x) {
-            //check if all are available
-            if (x + 2 < gridColumns && y + 1 < gridRows && y - 1 >= 0) {
-                stack2 = tileGrid[x + 1][y];
-                stack3 = tileGrid[x + 2][y];
-                stack4 = tileGrid[x][y + 1];
-                stack5 = tileGrid[x][y - 1];
-                if (stack2.size() > 0 && stack3.size() > 0 && stack4.size() > 0 && stack5.size() > 0) {
-                    test2 = stack2.get(0);
-                    test3 = stack3.get(0);
-                    test4 = stack4.get(0);
-                    test5 = stack5.get(0);
-                    if (test2.match(testTile) && test3.match(testTile) && test4.match(testTile)
-                            && test5.match(testTile)) {
-                        tilesToRemove.add(test2);
-                        tilesToRemove.add(test3);
-                        tilesToRemove.add(test4);
-                        tilesToRemove.add(test5);
-                        return tilesToRemove;
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        } //if y1 > y, moved up
-        else if (y1 > y) {
-            //check if all are available
-            if (y - 2 >= 0 && x + 1 < gridColumns && x - 1 >= 0) {
-                stack2 = tileGrid[x][y - 1];
-                stack3 = tileGrid[x][y - 2];
-                stack4 = tileGrid[x + 1][y];
-                stack5 = tileGrid[x - 1][y];
-                if (stack2.size() > 0 && stack3.size() > 0 && stack4.size() > 0 && stack5.size() > 0) {
-                    test2 = stack2.get(0);
-                    test3 = stack3.get(0);
-                    test4 = stack4.get(0);
-                    test5 = stack5.get(0);
-                    if (test2.match(testTile) && test3.match(testTile) && test4.match(testTile)
-                            && test5.match(testTile)) {
-                        tilesToRemove.add(test2);
-                        tilesToRemove.add(test3);
-                        tilesToRemove.add(test4);
-                        tilesToRemove.add(test5);
-                        return tilesToRemove;
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        } //move down
-        else if (y1 < y) {
-            //check if all are available
-            if (y + 2 < gridRows && x + 1 < gridColumns && x - 1 >= 0) {
-                stack2 = tileGrid[x][y + 1];
-                stack3 = tileGrid[x][y + 2];
-                stack4 = tileGrid[x + 1][y];
-                stack5 = tileGrid[x - 1][y];
-                if (stack2.size() > 0 && stack3.size() > 0 && stack4.size() > 0 && stack5.size() > 0) {
-                    test2 = stack2.get(0);
-                    test3 = stack3.get(0);
-                    test4 = stack4.get(0);
-                    test5 = stack5.get(0);
-                    if (test2.match(testTile) && test3.match(testTile) && test4.match(testTile)
-                            && test5.match(testTile)) {
-                        tilesToRemove.add(test2);
-                        tilesToRemove.add(test3);
-                        tilesToRemove.add(test4);
-                        tilesToRemove.add(test5);
-                        return tilesToRemove;
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * checks if L shape can be formed if the testTile is moved to the inputted
-     * coordinates
-     *
-     * @param testTile
-     * @return
-     */
-    public ArrayList<ZombieCrushSagaTile> checkLshape(ZombieCrushSagaTile testTile) {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
-        //check up twice. both should match
-        //if this is true, then try left for 2 matching, else try right for 2 matching
-        //if not, then try down twice. if both match, then try left and right for 2 matching
-        tilesToRemove.add(testTile);
-        ArrayList<ZombieCrushSagaTile> stack2;
-        ZombieCrushSagaTile test2;
-        int x = testTile.getGridColumn();
-        int y = testTile.getGridRow();
-        //check up & right
-        for (int i = 1; i < 3; i++) {
-            if (y + i < gridRows) {
-                stack2 = tileGrid[x][y + i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-            if (x + i < gridColumns) {
-                stack2 = tileGrid[x + i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check down and right
-        for (int i = 1; i < 5; i++) {
-            if (y - i >= 0) {
-                stack2 = tileGrid[x][y - i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-            if (x + i < gridColumns) {
-                stack2 = tileGrid[x + i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check up and left
-        for (int i = 1; i < 5; i++) {
-            if (y + i < gridRows) {
-                stack2 = tileGrid[x][y + i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-            if (x - i >= 0) {
-                stack2 = tileGrid[x - i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check down and left
-        for (int i = 1; i < 5; i++) {
-            if (y - i >= 0) {
-                stack2 = tileGrid[x][y - i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-            if (x - i >= 0) {
-                stack2 = tileGrid[x - i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            return null;
         }
     }
-
+    
     /**
-     * checks if 5 in a row can be formed if the testTile is moved to the
-     * inputted coordinates
-     *
-     * @param testTile
-     * @return
+     * recursive method looking continuously down and adds to remTiles if match, else return
+     * @param tile1
+     * @param remTiles 
      */
-    public ArrayList<ZombieCrushSagaTile> check5Row(ZombieCrushSagaTile testTile) {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
-        tilesToRemove.add(testTile);
-        ArrayList<ZombieCrushSagaTile> stack2;
-        ZombieCrushSagaTile test2;
-        int x = testTile.getGridColumn();
-        int y = testTile.getGridRow();
-        //check up
-        for (int i = 1; i < 5; i++) {
-            if (y + i < gridRows) {
-                stack2 = tileGrid[x][y + i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
+    public void checkDown(ZombieCrushSagaTile tile1, ArrayList<ZombieCrushSagaTile> remTiles)
+    {
+        ArrayList<ZombieCrushSagaTile> stack;
+        ZombieCrushSagaTile test;
+        int x1 = tile1.getGridColumn();
+        int y1 = tile1.getGridRow();
+        if (y1 + 1 < gridRows) {
+            stack = tileGrid[x1][y1 + 1];
+            if (stack.size() > 0) {
+                test = stack.get(0);
+                if (test.match(tile1)) {
+                    remTiles.add(test);
+                    checkUp(tile1, remTiles);
                 }
             }
-        }
-        //check down
-        for (int i = 1; i < 5; i++) {
-            if (y - i >= 0) {
-                stack2 = tileGrid[x][y - i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check right
-        for (int i = 1; i < 5; i++) {
-            if (x + i < gridColumns) {
-                stack2 = tileGrid[x + i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        //check left
-        for (int i = 1; i < 5; i++) {
-            if (x - i >= 0) {
-                stack2 = tileGrid[x - i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 5) {
-            return tilesToRemove;
-        } else {
-            return null;
         }
     }
-
+    
     /**
-     * checks if 4 in a row can be formed if the testTile is moved to the
-     * inputted coordinates
-     *
-     * @param testTile
-     * @return
+     * recursive method looking continuously left and adds to remTiles if match, else return
+     * @param tile1
+     * @param remTiles 
      */
-    public ArrayList<ZombieCrushSagaTile> check4Row(ZombieCrushSagaTile testTile) {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
-        tilesToRemove.add(testTile);
-        ArrayList<ZombieCrushSagaTile> stack2;
-        ZombieCrushSagaTile test2;
-        int x = testTile.getGridColumn();
-        int y = testTile.getGridRow();
-        //check up
-        for (int i = 1; i < 4; i++) {
-            if (y + i < gridRows) {
-                stack2 = tileGrid[x][y + i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
+    public void checkLeft(ZombieCrushSagaTile tile1, ArrayList<ZombieCrushSagaTile> remTiles)
+    {
+        ArrayList<ZombieCrushSagaTile> stack;
+        ZombieCrushSagaTile test;
+        int x1 = tile1.getGridColumn();
+        int y1 = tile1.getGridRow();
+        if (x1 - 1 >= 0) {
+            stack = tileGrid[x1-1][y1];
+            if (stack.size() > 0) {
+                test = stack.get(0);
+                if (test.match(tile1)) {
+                    remTiles.add(test);
+                    checkUp(tile1, remTiles);
                 }
             }
-        }
-        //check down
-        for (int i = 1; i < 4; i++) {
-            if (y - i >= 0) {
-                stack2 = tileGrid[x][y - i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 4) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check right
-        for (int i = 1; i < 4; i++) {
-            if (x + i < gridColumns) {
-                stack2 = tileGrid[x + i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        //check left
-        for (int i = 1; i < 4; i++) {
-            if (x - i >= 0) {
-                stack2 = tileGrid[x - i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 4) {
-            return tilesToRemove;
-        } else {
-            return null;
         }
     }
-
+    
     /**
-     * checks if 3 in a row can be formed if the testTile is moved to the
-     * inputted coordinates
-     *
-     * @param testTile
-     * @return
+     * recursive method looking continuously right and adds to remTiles if match, else return
+     * @param tile1
+     * @param remTiles 
      */
-    public ArrayList<ZombieCrushSagaTile> check3Row(ZombieCrushSagaTile testTile) {
-        ArrayList<ZombieCrushSagaTile> tilesToRemove = new ArrayList();
-        tilesToRemove.add(testTile);
-        ArrayList<ZombieCrushSagaTile> stack2;
-        ZombieCrushSagaTile test2;
-        int x = testTile.getGridColumn();
-        int y = testTile.getGridRow();
-        //check up
-        for (int i = 1; i < 3; i++) {
-            if (y + i < gridRows) {
-                stack2 = tileGrid[x][y + i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
+    public void checkRight(ZombieCrushSagaTile tile1, ArrayList<ZombieCrushSagaTile> remTiles)
+    {
+        ArrayList<ZombieCrushSagaTile> stack;
+        ZombieCrushSagaTile test;
+        int x1 = tile1.getGridColumn();
+        int y1 = tile1.getGridRow();
+        if (x1 + 1 < gridRows) {
+            stack = tileGrid[x1 + 1][y1];
+            if (stack.size() > 0) {
+                test = stack.get(0);
+                if (test.match(tile1)) {
+                    remTiles.add(test);
+                    checkUp(tile1, remTiles);
                 }
             }
-        }
-        //check down
-        for (int i = 1; i < 3; i++) {
-            if (y - i >= 0) {
-                stack2 = tileGrid[x][y - i];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 3) {
-            return tilesToRemove;
-        } else {
-            tilesToRemove = new ArrayList();
-            tilesToRemove.add(testTile);
-        }
-        //check right
-        for (int i = 1; i < 3; i++) {
-            if (x + i < gridColumns) {
-                stack2 = tileGrid[x + i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        //check left
-        for (int i = 1; i < 3; i++) {
-            if (x - i >= 0) {
-                stack2 = tileGrid[x - i][y];
-                if (stack2.size() > 0) {
-                    test2 = stack2.get(0);
-                    if (test2.match(testTile)) {
-                        tilesToRemove.add(test2);
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
-        if (tilesToRemove.size() >= 3) {
-            return tilesToRemove;
-        } else {
-            return null;
         }
     }
-
+    
     /**
      * returns the list of tiles that will be removed if there was a special
      * tile
@@ -1686,18 +1001,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         //if wrapper, remove adjacent 8
         //if bomb, remove all of same type
         return tilesToRemove;
-    }
-
-    /**
-     * This method moves all the tiles not currently in the stack to the stack.
-     */
-    public void moveAllTilesToStack() {
-        for (int i = 0; i < gridColumns; i++) {
-            for (int j = 0; j < gridRows; j++) {
-                ArrayList<ZombieCrushSagaTile> cellStack = tileGrid[i][j];
-                moveTiles(cellStack, stackTiles);
-            }
-        }
     }
 
     /**
@@ -1727,14 +1030,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      * @param move The move to make. Note that a move specifies the cell
      * locations for a match.
      */
-    public void processMove(ZombieCrushSagaMove move) {
+    public void processMove(ArrayList<ZombieCrushSagaMove> moves) {
         // REMOVE THE MOVE TILES FROM THE GRID
-        ArrayList<ZombieCrushSagaTile> stack1 = move.tilesToRemove;
-        ZombieCrushSagaTile test1 = stack1.get(stack1.size() - 1);
+        ArrayList<ZombieCrushSagaTile> stack1 = new ArrayList();
+        ZombieCrushSagaTile test1;
+        ZombieCrushSagaMove move, pMove;
+        //moves can only be size one or two
+        //only add seq bonus if size one
+        move = moves.get(1);
+        stack1.addAll(moves.get(0).tilesToRemove);
+        test1 = stack1.get(stack1.size() - 1);
         //check if previous moves were same type
         int seq = 1;
         prevMoves.add(move);
-        ZombieCrushSagaMove pMove;
         for (int i = 1; prevMoves.size() > i; i++) {
             pMove = prevMoves.get(prevMoves.size() - 1 - i);
             if (move.moveType.equals(pMove.moveType)) {
@@ -1748,18 +1056,20 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             }
         }
         updateScore(stack1, seq);
+        if(moves.size() > 1)
+        {
+            stack1.addAll(moves.get(1).tilesToRemove);
+            updateScore(moves.get(1).tilesToRemove, 1);
+        }
         numMovesLeft--;
-        swap(test1, tileGrid[move.col2][move.row2].get(0));
 
         //remove them
         for (ZombieCrushSagaTile tile1 : stack1) {
-//            stack1.remove(tile1);
             // MAKE SURE BOTH ARE UNSELECTED
             tile1.setState(VISIBLE_STATE);
             // SEND THEM TO THE STACK
             tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
             tile1.startMovingToTarget(MAX_TILE_VELOCITY);
-            stackTiles.add(tile1);
             playTiles.remove(tile1);
             tileGrid[tile1.getGridColumn()][tile1.getGridRow()].remove(0);
             // MAKE SURE THEY MOVE
@@ -1784,8 +1094,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             endGameAsWin();
         } else if (numMovesLeft > 0) {
             // SEE IF THERE ARE ANY MOVES LEFT
-            ZombieCrushSagaMove possibleMove = this.findMove();
-            if (possibleMove == null) {
+            ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
+            if (possibleMove.size() < 1) {
                 Collections.shuffle(playTiles);
                 //put tiles in new spots
                 updateGrid();
@@ -1888,30 +1198,38 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             selectTile.setState(VISIBLE_STATE);
             return;
         }
-
+        // didnt select one yet, so do so
         if (selectedTile == null) {
             selectedTile = selectTile;
             selectedTile.setState(SELECTED_STATE);
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.SELECT_AUDIO_CUE.toString(), false);
             return;
         }
-        //make sure the two tiles are adjacent but not diagonal
-        if ((Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1
-                && Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) < 1)
-                || (Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 1
-                && Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) < 1)) {
+        //make sure the two tiles are adjacent
+        if (Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1   
+                && Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) >1 ) {
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
             selectTile.setState(VISIBLE_STATE);
             selectedTile.setState(VISIBLE_STATE);
             selectedTile = null;
             return;
         }
+        //but not diagonal
+        //SOMETHING WRONG HERE???
+        if((Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) < 2
+                && Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 0)
+                || (Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) < 2
+                && Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 0))
+        {
+            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+            selectTile.setState(VISIBLE_STATE);
+            selectedTile.setState(VISIBLE_STATE);
+            selectedTile = null;
+            return;
+        }
+
         //remove
-        ZombieCrushSagaMove move = new ZombieCrushSagaMove();
-        move.col1 = selectedTile.getGridColumn();
-        move.row1 = selectedTile.getGridRow();
-        move.col2 = selectTile.getGridColumn();
-        move.row2 = selectTile.getGridRow();
+        ZombieCrushSagaMove move, move2;
 
         //make them move towards each other
         float x = calculateTileXInGrid(selectTile.getGridColumn(), 0);
@@ -1933,63 +1251,40 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         //swap the tiles
         swap(selectedTile, selectTile);
 
-        move.tilesToRemove = checkTshape(selectedTile);
-        if (move.tilesToRemove == null) {
-            move.tilesToRemove = checkTshape(selectTile);
-            if (move.tilesToRemove == null) {
-                move.tilesToRemove = checkLshape(selectedTile);
-                if (move.tilesToRemove == null) {
-                    move.tilesToRemove = checkLshape(selectTile);
-                    if (move.tilesToRemove == null) {
-                        move.tilesToRemove = check5Row(selectedTile);
-                        if (move.tilesToRemove == null) {
-                            move.tilesToRemove = check5Row(selectTile);
-                            if (move.tilesToRemove == null) {
-                                move.tilesToRemove = check4Row(selectedTile);
-                                if (move.tilesToRemove == null) {
-                                    move.tilesToRemove = check4Row(selectTile);
-                                    if (move.tilesToRemove == null) {
-                                        move.tilesToRemove = check3Row(selectedTile);
-                                        if (move.tilesToRemove == null) {
-                                            move.tilesToRemove = check3Row(selectTile);
-                                            if (move.tilesToRemove == null) {
-                                                //make them move back where they came from
-                                                x = calculateTileXInGrid(selectedTile.getGridColumn(), 0);
-                                                y = calculateTileYInGrid(selectedTile.getGridRow(), 0);
-                                                selectedTile.setTarget(x, y);
-                                                selectedTile.startMovingToTarget(MIN_TILE_VELOCITY);
-                                                movingTiles.add(selectedTile);
+        move = checkShapes(selectedTile);
+        move2 = checkShapes(selectTile);
+        if (move == null && move2 == null) {
+            //make them move back where they came from
+            x = calculateTileXInGrid(selectedTile.getGridColumn(), 0);
+            y = calculateTileYInGrid(selectedTile.getGridRow(), 0);
+            selectedTile.setTarget(x, y);
+            selectedTile.startMovingToTarget(MIN_TILE_VELOCITY);
+            movingTiles.add(selectedTile);
 
-                                                x = calculateTileXInGrid(selectTile.getGridColumn(), 0);
-                                                y = calculateTileYInGrid(selectTile.getGridRow(), 0);
-                                                selectTile.setTarget(x, y);
-                                                selectTile.startMovingToTarget(MIN_TILE_VELOCITY);
-                                                movingTiles.add(selectTile);
+            x = calculateTileXInGrid(selectTile.getGridColumn(), 0);
+            y = calculateTileYInGrid(selectTile.getGridRow(), 0);
+            selectTile.setTarget(x, y);
+            selectTile.startMovingToTarget(MIN_TILE_VELOCITY);
+            movingTiles.add(selectTile);
 
-                                                //make sure all things are moved before continuing
-                                                while (movingTiles.size() > 0) {
-                                                    updateAll(miniGame);
-                                                }
-                                                //swap the tiles
-                                                swap(selectedTile, selectTile);
-
-                                                selectTile.setState(VISIBLE_STATE);
-                                                selectedTile.setState(VISIBLE_STATE);
-                                                selectedTile = null;
-                                                return;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            //make sure all things are moved before continuing
+            while (movingTiles.size() > 0) {
+                updateAll(miniGame);
             }
+            //swap the tiles back
+            swap(selectedTile, selectTile);
+
+            selectTile.setState(VISIBLE_STATE);
+            selectedTile.setState(VISIBLE_STATE);
+            selectedTile = null;
+            return;
         }
-        if (move.tilesToRemove != null) {
-            processMove(move);
-        }
+        ArrayList<ZombieCrushSagaMove> moves = new ArrayList();
+        if (move != null && move.tilesToRemove.size() > 0)
+            moves.add(move);
+        if(move2 != null && move2.tilesToRemove.size() > 0)
+            moves.add(move2);
+        processMove(moves);
     }
 
     // OVERRIDDEN METHODS
@@ -2087,6 +1382,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      * replace them or if we wanna shuffle things up
      */
     public void updateGrid() {
+        boolean allCol; //to check if you went up all way
+        int m;//counter
         //take tiles from above and move them down
         if (playTiles.size() < totNumTiles) {
             ZombieCrushSagaTile tile;
@@ -2094,14 +1391,20 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 for (int j = gridRows - 1; j >= 0; j--) {
                     //needs to be tile there but isnt
                     if (levelGrid[i][j] > 0 && (tileGrid[i][j]).isEmpty()) {
+                        allCol = false;
+                        m = 1;
                         //see if you can get the tile that is on top
-                        if (j - 1 >= 0) {
-                            if (!((tileGrid[i][j - 1]).isEmpty())) {
-                                tile = tileGrid[i][j - 1].remove(0);
+                        while(j-m >= 0 || allCol == false)
+                        {
+                            if (!((tileGrid[i][j - m]).isEmpty()))
+                            {
+                                tile = tileGrid[i][j - m].remove(0);
                                 //and move it down one
                                 tileGrid[i][j].add(tile);
                                 tile.setGridCell(i, j);
+                                allCol = true;
                             }
+                            m++;
                         }
                     }
                 }
@@ -2120,12 +1423,13 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         jellyCoordinates.add(new Point(i, j));
                     }
                     // TAKE THE TILE OUT OF THE STACK
-                    ZombieCrushSagaTile tile = playTiles.get(playTiles.size() - 1);
+                    ZombieCrushSagaTile tile = addTiles.remove(addTiles.size() - 1);
 
                     // PUT IT IN THE GRID if there is no tile there already
                     if ((tileGrid[i][j]).isEmpty()) {
                         tileGrid[i][j].add(tile);
                         tile.setGridCell(i, j);
+                        playTiles.add(tile);
 
                         // WE'LL ANIMATE IT GOING TO THE GRID, SO FIGURE
                         // OUT WHERE IT'S GOING AND GET IT MOVING
@@ -2150,22 +1454,24 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     @Override
     public void reset(MiniGame game) {
         // PUT ALL THE TILES IN ONE PLACE AND MAKE THEM VISIBLE
-        moveAllTilesToStack();
+        //moveAllTilesToStack();
         //get brand new tiles
-        stackTiles = new ArrayList();
+        playTiles = new ArrayList();
+        addTiles = new ArrayList();
         initTiles();
 
-        for (ZombieCrushSagaTile tile : stackTiles) {
+        for (ZombieCrushSagaTile tile : addTiles) {
             tile.setX(TILE_STACK_X);
             tile.setY(TILE_STACK_Y);
             tile.setState(VISIBLE_STATE);
         }
 
         // RANDOMLY ORDER THEM
-        Collections.shuffle(stackTiles);
+        Collections.shuffle(addTiles);
 
         // START THE CLOCK
         startTime = new GregorianCalendar();
+        numMovesLeft = currReqs.numMoves;
 
         // NOW LET'S REMOVE THEM FROM THE STACK
         // AND PUT THE TILES IN THE GRID        
@@ -2177,11 +1483,13 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         jellyCoordinates.add(new Point(i, j));
                     }
                     // TAKE THE TILE OUT OF THE STACK
-                    ZombieCrushSagaTile tile = stackTiles.remove(stackTiles.size() - 1);
+                    ZombieCrushSagaTile tile = addTiles.remove(addTiles.size() - 1);
+                    addTiles.remove(tile);
 
                     // PUT IT IN THE GRID
                     tileGrid[i][j].add(tile);
                     tile.setGridCell(i, j);
+                    playTiles.add(tile);
 
                     // WE'LL ANIMATE IT GOING TO THE GRID, SO FIGURE
                     // OUT WHERE IT'S GOING AND GET IT MOVING
@@ -2227,7 +1535,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      */
     public void selfMatches() {
         //make self matches
-        ZombieCrushSagaMove move = new ZombieCrushSagaMove();
+        ArrayList<ZombieCrushSagaMove> moves = new ArrayList();
+        ZombieCrushSagaMove move;
         ArrayList<ZombieCrushSagaTile> removeTiles;
         ArrayList<ZombieCrushSagaTile> stack1;
         ZombieCrushSagaTile testTile1;
@@ -2237,60 +1546,12 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 if (stack1.size() > 0) {
                     // GET THE FIRST TILE
                     testTile1 = stack1.get(0);
-                    removeTiles = checkTshape(testTile1);
-                    if (removeTiles != null) {
-                        move.col1 = i;
-                        move.row1 = j;
-                        move.col2 = i;
-                        move.row2 = j;
-                        move.tilesToRemove = removeTiles;
-                        move.moveType = T_SHAPE_MOVE;
-                        numMovesLeft++;
-                        processMove(move);
-                    }
-                    removeTiles = checkLshape(testTile1);
-                    if (removeTiles != null) {
-                        move.col1 = i;
-                        move.row1 = j;
-                        move.col2 = i;
-                        move.row2 = j;
-                        move.tilesToRemove = removeTiles;
-                        move.moveType = L_SHAPE_MOVE;
-                        numMovesLeft++;
-                        processMove(move);
-                    }
-                    removeTiles = check5Row(testTile1);
-                    if (removeTiles != null) {
-                        move.col1 = i;
-                        move.row1 = j;
-                        move.col2 = i;
-                        move.row2 = j;
-                        move.tilesToRemove = removeTiles;
-                        move.moveType = ROW_5_MOVE;
-                        numMovesLeft++;
-                        processMove(move);
-                    }
-                    removeTiles = check4Row(testTile1);
-                    if (removeTiles != null) {
-                        move.col1 = i;
-                        move.row1 = j;
-                        move.col2 = i;
-                        move.row2 = j;
-                        move.tilesToRemove = removeTiles;
-                        move.moveType = ROW_4_MOVE;
-                        numMovesLeft++;
-                        processMove(move);
-                    }
-                    removeTiles = check3Row(testTile1);
-                    if (removeTiles != null) {
-                        move.col1 = i;
-                        move.row1 = j;
-                        move.col2 = i;
-                        move.row2 = j;
-                        move.tilesToRemove = removeTiles;
-                        move.moveType = ROW_3_MOVE;
-                        numMovesLeft++;
-                        processMove(move);
+                    
+                    move = checkShapes(testTile1);
+                    if (move != null && move.tilesToRemove.size() > 0)
+                    {
+                        moves.add(move);
+                        processMove(moves);
                     }
                 }
             }
@@ -2327,6 +1588,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             if (inProgress()) {
                 // KEEP THE GAME TIMER GOING IF THE GAME STILL IS
                 endTime = new GregorianCalendar();
+                numMovesLeft = getNumMovesLeft();
             }
         } finally {
             // MAKE SURE WE RELEASE THE LOCK WHETHER THERE IS
