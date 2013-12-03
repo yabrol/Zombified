@@ -29,6 +29,7 @@ public class ZombieCrushSagaConstants {
     public static final String TILE_STRIPED_TYPE = "TILE_STRIPED_TYPE";
     public static final String TILE_BOMB_TYPE = "TILE_BOMB_TYPE";
     public static final String TILE_WRAPPER_TYPE = "TILE_WRAPPER_TYPE";
+    public static final String TILE_PLAIN_TYPE = "TILE_PLAIN_TYPE";
     
     public static final String TILE_SPRITE_TYPE_PREFIX = "TILE_";
     

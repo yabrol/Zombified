@@ -130,37 +130,37 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 // FIRST THE TYPE A TILES
                 imgFile = imgPath + typeATiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_A_TYPE);
+                initTile(sT, TILE_A_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 1) {
                 // THEN THE TYPE B TILES
                 imgFile = imgPath + typeBTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_B_TYPE);
+                initTile(sT, TILE_B_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 2) {
                 // THEN THE TYPE C TILES
                 imgFile = imgPath + typeCTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_C_TYPE);
+                initTile(sT, TILE_C_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 3) {
                 // THEN THE TYPE D TILES
                 imgFile = imgPath + typeDTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_D_TYPE);
+                initTile(sT, TILE_D_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 4) {
                 // THEN THE TYPE E TILES
                 imgFile = imgPath + typeETiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_E_TYPE);
+                initTile(sT, TILE_E_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 5) {
                 // THEN THE TYPE F TILES
                 imgFile = imgPath + typeFTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_F_TYPE);
+                initTile(sT, TILE_F_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             }
         }
@@ -175,9 +175,9 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      *
      * @param tileType The type of tile. Note that there are 3 broad categories.
      */
-    private void initTile(SpriteType sT, String tileType) {
+    private void initTile(SpriteType sT, String tileType, String specType) {
         // CONSTRUCT THE TILE
-        ZombieCrushSagaTile newTile = new ZombieCrushSagaTile(sT, unassignedTilesX, unassignedTilesY, 0, 0, INVISIBLE_STATE, tileType);
+        ZombieCrushSagaTile newTile = new ZombieCrushSagaTile(sT, unassignedTilesX, unassignedTilesY, 0, 0, INVISIBLE_STATE, tileType, specType);
 
         // AND ADD IT TO THE STACK
         addTiles.add(newTile);
@@ -218,37 +218,37 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 // FIRST THE TYPE A TILES
                 imgFile = imgPath + typeATiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_A_TYPE);
+                initTile(sT, TILE_A_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 1) {
                 // THEN THE TYPE B TILES
                 imgFile = imgPath + typeBTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_B_TYPE);
+                initTile(sT, TILE_B_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 2) {
                 // THEN THE TYPE C TILES
                 imgFile = imgPath + typeCTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_C_TYPE);
+                initTile(sT, TILE_C_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 3) {
                 // THEN THE TYPE D TILES
                 imgFile = imgPath + typeDTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_D_TYPE);
+                initTile(sT, TILE_D_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 4) {
                 // THEN THE TYPE E TILES
                 imgFile = imgPath + typeETiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_E_TYPE);
+                initTile(sT, TILE_E_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             } else if (picker == 5) {
                 // THEN THE TYPE F TILES
                 imgFile = imgPath + typeFTiles.get(0);
                 sT = initTileSpriteType(imgFile, TILE_SPRITE_TYPE_PREFIX + spriteTypeID);
-                initTile(sT, TILE_F_TYPE);
+                initTile(sT, TILE_F_TYPE, TILE_PLAIN_TYPE);
                 spriteTypeID++;
             }
         }
@@ -722,6 +722,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         ZombieCrushSagaMove move = new ZombieCrushSagaMove();
         
         //five in a row
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkDown(tile1, remTiles);
         if(remTiles.size() == 5)
@@ -733,6 +734,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkRight(tile1, remTiles);
         checkLeft(tile1,remTiles);
         if(remTiles.size() == 5)
@@ -746,6 +748,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         
         //T shape
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkDown(tile1, remTiles);
         checkRight(tile1,remTiles);
@@ -758,6 +761,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkDown(tile1, remTiles);
         checkLeft(tile1, remTiles);
@@ -770,6 +774,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkDown(tile1, remTiles);
         checkRight(tile1, remTiles);
         checkLeft(tile1, remTiles);
@@ -782,6 +787,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkLeft(tile1, remTiles);
         checkRight(tile1, remTiles);
@@ -796,6 +802,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         
         // L shape
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkRight(tile1,remTiles);
         if(remTiles.size() == 5)
@@ -807,6 +814,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkUp(tile1, remTiles);
         checkLeft(tile1, remTiles);
         if(remTiles.size() == 5)
@@ -818,6 +826,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkDown(tile1, remTiles);
         checkRight(tile1, remTiles);
         if(remTiles.size() == 5)
@@ -829,6 +838,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkDown(tile1, remTiles);
         checkLeft(tile1, remTiles);
         if(remTiles.size() == 5)
@@ -842,6 +852,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         
         //4 in a row
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkDown(tile1, remTiles);
         checkUp(tile1, remTiles);
         if(remTiles.size() == 4)
@@ -853,6 +864,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkLeft(tile1, remTiles);
         checkRight(tile1, remTiles);
         if(remTiles.size() == 4)
@@ -866,6 +878,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         
         //3 in a row
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkDown(tile1, remTiles);
         checkUp(tile1, remTiles);
         if(remTiles.size() == 3)
@@ -877,6 +890,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return move;
         }
         remTiles = new ArrayList();
+        remTiles.add(tile1);
         checkLeft(tile1, remTiles);
         checkRight(tile1, remTiles);
         if(remTiles.size() == 3)
@@ -908,7 +922,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 test = stack.get(0);
                 if (test.match(tile1)) {
                     remTiles.add(test);
-                    checkUp(tile1, remTiles);
+                    checkUp(test, remTiles);
                 }
             }
         }
@@ -931,7 +945,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 test = stack.get(0);
                 if (test.match(tile1)) {
                     remTiles.add(test);
-                    checkUp(tile1, remTiles);
+                    checkUp(test, remTiles);
                 }
             }
         }
@@ -954,7 +968,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 test = stack.get(0);
                 if (test.match(tile1)) {
                     remTiles.add(test);
-                    checkUp(tile1, remTiles);
+                    checkUp(test, remTiles);
                 }
             }
         }
@@ -977,7 +991,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 test = stack.get(0);
                 if (test.match(tile1)) {
                     remTiles.add(test);
-                    checkUp(tile1, remTiles);
+                    checkUp(test, remTiles);
                 }
             }
         }
@@ -1037,7 +1051,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         ZombieCrushSagaMove move, pMove;
         //moves can only be size one or two
         //only add seq bonus if size one
-        move = moves.get(1);
+        move = moves.get(0);
         stack1.addAll(moves.get(0).tilesToRemove);
         test1 = stack1.get(stack1.size() - 1);
         //check if previous moves were same type
@@ -1058,6 +1072,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         updateScore(stack1, seq);
         if(moves.size() > 1)
         {
+            //make sure those are not there
+//            if(moves.get(1).tilesToRemove.get)
             stack1.addAll(moves.get(1).tilesToRemove);
             updateScore(moves.get(1).tilesToRemove, 1);
         }
@@ -1094,6 +1110,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             endGameAsWin();
         } else if (numMovesLeft > 0) {
             // SEE IF THERE ARE ANY MOVES LEFT
+            selfMatches();
             ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
             if (possibleMove.size() < 1) {
                 Collections.shuffle(playTiles);
@@ -1214,19 +1231,19 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             selectedTile = null;
             return;
         }
-        //but not diagonal
-        //SOMETHING WRONG HERE???
-        if((Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) < 2
-                && Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 0)
-                || (Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) < 2
-                && Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 0))
-        {
-            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
-            selectTile.setState(VISIBLE_STATE);
-            selectedTile.setState(VISIBLE_STATE);
-            selectedTile = null;
-            return;
-        }
+//        //but not diagonal
+//        //SOMETHING WRONG HERE???
+//        if((Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) < 2
+//                && Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) > 0)
+//                || (Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) < 2
+//                && Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 0))
+//        {
+//            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+//            selectTile.setState(VISIBLE_STATE);
+//            selectedTile.setState(VISIBLE_STATE);
+//            selectedTile = null;
+//            return;
+//        }
 
         //remove
         ZombieCrushSagaMove move, move2;
@@ -1294,6 +1311,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     // - reset
     // - updateAll
     // - updateDebugText
+    
     /**
      * This method provides a custom game response for handling mouse clicks on
      * the game screen. We'll use this to close game dialogs as well as to

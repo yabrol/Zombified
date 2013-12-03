@@ -18,6 +18,7 @@ public class ZombieCrushSagaTile extends Sprite
     // BE BEST TO DO THIS WITH AN enum, BUT WE COULD
     // ALSO DO IT THIS WAY, WITH STRING CONSTANTS
     private String tileType;
+    private String specTileType;
 
     // WHEN WE PUT A TILE IN THE GRID WE TELL IT WHAT COLUMN AND ROW
     // IT IS LOCATED TO MAKE THE UNDO OPERATION EASY LATER ON
@@ -46,13 +47,14 @@ public class ZombieCrushSagaTile extends Sprite
     public ZombieCrushSagaTile(    SpriteType initSpriteType,
                                     float initX, 	float initY,
                                     float initVx, 	float initVy,
-                                    String initState,   String initTileType)
+                                    String initState,   String initTileType, String specialType)
     {
         // SEND ALL THE Sprite DATA TO A Sprite CONSTRUCTOR
         super(initSpriteType, initX, initY, initVx, initVy, initState);
         
         // INIT THE TILE TYPE
         tileType = initTileType;
+        specTileType = specialType;
     }
     
     // ACCESSOR METHODS
@@ -71,6 +73,15 @@ public class ZombieCrushSagaTile extends Sprite
     public String getTileType()   
     { 
         return tileType;  
+    }
+    
+    /**
+     * returns special type:
+     * @return 
+     */
+    public String getSpecialType()
+    {
+        return specTileType;
     }
     
     /**
@@ -195,12 +206,12 @@ public class ZombieCrushSagaTile extends Sprite
      * @param testTile
      * @return 
      */
-    public SpriteType matchTile(ZombieCrushSagaTile testTile)
+    public String matchTile(ZombieCrushSagaTile testTile)
     {
         //check if identical
-          if(this.spriteType.equals(testTile.getSpriteType()))
+          if(this.specTileType.equals(testTile.getSpecialType()))
           {
-            return testTile.getSpriteType();
+            return testTile.getSpecialType();
           }
           else
           {

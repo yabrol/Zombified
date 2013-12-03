@@ -168,6 +168,14 @@
       <option>./zomcrush/TileZombieZomboniSquash.png</option>
       <option>./zomcrush/TileZombieZomboniWallnut.png</option>
     </property_options>
+    <property_options name="TYPE_PLAIN_TILES">
+      <option>./zomcrush/TileZombieDuckyTube.png</option>
+      <option>./zomcrush/TileZombieGargantuar.png</option>
+      <option>./zomcrush/TileZombieGigaFootball.png</option>
+      <option>./zomcrush/TileZombieTarget.png</option>
+      <option>./zomcrush/TileZombieYeti.png</option>
+      <option>./zomcrush/TileZombieDuckyTube.png</option>
+    </property_options>
     <property_options name="TYPE_STRIPED_TILES">
       <option>./zomcrush/TileZombieDuckyTubeWallnut.png</option>
       <option>./zomcrush/TileZombieGargantuarWallnut.png</option>

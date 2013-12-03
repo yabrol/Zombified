@@ -40,12 +40,17 @@ public class ZombieCrushKeyHandler extends KeyAdapter
     public void keyPressed(KeyEvent ke)
     {
       ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
-      //check if level 1, else do nothing
-      if(!data.getCurrentLevel().equals(""))
+      //check if level 1
+      if(data.getCurrentLevel().equals("./data/./zomcrush/Level1.zom"))
       {
-          return;
+          level1Cheats(ke);
       }
-      //press 1 for 3 row cheat
+      
+    }
+    
+    private void level1Cheats(KeyEvent ke)
+    {
+        //press 1 for 3 row cheat
         if (ke.getKeyCode() == KeyEvent.VK_1)
         {
             // FIND A MOVE IF THERE IS ONE
