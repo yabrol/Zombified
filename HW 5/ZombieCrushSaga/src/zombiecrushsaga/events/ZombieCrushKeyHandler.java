@@ -41,10 +41,23 @@ public class ZombieCrushKeyHandler extends KeyAdapter
     {
       ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
       //check if level 1
+      
+      System.out.println(Integer.toString(ke.getKeyCode()) + ke.getKeyChar() );
       if(data.getCurrentLevel().equals("./data/./zomcrush/Level1.zom"))
       {
           level1Cheats(ke);
       }
+      //win cheat
+      if (ke.getKeyCode() == KeyEvent.VK_W)
+      {
+          data.endGameAsWin();
+      }
+      //loss cheat
+      if (ke.getKeyCode() == KeyEvent.VK_L)
+      {
+          data.endGameAsLoss();
+      }
+      
       
     }
     

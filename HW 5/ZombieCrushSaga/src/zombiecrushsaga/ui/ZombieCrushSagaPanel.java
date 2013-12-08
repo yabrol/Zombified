@@ -313,14 +313,12 @@ public class ZombieCrushSagaPanel extends JPanel {
             g.setFont(TEXT_DISPLAY_FONT);
 
             //render the score
-            String str = "";
-            str += data.getCurrentScore();
+            String str = Integer.toString(data.getCurrentScore());
             g.drawString(str, x, y);
 
             //the moves
             x = MOVES_X + TIME_OFFSET;
-            str = "";
-            str += data.getNumMovesLeft();
+            str = Integer.toString(data.getNumMovesLeft());
             g.drawString(str, x, y);
 
             //and stars

@@ -40,6 +40,8 @@ public class ZombieCrushSagaTile extends Sprite
     // THIS TILE IS CURRENTLY TARGETING
     private int winPathIndex;
     
+    private int maxVel = 10;
+    
     /**
      * This constructor initializes this tile for use, including all the
      * sprite-related data from its ancestor class, Sprite.
@@ -280,6 +282,7 @@ public class ZombieCrushSagaTile extends Sprite
     {
         // LET ITS POSITIONG GET UPDATED
         movingToTarget = true;
+        maxVel = maxVelocity;
         
         // CALCULATE THE ANGLE OF THE TRAJECTORY TO THE TARGET
         float diffX = targetX - x;
@@ -312,7 +315,7 @@ public class ZombieCrushSagaTile extends Sprite
     public void updateWinPath(MiniGame game)
     {
         // IS THE TILE ALMOST AT THE PATH NODE IT'S TARGETING?
-        if (calculateDistanceToTarget() < MAX_TILE_VELOCITY)
+        if (calculateDistanceToTarget() < maxVel)
         {
             // PUT IT RIGHT ON THE NODE
             x = targetX;
@@ -323,7 +326,7 @@ public class ZombieCrushSagaTile extends Sprite
             targetY = winPath.get(winPathIndex+1);
             
             // START THE TILE MOVING AGAIN AND RANDOMIZE IT'S SPEED
-            startMovingToTarget((int)(Math.random() * MAX_TILE_VELOCITY) + 1);
+            startMovingToTarget((int)(Math.random() * maxVel) + 1);
             
             // AND ON TO THE NEXT PATH FOR THE NEXT TIME WE PICK A TARGET
             winPathIndex += 2;
@@ -357,7 +360,7 @@ public class ZombieCrushSagaTile extends Sprite
         }
         // IF NOT, IF THIS TILE IS ALMOST AT ITS TARGET DESTINATION,
         // JUST GO TO THE TARGET AND THEN STOP MOVING
-        else if (calculateDistanceToTarget() < MAX_TILE_VELOCITY)
+        else if (calculateDistanceToTarget() < maxVel)
         {
             vX = 0;
             vY = 0;

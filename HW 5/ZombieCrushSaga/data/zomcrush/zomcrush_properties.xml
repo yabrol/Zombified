@@ -81,6 +81,9 @@
     <!-- BASE TILE RENDERING IMAGES -->
     <property name="BLANK_TILE_IMAGE_NAME"              value="./zomcrush/UIZomcrushBlankTile.png"></property>
     <property name="BLANK_TILE_SELECTED_IMAGE_NAME"     value="./zomcrush/UIZomcrushBlankTileSelected.png"></property>
+    
+    <!--Hammer time-->
+    <property name="ZOMBIE_HAMMER"                      value="./zomcrush/Jalapeno.png"></property>
         
     <!-- AUDIO FILES -->
     <property name="SELECT_AUDIO_CUE"                   value="./zomcrush/AudioZomcrushSelectTile.wav"></property>
