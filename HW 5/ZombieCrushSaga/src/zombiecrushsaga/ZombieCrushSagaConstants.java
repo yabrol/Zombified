@@ -46,10 +46,13 @@ public class ZombieCrushSagaConstants {
     public static final String MOVES_TYPE = "MOVES_TYPE";
     public static final String SCORE_TYPE = "SCORE_TYPE";
     public static final String NEXT_STAR_TYPE = "NEXT_STAR_TYPE";
-    public static final String STAR_TYPE = "STAR_TYPE";
+//    public static final String STAR_TYPE = "STAR_TYPE";
     public static final String STAR_RED_TYPE = "STAR_RED_TYPE";
     public static final String STAR_BLUE_TYPE = "STAR_BLUE_TYPE";
     public static final String STAR_PURPLE_TYPE = "STAR_PURPLE_TYPE";
+    public static final String STAR_WIN_RED_TYPE = "STAR_WIN_RED_TYPE";
+    public static final String STAR_WIN_BLUE_TYPE = "STAR_WIN_BLUE_TYPE";
+    public static final String STAR_WIN_PURPLE_TYPE = "STAR_WIN_PURPLE_TYPE";
     public static final String TILE_STACK_TYPE = "TILE_STACK_TYPE";
     
     public static final String PLAY_BUTTON_TYPE = "PLAY_GAME_BUTTON_TYPE";
@@ -142,7 +145,7 @@ public class ZombieCrushSagaConstants {
     public static final int LIVES_Y = 0;
     public static final int TIME_X = BACK_BUTTON_X + 81 +145 + CONTROLS_MARGIN;
     public static final int TIME_Y = 0;
-    public static final int TIME_OFFSET = 150;
+    public static final int TIME_OFFSET = 110;
     public static final int TIME_TEXT_OFFSET = 55;
     public static final int MOVES_X = BACK_BUTTON_X + 81 +145 + CONTROLS_MARGIN;
     public static final int MOVES_Y = 0;
@@ -151,9 +154,9 @@ public class ZombieCrushSagaConstants {
     public static final int STAR_X = SCORE_X + 232;
     public static final int STAR_Y = 0;
     public static final int STAR_OFFSET = 60;
-    public static final int NEXT_STAR_X = STAR_X + 154;
+    public static final int NEXT_STAR_X = STAR_X + 180;
     public static final int NEXT_STAR_Y = 0;
-    public static final int NEXT_STAR_OFFSET = 170;
+    public static final int NEXT_STAR_OFFSET = 100;
     public static final int TILE_STACK_X = MAX_SCREEN_WIDTH - CONTROLS_MARGIN - 190;
     public static final int TILE_STACK_Y = 0;
     public static final int TILE_STACK_OFFSET_X = 30;

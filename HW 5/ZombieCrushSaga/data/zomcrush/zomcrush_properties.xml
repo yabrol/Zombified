@@ -39,11 +39,15 @@
     <property name="MOVES_IMAGE_NAME"                    value="./zomcrush/UIZomcrushMovesContainer.png"></property>
     <property name="NEXT_STAR_IMAGE_NAME"                value="./zomcrush/UIZomcrushNextStarContainer.png"></property>
     <property name="SCORE_IMAGE_NAME"                    value="./zomcrush/UIZomcrushScoreContainer.png"></property>
-    <property name="STAR_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarContainer.png"></property>
+    <!--<property name="STAR_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarContainer.png"></property>-->
     
     <property name="STAR_RED_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarRed.png"></property>
     <property name="STAR_BLUE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarBlue.png"></property>
     <property name="STAR_PURPLE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarPurple.png"></property>
+    
+    <property name="STAR_WIN_RED_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarRedWin.png"></property>
+    <property name="STAR_WIN_BLUE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarBlueWin.png"></property>
+    <property name="STAR_WIN_PURPLE_IMAGE_NAME"                     value="./zomcrush/UIZomcrushStarPurpleWin.png"></property>
     
     <property name="TILE_STACK_IMAGE_NAME"              value="./zomcrush/UIZomjongTileStack.png"></property>
     

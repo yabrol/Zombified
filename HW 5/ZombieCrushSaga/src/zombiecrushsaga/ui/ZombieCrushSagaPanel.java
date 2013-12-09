@@ -1,6 +1,5 @@
 package zombiecrushsaga.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -12,8 +11,6 @@ import javax.swing.JPanel;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import mini_game.SpriteType;
-import properties_manager.PropertiesManager;
-import zombiecrushsaga.ZombieCrushSaga;
 import zombiecrushsaga.data.ZombieCrushSagaDataModel;
 import static zombiecrushsaga.ZombieCrushSagaConstants.*;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
@@ -215,38 +212,15 @@ public class ZombieCrushSagaPanel extends JPanel {
 
 
                 int numStars = data.getNumStars();
-                PropertiesManager props = PropertiesManager.getPropertiesManager();
-                String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
-                BufferedImage img;
-                int x;
-                int y = 500;
                 if (numStars == 1) {
-                    x = STAR_X;
-                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s1);
-                    g.drawImage(blankTileImage, x, y, this);
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
                 } else if (numStars == 2) {
-                    x = STAR_X;
-                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s1);
-                    g.drawImage(blankTileImage, x, y, this);
-                    x = STAR_X + STAR_OFFSET;
-                    String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s2);
-                    g.drawImage(blankTileImage, x, y, this);
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_BLUE_TYPE).setState(VISIBLE_STATE);
                 } else if (numStars == 3) {
-                    x = STAR_X;
-                    String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s1);
-                    g.drawImage(blankTileImage, x, y, this);
-                    x = STAR_X + STAR_OFFSET;
-                    String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s2);
-                    g.drawImage(blankTileImage, x, y, this);
-                    x = STAR_X + STAR_OFFSET + STAR_OFFSET;
-                    String s3 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_PURPLE_IMAGE_NAME);
-                    img = game.loadImage(imgPath + s3);
-                    g.drawImage(blankTileImage, x, y, this);
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_BLUE_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_PURPLE_TYPE).setState(VISIBLE_STATE);
                 }
             } else if (s.getSpriteType().getSpriteTypeID().equals(LOSS_TYPE) && s.getState().equals(VISIBLE_STATE)) {
                 g.setFont(LEVEL_NUM_FONT);
@@ -308,54 +282,48 @@ public class ZombieCrushSagaPanel extends JPanel {
         // RENDER THE GAME TIME
         if (((ZombieCrushSagaMiniGame) game).isCurrentScreenState(GAME_SCREEN_STATE)
                 && data.inProgress() || data.isPaused()) {
-//            // RENDER THE TIME
-//            String time = data.gameTimeToText();
-            int x = TIME_X + TIME_OFFSET;
-            int y = TIME_Y;
+            int currScore = data.getCurrentScore();
+            String str = Integer.toString(currScore);
+            int x = SCORE_X + TIME_OFFSET;
+            int y = TIME_Y + 50;
             //add a bigger font
             g.setFont(TEXT_DISPLAY_FONT);
-
+            
             //render the score
-            String str = Integer.toString(data.getCurrentScore());
             g.drawString(str, x, y);
 
             //the moves
-            x = MOVES_X + TIME_OFFSET;
-            str = Integer.toString(data.getNumMovesLeft());
-            g.drawString(str, x, y);
+            String str2 = Integer.toString(data.getNumMovesLeft());
+            int x2 = MOVES_X + TIME_OFFSET;
+            g.drawString(str2, x2, y);
+            
+            //points to next star
+            int star1 = data.getcurrentReqs().star1Score;
+            int star2 = data.getcurrentReqs().star2Score;
+            int star3 = data.getcurrentReqs().star3Score;
+            
+            String str3;
+            int x3 = NEXT_STAR_X + NEXT_STAR_OFFSET;
 
             //and stars
             int numStars = data.getNumStars();
-            PropertiesManager props = PropertiesManager.getPropertiesManager();
-            String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
-            BufferedImage img;
+            if (numStars == 0){
+                str3 = Integer.toString((star1-currScore));
+                g.drawString(str3, x3, y);
+            }
             if (numStars == 1) {
-                x = STAR_X;
-                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                img = game.loadImage(imgPath + s1);
-                g.drawImage(blankTileImage, x, y, this);
+                str3 = Integer.toString((star2-currScore));
+                g.drawString(str3, x3, y);
+                game.getGUIDecor().get(STAR_RED_TYPE).setState(VISIBLE_STATE);
             } else if (numStars == 2) {
-                x = STAR_X;
-                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                img = game.loadImage(imgPath + s1);
-                g.drawImage(blankTileImage, x, y, this);
-                x = STAR_X + STAR_OFFSET;
-                String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
-                img = game.loadImage(imgPath + s2);
-                g.drawImage(blankTileImage, x, y, this);
+                str3 = Integer.toString((star3-currScore));
+                g.drawString(str3, x3, y);
+                game.getGUIDecor().get(STAR_RED_TYPE).setState(VISIBLE_STATE);
+                game.getGUIDecor().get(STAR_BLUE_TYPE).setState(VISIBLE_STATE);
             } else if (numStars == 3) {
-                x = STAR_X;
-                String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
-                img = game.loadImage(imgPath + s1);
-                g.drawImage(blankTileImage, x, y, this);
-                x = STAR_X + STAR_OFFSET;
-                String s2 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
-                img = game.loadImage(imgPath + s2);
-                g.drawImage(blankTileImage, x, y, this);
-                x = STAR_X + STAR_OFFSET + STAR_OFFSET;
-                String s3 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_PURPLE_IMAGE_NAME);
-                img = game.loadImage(imgPath + s3);
-                g.drawImage(blankTileImage, x, y, this);
+                game.getGUIDecor().get(STAR_RED_TYPE).setState(VISIBLE_STATE);
+                game.getGUIDecor().get(STAR_BLUE_TYPE).setState(VISIBLE_STATE);
+                game.getGUIDecor().get(STAR_PURPLE_TYPE).setState(VISIBLE_STATE);
             }
         }
     }

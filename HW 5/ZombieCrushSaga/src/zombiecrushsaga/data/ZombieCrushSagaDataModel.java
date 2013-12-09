@@ -1179,14 +1179,14 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             }
         }
         currScore += baseScore;
-        if (currScore < currReqs.star1Score) {
-            numStars = 0;
-        } else if (currScore > currReqs.star1Score) {
-            numStars = 1;
+        if (currScore > currReqs.star3Score) {
+            numStars = 3;
         } else if (currScore > currReqs.star2Score) {
             numStars = 2;
-        } else if (currScore > currReqs.star3Score) {
-            numStars = 3;
+        } else if (currScore > currReqs.star1Score) {
+            numStars = 1;
+        } else if (currScore < currReqs.star1Score) {
+            numStars = 0;
         }
     }
 
@@ -1619,7 +1619,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             if (inProgress()) {
                 // KEEP THE GAME TIMER GOING IF THE GAME STILL IS
                 endTime = new GregorianCalendar();
-                numMovesLeft = getNumMovesLeft();
             }
         } finally {
             // MAKE SURE WE RELEASE THE LOCK WHETHER THERE IS

@@ -152,8 +152,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(LIVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(VISIBLE_STATE);
-    guiDecor.get(STAR_TYPE).setState(VISIBLE_STATE);
+//    guiDecor.get(STAR_TYPE).setState(VISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(VISIBLE_STATE);
+    guiDecor.get(STAR_WIN_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_PURPLE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_PURPLE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILE_STACK_TYPE).setState(VISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
@@ -224,8 +230,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
+//    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_PURPLE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_PURPLE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
     // ACTIVATE THE LEVEL SELECT BUTTONS
@@ -300,9 +312,16 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
+    
+//    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_PURPLE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_PURPLE_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -376,8 +395,14 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(SCORE_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
+//    guiDecor.get(STAR_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(NEXT_STAR_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_WIN_PURPLE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_RED_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_BLUE_TYPE).setState(INVISIBLE_STATE);
+    guiDecor.get(STAR_PURPLE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILE_STACK_TYPE).setState(INVISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
@@ -691,12 +716,56 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.put(NEXT_STAR_TYPE, s);
     
     // AND THE star DISPLAY
-    String starContainer = props.getProperty(ZombieCrushSagaPropertyType.STAR_IMAGE_NAME);
-    sT = new SpriteType(STAR_TYPE);
-    img = loadImage(imgPath + starContainer);
+//    String starContainer = props.getProperty(ZombieCrushSagaPropertyType.STAR_IMAGE_NAME);
+//    sT = new SpriteType(STAR_TYPE);
+//    img = loadImage(imgPath + starContainer);
+//    sT.addState(VISIBLE_STATE, img);
+//    s = new Sprite(sT, STAR_X, STAR_Y, 0, 0, INVISIBLE_STATE);
+//    guiDecor.put(STAR_TYPE, s);
+    
+    //and each star in the star display
+    String starRed = props.getProperty(ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
+    sT = new SpriteType(STAR_RED_TYPE);
+    img = loadImage(imgPath + starRed);
     sT.addState(VISIBLE_STATE, img);
     s = new Sprite(sT, STAR_X, STAR_Y, 0, 0, INVISIBLE_STATE);
-    guiDecor.put(STAR_TYPE, s);
+    guiDecor.put(STAR_RED_TYPE, s);
+    
+    String starBlue = props.getProperty(ZombieCrushSagaPropertyType.STAR_BLUE_IMAGE_NAME);
+    sT = new SpriteType(STAR_BLUE_TYPE);
+    img = loadImage(imgPath + starBlue);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, STAR_X+STAR_OFFSET, STAR_Y, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(STAR_BLUE_TYPE, s);
+    
+    String starPurple = props.getProperty(ZombieCrushSagaPropertyType.STAR_PURPLE_IMAGE_NAME);
+    sT = new SpriteType(STAR_PURPLE_TYPE);
+    img = loadImage(imgPath + starPurple);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, STAR_X+STAR_OFFSET+STAR_OFFSET, STAR_Y, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(STAR_PURPLE_TYPE, s);
+    
+    //and each star in the win display
+    String starRed2 = props.getProperty(ZombieCrushSagaPropertyType.STAR_WIN_RED_IMAGE_NAME);
+    sT = new SpriteType(STAR_WIN_RED_TYPE);
+    img = loadImage(imgPath + starRed2);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, 300, 500, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(STAR_WIN_RED_TYPE, s);
+    
+    String starBlue2 = props.getProperty(ZombieCrushSagaPropertyType.STAR_WIN_BLUE_IMAGE_NAME);
+    sT = new SpriteType(STAR_WIN_BLUE_TYPE);
+    img = loadImage(imgPath + starBlue2);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, 330+ STAR_OFFSET, 500, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(STAR_WIN_BLUE_TYPE, s);
+    
+    String starPurple2 = props.getProperty(ZombieCrushSagaPropertyType.STAR_WIN_PURPLE_IMAGE_NAME);
+    sT = new SpriteType(STAR_WIN_PURPLE_TYPE);
+    img = loadImage(imgPath + starPurple2);
+    sT.addState(VISIBLE_STATE, img);
+    s = new Sprite(sT, 360+STAR_OFFSET+STAR_OFFSET, 500, 0, 0, INVISIBLE_STATE);
+    guiDecor.put(STAR_WIN_PURPLE_TYPE, s);
     
     // AND THE TILE STACK
     String tileStack = props.getProperty(ZombieCrushSagaPropertyType.TILE_STACK_IMAGE_NAME);
