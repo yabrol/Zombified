@@ -31,6 +31,7 @@ import zombiecrushsaga.events.ResetAllHandler;
 import zombiecrushsaga.events.ReturnToSagaHandler;
 import zombiecrushsaga.events.ScrollDownHandler;
 import zombiecrushsaga.events.ScrollUpHandler;
+import zombiecrushsaga.events.ZombieCrushKeyHandler;
 
 /**
  * This is the actual mini game, as extended from the mini game framework. It
@@ -264,8 +265,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -340,8 +341,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -416,8 +417,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiButtons.get(QUIT_SPLASH_BUTTON_TYPE).setEnabled(false);
 
     // DEACTIVATE ALL DIALOGS
-    guiDecor.get(WIN_TYPE).setState(INVISIBLE_STATE);
-    guiDecor.get(LOSS_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(WIN_TYPE).setState(INVISIBLE_STATE);
+    guiDialogs.get(LOSS_TYPE).setState(INVISIBLE_STATE);
 
     // HIDE THE TILES
     ((ZombieCrushSagaDataModel) data).enableTiles(false);
@@ -844,9 +845,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     img = loadImageWithColorKey(imgPath + winDisplay, COLOR_KEY);
     sT.addState(VISIBLE_STATE, img);
     x = (data.getGameWidth() / 2) - (img.getWidth(null) / 2);
-    y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
+    y = 0;
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
-    guiDecor.put(WIN_TYPE, s);
+    guiDialogs.put(WIN_TYPE, s);
     
     // and the loss condition display
     String lossDisplay = props.getProperty(ZombieCrushSagaPropertyType.LOSS_IMAGE_NAME);
@@ -854,9 +855,9 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     img = loadImageWithColorKey(imgPath + lossDisplay, COLOR_KEY);
     sT.addState(VISIBLE_STATE, img);
     x = (data.getGameWidth() / 2) - (img.getWidth(null) / 2);
-    y = (data.getGameHeight() / 2) - (img.getHeight(null) / 2);
+    y = 0;
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
-    guiDecor.put(LOSS_TYPE, s);
+    guiDialogs.put(LOSS_TYPE, s);
   }
 
   /**
@@ -882,6 +883,10 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     //back button event handler
     QuitLevelHandler bh = new QuitLevelHandler(this);
     guiButtons.get(BACK_BUTTON_TYPE).setActionListener(bh);
+    
+    //key listener
+    ZombieCrushKeyHandler zckh = new ZombieCrushKeyHandler(this);
+    this.setKeyListener(zckh);
     
     //play button event handler
     PlayGameHandler ph = new PlayGameHandler(this);

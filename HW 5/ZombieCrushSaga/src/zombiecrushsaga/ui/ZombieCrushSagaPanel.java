@@ -155,7 +155,8 @@ public class ZombieCrushSagaPanel extends JPanel {
                 level = level.toLowerCase();
                 level = level.replaceAll("./data/./zomcrush/level", "");
                 level = level.replaceAll(".zom", "");
-                g.drawString(level, 780, 185);
+                level = "LEVEL " + level;
+                g.drawString(level, 500, 185);
 
                 g.setFont(LEVEL_TEXT_FONT);
                 g.setColor(STATS_COLOR);
@@ -189,7 +190,8 @@ public class ZombieCrushSagaPanel extends JPanel {
                 level = level.toLowerCase();
                 level = level.replaceAll("./data/./zomcrush/level", "");
                 level = level.replaceAll(".zom", "");
-                g.drawString(level, 780, 185);
+                level = "YOU WIN!   LEVEL " + level;
+                g.drawString(level, 300, 185);
 
                 g.setFont(LEVEL_TEXT_FONT);
                 g.setColor(STATS_COLOR);
@@ -209,7 +211,7 @@ public class ZombieCrushSagaPanel extends JPanel {
                 g.drawString(levelinfo, 300, 420);
                 //STARS
                 levelinfo = "YOUR STARS: ";
-                g.drawString(levelinfo, 300, 440);
+                g.drawString(levelinfo, 300, 460);
 
 
                 int numStars = data.getNumStars();
@@ -217,7 +219,7 @@ public class ZombieCrushSagaPanel extends JPanel {
                 String imgPath = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.IMG_PATH);
                 BufferedImage img;
                 int x;
-                int y = 480;
+                int y = 500;
                 if (numStars == 1) {
                     x = STAR_X;
                     String s1 = props.getProperty(ZombieCrushSaga.ZombieCrushSagaPropertyType.STAR_RED_IMAGE_NAME);
@@ -253,7 +255,8 @@ public class ZombieCrushSagaPanel extends JPanel {
                 level = level.toLowerCase();
                 level = level.replaceAll("./data/./zomcrush/level", "");
                 level = level.replaceAll(".zom", "");
-                g.drawString(level, 780, 185);
+                level = "YOU LOSE!   LEVEL " + level;
+                g.drawString(level, 300, 185);
 
                 g.setFont(LEVEL_TEXT_FONT);
                 g.setColor(STATS_COLOR);

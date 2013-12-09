@@ -356,7 +356,7 @@ public class ZombieCrushSagaTile extends Sprite
         // ANIMATION, SO MAKE SURE THIS TILE FOLLOWS THE PATH
         if (game.getDataModel().won())
         {
-            updateWinPath(game);
+            //updateWinPath(game);
         }
         // IF NOT, IF THIS TILE IS ALMOST AT ITS TARGET DESTINATION,
         // JUST GO TO THE TARGET AND THEN STOP MOVING

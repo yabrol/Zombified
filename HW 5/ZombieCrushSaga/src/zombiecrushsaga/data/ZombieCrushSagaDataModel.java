@@ -1088,11 +1088,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // PLAY THE AUDIO CUE
         miniGame.getAudio().play(ZombieCrushSagaPropertyType.MATCH_AUDIO_CUE.toString(), false);
         
-        //make sure all things are moved before continuing
-        while (movingTiles.size() > 0) {
-            updateAll(miniGame);
-        }
-        
         //add more tiles
         updateGrid();
 
@@ -1104,7 +1099,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             endGameAsWin();
         } else if (numMovesLeft > 0) {
             // SEE IF THERE ARE ANY MOVES LEFT
-            selfMatches();
+//            selfMatches();
             ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
             if (possibleMove.size() < 1) {
                 Collections.shuffle(playTiles);
@@ -1269,10 +1264,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         selectTile.startMovingToTarget(MIN_TILE_VELOCITY);
         movingTiles.add(selectTile);
 
-        //make sure all things are moved before continuing
-        while (movingTiles.size() > 0) {
-            updateAll(miniGame);
-        }
         //swap the tiles
         swap(selectedTile, selectTile);
 
@@ -1292,10 +1283,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             selectedTile.startMovingToTarget(MIN_TILE_VELOCITY);
             movingTiles.add(selectedTile);
 
-            //make sure all things are moved before continuing
-            while (movingTiles.size() > 0) {
-                updateAll(miniGame);
-            }
             //swap the tiles back
             swap(selectedTile, selectTile);
 
@@ -1359,7 +1346,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
 
         // DISPLAY THE WIN DIALOG
         ((ZombieCrushSagaMiniGame) miniGame).switchToLevelScreen();
-        miniGame.getGUIDecor().get(WIN_TYPE).setState(VISIBLE_STATE);
+        miniGame.getGUIDialogs().get(LEVEL_DIALOG_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDialogs().get(WIN_TYPE).setState(VISIBLE_STATE);
 
         // AND PLAY THE WIN AUDIO
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
@@ -1385,7 +1373,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
 
         // DISPLAY THE loss DIALOG
         ((ZombieCrushSagaMiniGame) miniGame).switchToLevelScreen();
-        miniGame.getGUIDecor().get(LOSS_TYPE).setState(VISIBLE_STATE);
+        miniGame.getGUIDialogs().get(LEVEL_DIALOG_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDialogs().get(LOSS_TYPE).setState(VISIBLE_STATE);
 
         // AND PLAY THE LOSS AUDIO
         miniGame.getAudio().stop(ZombieCrushSagaPropertyType.SPLASH_SCREEN_SONG_CUE.toString());
@@ -1441,8 +1430,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // NOW LET'S REMOVE THEM FROM THE STACK
         // AND PUT THE TILES IN THE GRID   
         for (ZombieCrushSagaTile tile : addTiles) {
-            tile.setX(TILE_STACK_X);
-            tile.setY(TILE_STACK_Y);
+            tile.setX(MAX_SCREEN_WIDTH);
+            tile.setY(0);
             tile.setState(VISIBLE_STATE);
         }
         Collections.shuffle(addTiles);
@@ -1481,10 +1470,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 break;
             }
         }
-        //make sure all things are moved before continuing
-        while (movingTiles.size() > 0) {
-            updateAll(miniGame);
-        }
         
         //after updating the grid, see if we have some premade matches!
 //        selfMatches();
@@ -1505,8 +1490,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         initTiles();
 
         for (ZombieCrushSagaTile tile : addTiles) {
-            tile.setX(TILE_STACK_X);
-            tile.setY(TILE_STACK_Y);
+            tile.setX(MAX_SCREEN_WIDTH);
+            tile.setY(0);
             tile.setState(VISIBLE_STATE);
         }
 
@@ -1549,8 +1534,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         beginGame();
 
         // CLEAR ANY WIN OR LOSS DISPLAY
-        miniGame.getGUIDecor().get(WIN_TYPE).setState(INVISIBLE_STATE);
-        miniGame.getGUIDecor().get(LOSS_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDialogs().get(WIN_TYPE).setState(INVISIBLE_STATE);
+        miniGame.getGUIDialogs().get(LOSS_TYPE).setState(INVISIBLE_STATE);
     }
 
     /**
@@ -1601,6 +1586,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                 }
             }
         }
+        updateGrid();
     }
 
     /**
