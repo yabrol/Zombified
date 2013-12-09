@@ -40,7 +40,7 @@ public class ZombieCrushSagaTile extends Sprite
     // THIS TILE IS CURRENTLY TARGETING
     private int winPathIndex;
     
-    private int maxVel = 10;
+    private int maxVel = 1;
     
     /**
      * This constructor initializes this tile for use, including all the

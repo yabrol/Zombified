@@ -67,6 +67,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     private String currentLevel;
     private ZombieCrushLevelRequirements currReqs;
     private ArrayList<Point> jellyCoordinates;
+    private int spriteTypeID = 0;
 
     /**
      * Constructor for initializing this data model, it will create the data
@@ -100,7 +101,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     public void initTiles() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String imgPath = props.getProperty(ZombieCrushSagaPropertyType.IMG_PATH);
-        int spriteTypeID = 0;
         SpriteType sT;
 
         // WE'LL RENDER ALL THE TILES ON TOP OF THE BLANK TILE
@@ -189,7 +189,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     public void moreTiles() {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String imgPath = props.getProperty(ZombieCrushSagaPropertyType.IMG_PATH);
-        int spriteTypeID = 0;
         SpriteType sT;
 
         // WE'LL RENDER ALL THE TILES ON TOP OF THE BLANK TILE
@@ -502,9 +501,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         return y / TILE_IMAGE_HEIGHT;
     }
 
-    // TIME TEXT METHODS
-    // - timeToText
-    // - gameTimeToText
     /**
      * This method creates and returns a textual description of the timeInMillis
      * argument as a time duration in the format of (H:MM:SS).
@@ -558,14 +554,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         return currScore;
     }
 
-    // GAME DATA SERVICE METHODS
-    // -enableTiles
-    // -findMove
-    // -moveAllTilesToStack
-    // -moveTiles
-    // -playWinAnimation
-    // -processMove
-    // -selectTile
     /**
      * This method can be used to make all of the tiles either visible (true) or
      * invisible (false). This should be used when switching between the splash
@@ -984,7 +972,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         ZombieCrushSagaTile test;
         int x1 = tile1.getGridColumn();
         int y1 = tile1.getGridRow();
-        if (x1 + 1 < gridRows) {
+        if (x1 + 1 < gridColumns) {
             stack = tileGrid[x1 + 1][y1];
             if (stack.size() > 0) {
                 test = stack.get(0);
@@ -1111,21 +1099,21 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // NOW CHECK TO SEE IF THE GAME HAS EITHER BEEN WON OR LOST
 
         // HAS THE PLAYER WON?
-//        if (numMovesLeft == 0 && currScore >= currReqs.star1Score) {
-//            // YUP UPDATE EVERYTHING ACCORDINGLY
-//            endGameAsWin();
-//        } else if (numMovesLeft > 0) {
-//            // SEE IF THERE ARE ANY MOVES LEFT
-//            selfMatches();
-//            ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
-//            if (possibleMove.size() < 1) {
-//                Collections.shuffle(playTiles);
-//                //put tiles in new spots
-//                shuffleTiles();
-//            }
-//        } else {
-//            endGameAsLoss();
-//        }
+        if (numMovesLeft == 0 && currScore >= currReqs.star1Score) {
+            // YUP UPDATE EVERYTHING ACCORDINGLY
+            endGameAsWin();
+        } else if (numMovesLeft > 0) {
+            // SEE IF THERE ARE ANY MOVES LEFT
+            selfMatches();
+            ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
+            if (possibleMove.size() < 1) {
+                Collections.shuffle(playTiles);
+                //put tiles in new spots
+                shuffleTiles();
+            }
+        } else {
+            endGameAsLoss();
+        }
     }
 
     public ArrayList<ZombieCrushSagaTile> hasSpecial(ArrayList<ZombieCrushSagaTile> stack1) {
@@ -1229,8 +1217,35 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             return;
         }
         //make sure the two tiles are adjacent
-        if (Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1   
-                || Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) >1 ) {
+//        if (Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1   
+//                || Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) >1 ) {
+//            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+//            selectTile.setState(VISIBLE_STATE);
+//            selectedTile.setState(VISIBLE_STATE);
+//            selectedTile = null;
+//            return;
+//        }
+        if(selectedTile.getGridColumn()!=selectTile.getGridColumn() && 
+                selectedTile.getGridRow() != selectTile.getGridRow())
+        {
+            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+            selectTile.setState(VISIBLE_STATE);
+            selectedTile.setState(VISIBLE_STATE);
+            selectedTile = null;
+            return;
+        }
+        if(selectedTile.getGridColumn()==selectTile.getGridColumn() && 
+                (Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) >1))
+        {
+            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
+            selectTile.setState(VISIBLE_STATE);
+            selectedTile.setState(VISIBLE_STATE);
+            selectedTile = null;
+            return;
+        }
+        if(selectedTile.getGridRow()==selectTile.getGridRow() && 
+                (Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) >1))
+        {
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
             selectTile.setState(VISIBLE_STATE);
             selectedTile.setState(VISIBLE_STATE);
@@ -1298,14 +1313,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         processMove(moves);
     }
 
-    // OVERRIDDEN METHODS
-    // - checkMousePressOnSprites
-    // - endGameAsWin
-    // - endGameAsLoss
-    // - reset
-    // - updateAll
-    // - updateDebugText
-    
     /**
      * This method provides a custom game response for handling mouse clicks on
      * the game screen. We'll use this to close game dialogs as well as to
@@ -1432,8 +1439,13 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         }
         
         // NOW LET'S REMOVE THEM FROM THE STACK
-        // AND PUT THE TILES IN THE GRID    
-        ZombieCrushSagaTile tile;
+        // AND PUT THE TILES IN THE GRID   
+        for (ZombieCrushSagaTile tile : addTiles) {
+            tile.setX(TILE_STACK_X);
+            tile.setY(TILE_STACK_Y);
+            tile.setState(VISIBLE_STATE);
+        }
+        Collections.shuffle(addTiles);
         boolean doesBreak = false;
         for (int i = 0; i < gridColumns; i++) {
             for (int j = 0; j < gridRows; j++) {
@@ -1448,7 +1460,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                         jellyCoordinates.add(new Point(i, j));
                     }
                     // TAKE THE TILE OUT OF THE STACK
-                    tile = addTiles.remove(addTiles.size() - 1);
+                    ZombieCrushSagaTile tile = addTiles.remove(addTiles.size() - 1);
 
                     // PUT IT IN THE GRID if there is no tile there already
                     tileGrid[i][j].add(0,tile);
