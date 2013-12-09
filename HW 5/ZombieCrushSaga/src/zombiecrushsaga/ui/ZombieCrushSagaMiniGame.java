@@ -634,14 +634,13 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
       sT = new SpriteType(LEVEL_SELECT_BUTTON_TYPE);
       img = loadImageWithColorKey(imgPath + levelImageNames.get(i), COLOR_KEY);
       sT.addState(VISIBLE_STATE, img);
-      img = loadImageWithColorKey(imgPath + levelMouseOverImageNames.get(i), COLOR_KEY);
-      sT.addState(MOUSE_OVER_STATE, img);
+      if(i==0)
+      {
+          img = loadImageWithColorKey(imgPath + levelMouseOverImageNames.get(i), COLOR_KEY);
+          sT.addState(MOUSE_OVER_STATE, img);
+      }
       s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
       guiButtons.put(levels.get(i), s);
-      if(i==0)
-          guiButtons.get(levels.get(i)).setEnabled(true);
-      else
-          guiButtons.get(levels.get(i)).setEnabled(false);
       if(i%9 == 4)
       {
           y -= LEVEL_BUTTON_MARGIN;
@@ -928,7 +927,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
     guiDialogs.put(LOSS_TYPE, s);
   }
-
+  
   /**
    * Initializes the game event handlers for things like game gui buttons.
    */
@@ -1002,6 +1001,22 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   public void reset() {
     data.reset(this);
   }
+  
+  /**
+   * open up next level
+   */
+  public void openNextLevel(int nextLevel)
+  {
+    BufferedImage img;
+    // FIRST PUT THE ICON IN THE WINDOW
+    PropertiesManager props = PropertiesManager.getPropertiesManager();
+    String imgPath = props.getProperty(ZombieCrushSagaPropertyType.IMG_PATH);
+    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+    ArrayList<String> levelMouseOverImageNames = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_MOUSE_OVER_IMAGE_OPTIONS);
+    
+      img = loadImageWithColorKey(imgPath + levelMouseOverImageNames.get(nextLevel-1), COLOR_KEY);
+      guiButtons.get(levels.get(nextLevel-1)).getSpriteType().addState(MOUSE_OVER_STATE, img);
+  }
 
   /**
    * Updates the state of all gui controls according to the current game
@@ -1011,13 +1026,21 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
   public void updateGUI() {
     // GO THROUGH THE VISIBLE BUTTONS TO TRIGGER MOUSE OVERS
     Iterator<Sprite> buttonsIt = guiButtons.values().iterator();
+    PropertiesManager props = PropertiesManager.getPropertiesManager();
+    ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
+    ArrayList<Sprite> levs = new ArrayList();
+    for(int i = 1; i < levels.size(); i++)
+    {
+        levs.add(guiButtons.get(levels.get(i)));
+    }
     while (buttonsIt.hasNext()) {
       Sprite button = buttonsIt.next();
 
       // ARE WE ENTERING A BUTTON?
       if (button.getState().equals(VISIBLE_STATE)) {
         if (button.containsPoint(data.getLastMouseX(), data.getLastMouseY())) {
-          button.setState(MOUSE_OVER_STATE);
+            if(!levs.contains(button))
+                button.setState(MOUSE_OVER_STATE);
         }
       } // ARE WE EXITING A BUTTON?
       else if (button.getState().equals(MOUSE_OVER_STATE)) {

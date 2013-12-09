@@ -47,13 +47,17 @@ public class SelectLevelHandler implements ActionListener
      */
     @Override
     public void actionPerformed(ActionEvent ae)
-    {
+    { 
         // WE ONLY LET THIS HAPPEN IF THE saga SCREEN IS VISIBLE
         if (game.isCurrentScreenState(SAGA_SCREEN_STATE))
         {
+            //mouse over only
+            if(game.getGUIButtons().get(levelFile).getState()==(MOUSE_OVER_STATE))
+            {
+            
             // GET THE GAME'S DATA MODEL, WHICH IS ALREADY LOCKED FOR US
             ZombieCrushSagaDataModel data = (ZombieCrushSagaDataModel)game.getDataModel();
-        
+            
             // UPDATE THE DATA
             ZombieCrushSagaFileManager fileManager = game.getFileManager();
             fileManager.loadLevel(levelFile);
@@ -63,6 +67,7 @@ public class SelectLevelHandler implements ActionListener
             
             PlayLevelHandler plh = new PlayLevelHandler(game);
             game.getGUIButtons().get(PLAY_LEVEL_BUTTON_TYPE).setActionListener(plh);
+            }
         }
     }
 }
