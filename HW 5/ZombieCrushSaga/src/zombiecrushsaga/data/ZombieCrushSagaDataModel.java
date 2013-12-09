@@ -1076,13 +1076,16 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         updateScore(stack1, seq);
         if(moves.size() > 1)
         {
-            //make sure those are not there
-            for(ZombieCrushSagaTile t: moves.get(1).tilesToRemove)
+            for(int q = 1; q < moves.size(); q++)
             {
-                if(!stack1.contains(t))
-                    stack1.add(t);
+                //make sure those are not there
+                for(ZombieCrushSagaTile t: moves.get(q).tilesToRemove)
+                {
+                    if(!stack1.contains(t))
+                        stack1.add(t);
+                }
+                updateScore(moves.get(q).tilesToRemove, 1);
             }
-            updateScore(moves.get(1).tilesToRemove, 1);
         }
         numMovesLeft--;
         
@@ -1247,15 +1250,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
             miniGame.getAudio().play(ZombieCrushSagaPropertyType.SELECT_AUDIO_CUE.toString(), false);
             return;
         }
-        //make sure the two tiles are adjacent
-//        if (Math.abs(selectedTile.getGridColumn() - selectTile.getGridColumn()) > 1   
-//                || Math.abs(selectedTile.getGridRow() - selectTile.getGridRow()) >1 ) {
-//            miniGame.getAudio().play(ZombieCrushSagaPropertyType.NO_MATCH_AUDIO_CUE.toString(), false);
-//            selectTile.setState(VISIBLE_STATE);
-//            selectedTile.setState(VISIBLE_STATE);
-//            selectedTile = null;
-//            return;
-//        }
         if(selectedTile.getGridColumn()!=selectTile.getGridColumn() && 
                 selectedTile.getGridRow() != selectTile.getGridRow())
         {
@@ -1508,7 +1502,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         }
         
         //after updating the grid, see if we have some premade matches!
-//        selfMatches();
+        selfMatches();
     }
 
     /**
@@ -1616,12 +1610,38 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
                     if (move != null && move.tilesToRemove.size() > 0)
                     {
                         moves.add(move);
-                        processMove(moves);
-                        moves = new ArrayList();
+                        simpleProcessMove(move);
                     }
                 }
             }
         }
+    }
+    
+    private void simpleProcessMove(ZombieCrushSagaMove move)
+    {
+        // REMOVE THE MOVE TILES FROM THE GRID
+        ArrayList<ZombieCrushSagaTile> stack1 = new ArrayList();
+
+        stack1.addAll(move.tilesToRemove);
+        updateScore(stack1, 1);
+        
+        //remove them
+        for (ZombieCrushSagaTile tile1 : stack1) {
+            // MAKE SURE BOTH ARE UNSELECTED
+            tile1.setState(VISIBLE_STATE);
+            // SEND THEM TO THE STACK
+            tile1.setTarget(TILE_STACK_X + TILE_STACK_OFFSET_X, TILE_STACK_Y + TILE_STACK_OFFSET_Y);
+            tile1.startMovingToTarget(MAX_TILE_VELOCITY);
+            tileGrid[tile1.getGridColumn()][tile1.getGridRow()].clear();
+            playTiles.remove(tile1);
+            // MAKE SURE THEY MOVE
+            movingTiles.add(tile1);
+        }
+
+        // PLAY THE AUDIO CUE
+        miniGame.getAudio().play(ZombieCrushSagaPropertyType.MATCH_AUDIO_CUE.toString(), false);
+        
+        //add more tiles
         updateGrid();
     }
 
