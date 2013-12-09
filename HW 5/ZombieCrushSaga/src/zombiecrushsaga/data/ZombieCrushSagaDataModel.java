@@ -39,6 +39,8 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     private int gridRows;
     //tiles in level
     private int totNumTiles;
+    //level available?
+    private boolean levelAvailable = false;
     // THIS STORES THE TILES ON THE GRID DURING THE GAME
     private ArrayList<ZombieCrushSagaTile>[][] tileGrid;
     //tiles player has
@@ -337,6 +339,14 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     public ZombieCrushLevelRequirements getcurrentReqs() {
         return currReqs;
     }
+     /**
+     * gets if level is available.level 1 is always true
+     *
+     * @return levelCompleted
+     */
+    public boolean getLevelAvailable() {
+        return levelAvailable;
+    }
 
     /**
      * Accessor method for getting the level currently being played.
@@ -405,6 +415,21 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      */
     public void setCurrentLevel(String initCurrentLevel) {
         currentLevel = initCurrentLevel;
+        if (currentLevel.equals("./data/./zomcrush/Level1.zom")) {
+            levelAvailable = true;
+        } //else check if previous level has been completed via record
+        else {
+            String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
+            currLevelNum = currLevelNum.replaceAll(".zom", "");
+            int prevLevelNum = Integer.parseInt(currLevelNum) - 1;
+            String prevLevel = "./data/./zomcrush/Level" + prevLevelNum + ".zom";
+            int prevWins = ((ZombieCrushSagaMiniGame) miniGame).getPlayerRecord().getWins(prevLevel);
+            if (prevWins != 0) {
+                levelAvailable = true;
+            } else {
+                levelAvailable = false;
+            }
+        }
         String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
         currLevelNum = currLevelNum.replaceAll(".zom", "");
         currReqs = allReqs.get(Integer.parseInt(currLevelNum) - 1);
@@ -1342,12 +1367,6 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // RECORD IT AS A WIN
         ((ZombieCrushSagaMiniGame) miniGame).getPlayerRecord().addWin(currentLevel, gameTime, numStars, currScore);
         ((ZombieCrushSagaMiniGame) miniGame).savePlayerRecord();
-        
-        //open next level
-        String currLevelNum = currentLevel.replaceAll("./data/./zomcrush/Level", "");
-        currLevelNum = currLevelNum.replaceAll(".zom", "");
-        int prevLevelNum = Integer.parseInt(currLevelNum) + 1;
-        ((ZombieCrushSagaMiniGame) miniGame).openNextLevel(prevLevelNum);
         
         // DISPLAY THE WIN DIALOG
         ((ZombieCrushSagaMiniGame) miniGame).switchToLevelScreen();
