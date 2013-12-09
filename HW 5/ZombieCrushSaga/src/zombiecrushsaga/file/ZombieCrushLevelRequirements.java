@@ -11,6 +11,7 @@ public class ZombieCrushLevelRequirements {
     public int star2Score;
     public int star3Score;
     public String additionalReq;
+    public boolean jelly;
     public int totTiles;
     
     @Override
@@ -23,7 +24,8 @@ public class ZombieCrushLevelRequirements {
         str += "star2Score" + star2Score+ "\n";
         str += "star3Score" + star3Score+ "\n";
         str += "totTiles" + totTiles+ "\n";
-        str += "additionalReq" + additionalReq;
+        str += "additionalReq" + additionalReq + "\n";
+        str += "jelly" + jelly;
         return str;
     }
 }

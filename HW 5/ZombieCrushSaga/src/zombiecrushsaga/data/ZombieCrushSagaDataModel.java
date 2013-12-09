@@ -67,6 +67,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
     private String currentLevel;
     private ZombieCrushLevelRequirements currReqs;
     private ArrayList<Point> jellyCoordinates;
+    private boolean jelly;
     private int spriteTypeID = 0;
 
     /**
@@ -440,6 +441,7 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         currReqs = allReqs.get(Integer.parseInt(currLevelNum) - 1);
         totNumTiles = currReqs.totTiles;
         numMovesLeft = currReqs.numMoves;
+        jelly = currReqs.jelly;
         jellyCoordinates = new ArrayList();
     }
 
@@ -563,10 +565,25 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
      */
     public void enableTiles(boolean enable) {
         // PUT ALL THE TILES IN ONE PLACE WHERE WE CAN PROCESS THEM TOGETHER
-//        moveAllTilesToStack();
 
         // GO THROUGH ALL OF THEM 
         for (ZombieCrushSagaTile tile : playTiles) {
+            // AND SET THEM PROPERLY
+            if (enable) {
+                tile.setState(VISIBLE_STATE);
+            } else {
+                tile.setState(INVISIBLE_STATE);
+            }
+        }
+        for (ZombieCrushSagaTile tile : addTiles) {
+            // AND SET THEM PROPERLY
+            if (enable) {
+                tile.setState(VISIBLE_STATE);
+            } else {
+                tile.setState(INVISIBLE_STATE);
+            }
+        }
+        for (ZombieCrushSagaTile tile : movingTiles) {
             // AND SET THEM PROPERLY
             if (enable) {
                 tile.setState(VISIBLE_STATE);
@@ -1094,21 +1111,40 @@ public class ZombieCrushSagaDataModel extends MiniGameDataModel {
         // NOW CHECK TO SEE IF THE GAME HAS EITHER BEEN WON OR LOST
 
         // HAS THE PLAYER WON?
-        if (numMovesLeft == 0 && currScore >= currReqs.star1Score) {
-            // YUP UPDATE EVERYTHING ACCORDINGLY
-            endGameAsWin();
-        } else if (numMovesLeft > 0) {
+        if(jelly==false)
+        {
+            if (numMovesLeft == 0 && currScore >= currReqs.star1Score)
+            {
+                endGameAsWin();
+            }
+            else if(numMovesLeft == 0 && currScore < currReqs.star1Score)
+            {
+                endGameAsLoss();
+            }
+        } 
+        else
+        {
+            if(jellyCoordinates.size() < 1)
+            {
+                if(currScore >= currReqs.star1Score)
+                {
+                    endGameAsWin();
+                }
+                else
+                {
+                    endGameAsLoss();
+                }
+            }
+        }
+        if (numMovesLeft > 0) {
             // SEE IF THERE ARE ANY MOVES LEFT
-//            selfMatches();
             ArrayList<ZombieCrushSagaMove> possibleMove = this.findMove();
             if (possibleMove.size() < 1) {
                 Collections.shuffle(playTiles);
                 //put tiles in new spots
                 shuffleTiles();
             }
-        } else {
-            endGameAsLoss();
-        }
+        } 
     }
 
     public ArrayList<ZombieCrushSagaTile> hasSpecial(ArrayList<ZombieCrushSagaTile> stack1) {

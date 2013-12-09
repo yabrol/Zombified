@@ -168,6 +168,18 @@ public class ZombieCrushSagaPanel extends JPanel {
                 //high score
                 levelinfo = "HIGH SCORE: " + rec.getHighScore((data.getCurrentLevel()));
                 g.drawString(levelinfo, 300, 380);
+                int numStars = rec.getNumStars((data.getCurrentLevel()));
+                if (numStars == 1) {
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
+                } else if (numStars == 2) {
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_BLUE_TYPE).setState(VISIBLE_STATE);
+                } else if (numStars == 3) {
+                    game.getGUIDecor().get(STAR_WIN_RED_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_BLUE_TYPE).setState(VISIBLE_STATE);
+                    game.getGUIDecor().get(STAR_WIN_PURPLE_TYPE).setState(VISIBLE_STATE);
+                }
+                
             } else if (s.getSpriteType().getSpriteTypeID().equals(ABOUT_DIALOG_TYPE) && s.getState().equals(VISIBLE_STATE)) {
                 g.setColor(STATS_COLOR);
                 g.setFont(STATS_FONT);
@@ -209,7 +221,6 @@ public class ZombieCrushSagaPanel extends JPanel {
                 //STARS
                 levelinfo = "YOUR STARS: ";
                 g.drawString(levelinfo, 300, 460);
-
 
                 int numStars = data.getNumStars();
                 if (numStars == 1) {

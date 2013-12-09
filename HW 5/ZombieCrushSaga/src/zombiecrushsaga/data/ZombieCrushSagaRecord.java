@@ -199,6 +199,10 @@ public class ZombieCrushSagaRecord
             rec.wins++;
             if (winTime < rec.fastestTime)
                 rec.fastestTime = winTime;
+            if(numStars > rec.numStars)
+                rec.numStars = numStars;
+            if(highScore > rec.highScore)
+                rec.highScore = highScore;
         }
     }
     
@@ -289,6 +293,8 @@ public class ZombieCrushSagaRecord
             dos.writeInt(rec.wins);
             dos.writeInt(rec.losses);
             dos.writeLong(rec.fastestTime);
+            dos.writeInt(rec.numStars);
+            dos.writeInt(rec.highScore);
         }
         // AND THEN RETURN IT
         return baos.toByteArray();

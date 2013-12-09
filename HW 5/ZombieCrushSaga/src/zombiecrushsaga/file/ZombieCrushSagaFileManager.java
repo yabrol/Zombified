@@ -150,6 +150,8 @@ public class ZombieCrushSagaFileManager
                 rec.wins = dis.readInt();
                 rec.losses = dis.readInt();
                 rec.fastestTime = dis.readLong();
+                rec.numStars = dis.readInt();
+                rec.highScore = dis.readInt();
                 recordToLoad.addZombieCrushLevelRecord(levelName, rec);
             }
         }
@@ -201,6 +203,11 @@ public class ZombieCrushSagaFileManager
                 //additional
                 s = splitarray[6];
                 levReq.additionalReq = s;
+                //jelly
+                if(s.equalsIgnoreCase("Clear All Jelly"))
+                    levReq.jelly = true;
+                else
+                    levReq.jelly = false;
                 
                 allReqs.add(levReq);   
             }
