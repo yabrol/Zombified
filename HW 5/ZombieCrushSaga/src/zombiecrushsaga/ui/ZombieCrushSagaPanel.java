@@ -419,7 +419,8 @@ public class ZombieCrushSagaPanel extends JPanel {
             if (tileToRender.getState().equals(SELECTED_STATE)) {
                 g.setColor(SELECTED_TILE_COLOR);
                 g.fillRoundRect((int) tileToRender.getX(), (int) tileToRender.getY(), bgST.getWidth(), bgST.getHeight(), 5, 5);
-            } else if (tileToRender.getState().equals(JELLY_STATE)) {
+            } 
+            if (tileToRender.getState().equals(JELLY_STATE)) {
                 g.setColor(JELLY_TILE_COLOR);
                 g.fillRoundRect((int) tileToRender.getX(), (int) tileToRender.getY(), bgST.getWidth(), bgST.getHeight(), 5, 5);
             }

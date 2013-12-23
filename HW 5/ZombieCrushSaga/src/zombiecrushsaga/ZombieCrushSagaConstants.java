@@ -31,6 +31,8 @@ public class ZombieCrushSagaConstants {
     public static final String TILE_WRAPPER_TYPE = "TILE_WRAPPER_TYPE";
     public static final String TILE_PLAIN_TYPE = "TILE_PLAIN_TYPE";
     
+    public static final String ZOMBIE_HAMMER_TYPE = "ZOMBIE_HAMMER_TYPE";
+    
     public static final String TILE_SPRITE_TYPE_PREFIX = "TILE_";
     
     // EACH SCREEN HAS ITS OWN BACKGROUND TYPE
@@ -177,6 +179,9 @@ public class ZombieCrushSagaConstants {
     public static final int RESET_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT/2); 
     public static final int QUIT_SPLASH_BUTTON_X = RESET_BUTTON_X + 120;
     public static final int QUIT_SPLASH_BUTTON_Y = (int)(MAX_SCREEN_HEIGHT*.75);
+    
+    public static final int ZOMBIE_HAMMER_X = MAX_SCREEN_WIDTH - 95;
+    public static final int ZOMBIE_HAMMER_Y = 0;
     
     public static final int RETURN_FROM_ABOUT_BUTTON_X = (int)(MAX_SCREEN_WIDTH/2) - 225;
     public static final int RETURN_FROM_ABOUT_BUTTON_Y = 600;

@@ -23,6 +23,7 @@ import zombiecrushsaga.ZombieCrushSaga.ZombieCrushSagaPropertyType;
 import zombiecrushsaga.file.ZombieCrushSagaFileManager;
 import zombiecrushsaga.data.ZombieCrushSagaRecord;
 import zombiecrushsaga.events.AboutHandler;
+import zombiecrushsaga.events.HammerHandler;
 import zombiecrushsaga.events.QuitLevelHandler;
 import zombiecrushsaga.events.QuitGameHandler;
 import zombiecrushsaga.events.SelectLevelHandler;
@@ -161,6 +162,7 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     guiDecor.get(STAR_BLUE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(STAR_PURPLE_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(TILE_STACK_TYPE).setState(VISIBLE_STATE);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setState(VISIBLE_STATE);
 
     // DEACTIVATE THE LEVEL SELECT BUTTONS
     ArrayList<String> levels = props.getPropertyOptionsList(ZombieCrushSagaPropertyType.LEVEL_OPTIONS);
@@ -226,6 +228,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
@@ -308,6 +312,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
@@ -391,6 +397,8 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     // DEACTIVATE THE TOOLBAR CONTROLS
     guiButtons.get(BACK_BUTTON_TYPE).setState(INVISIBLE_STATE);
     guiButtons.get(BACK_BUTTON_TYPE).setEnabled(false);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setState(INVISIBLE_STATE);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setEnabled(false);
     guiDecor.get(TIME_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(LIVES_TYPE).setState(INVISIBLE_STATE);
     guiDecor.get(MOVES_TYPE).setState(INVISIBLE_STATE);
@@ -670,6 +678,17 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     sT.addState(MOUSE_OVER_STATE, img);
     s = new Sprite(sT, BACK_BUTTON_X, BACK_BUTTON_Y, 0, 0, INVISIBLE_STATE);
     guiButtons.put(BACK_BUTTON_TYPE, s);
+    
+    //Then the JALAPENO button
+    String jalapenoButton = props.getProperty(ZombieCrushSagaPropertyType.ZOMBIE_HAMMER_IMAGE_NAME);
+    sT = new SpriteType(ZOMBIE_HAMMER_TYPE);
+    img = loadImage(imgPath + jalapenoButton);
+    sT.addState(VISIBLE_STATE, img);
+    String jalapenoMouseOverButton = props.getProperty(ZombieCrushSagaPropertyType.ZOMBIE_HAMMER_IMAGE_NAME);
+    img = loadImage(imgPath + jalapenoMouseOverButton);
+    sT.addState(MOUSE_OVER_STATE, img);
+    s = new Sprite(sT, ZOMBIE_HAMMER_X, ZOMBIE_HAMMER_Y, 0, 0, INVISIBLE_STATE);
+    guiButtons.put(ZOMBIE_HAMMER_TYPE, s);
 
     // AND THE TIME DISPLAY
     String timeContainer = props.getProperty(ZombieCrushSagaPropertyType.TIME_IMAGE_NAME);
@@ -948,6 +967,10 @@ public class ZombieCrushSagaMiniGame extends MiniGame {
     //back button event handler
     QuitLevelHandler bh = new QuitLevelHandler(this);
     guiButtons.get(BACK_BUTTON_TYPE).setActionListener(bh);
+    
+    //hammer handler
+    HammerHandler hh = new HammerHandler(this);
+    guiButtons.get(ZOMBIE_HAMMER_TYPE).setActionListener(hh);
     
     //key listener
     ZombieCrushKeyHandler zckh = new ZombieCrushKeyHandler(this);

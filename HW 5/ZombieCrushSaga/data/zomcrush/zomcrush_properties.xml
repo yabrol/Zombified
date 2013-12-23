@@ -87,7 +87,7 @@
     <property name="BLANK_TILE_SELECTED_IMAGE_NAME"     value="./zomcrush/UIZomcrushBlankTileSelected.png"></property>
     
     <!--Hammer time-->
-    <property name="ZOMBIE_HAMMER"                      value="./zomcrush/Jalapeno.png"></property>
+    <property name="ZOMBIE_HAMMER_IMAGE_NAME"                      value="./zomcrush/Jalapeno.png"></property>
         
     <!-- AUDIO FILES -->
     <property name="SELECT_AUDIO_CUE"                   value="./zomcrush/AudioZomcrushSelectTile.wav"></property>
@@ -149,31 +149,37 @@
       <option>./zomcrush/TileZombieDuckyTube.png</option>
       <option>./zomcrush/TileZombieDuckyTubeSquash.png</option>
       <option>./zomcrush/TileZombieDuckyTubeWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_B_TILES">
       <option>./zomcrush/TileZombieGargantuar.png</option>
       <option>./zomcrush/TileZombieGargantuarSquash.png</option>
       <option>./zomcrush/TileZombieGargantuarWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_C_TILES">
       <option>./zomcrush/TileZombieGigaFootball.png</option>
       <option>./zomcrush/TileZombieGigaFootballSquash.png</option>
       <option>./zomcrush/TileZombieGigaFootballWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_D_TILES">
       <option>./zomcrush/TileZombieTarget.png</option>
       <option>./zomcrush/TileZombieTargetSquash.png</option>
       <option>./zomcrush/TileZombieTargetWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_E_TILES">
       <option>./zomcrush/TileZombieYeti.png</option>
       <option>./zomcrush/TileZombieYetiSquash.png</option>
       <option>./zomcrush/TileZombieYetiWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_F_TILES">
       <option>./zomcrush/TileZombieZomboni.png</option>
       <option>./zomcrush/TileZombieZomboniSquash.png</option>
       <option>./zomcrush/TileZombieZomboniWallnut.png</option>
+      <option>./zomcrush/TileCherryBomb.png</option>
     </property_options>
     <property_options name="TYPE_PLAIN_TILES">
       <option>./zomcrush/TileZombieDuckyTube.png</option>

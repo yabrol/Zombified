@@ -133,6 +133,8 @@ public class ZombieCrushSaga {
         BLANK_TILE_IMAGE_NAME,
         BLANK_TILE_SELECTED_IMAGE_NAME,
         
+        ZOMBIE_HAMMER_IMAGE_NAME,
+        
         BACK_BUTTON_IMAGE_NAME,
         BACK_BUTTON_MOUSE_OVER_IMAGE_NAME,
         TIME_IMAGE_NAME,
