@@ -1,10 +1,10 @@
 Zombified
 =======
 This contains 4 projects:
-HW1Practice
-HW2Jotto
-HW3Zomjong
-HW5ZombieCrushSaga
+  HW1Practice
+  HW2Jotto
+  HW3Zomjong
+  HW5ZombieCrushSaga
 
 Practice was just some exercises to get used to using Netbeans (after relying on Dr. Java as my primary IDE for some odd years).
 
